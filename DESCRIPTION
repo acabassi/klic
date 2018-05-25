@@ -7,5 +7,5 @@ Depends: R (>= 3.4.1)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: Rmosek, Matrix
+Imports: Rmosek, Matrix, cluster
 RoxygenNote: 6.0.1.9000

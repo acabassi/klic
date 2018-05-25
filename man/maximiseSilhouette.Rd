@@ -2,7 +2,7 @@
 % Please edit documentation in R/silhouette.R
 \name{maximiseSilhouette}
 \alias{maximiseSilhouette}
-\title{Choose K that maximises the silhouette from a kernel matrix and a list of clusterings}
+\title{Choose K that maximises the silhouette from a set kernel matrices and clusterings}
 \usage{
 maximiseSilhouette(KM, clLabels, maxK, savePNG = FALSE,
   fileName = "silhouette")
@@ -19,7 +19,7 @@ maximiseSilhouette(KM, clLabels, maxK, savePNG = FALSE,
 \item{clustering}{(maxK-1) X N matrix containing the clusterings obtained for different values of K}
 }
 \description{
-Choose K that maximises the silhouette from a kernel matrix and a list of clusterings
+Choose K that maximises the silhouette from a set kernel matrices and clusterings
 }
 \author{
 Alessandra Cabassi \email{ac2051@cam.ac.uk}

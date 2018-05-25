@@ -13,7 +13,7 @@ plotSilhouette = function(sil, fileName){
 
 }
 
-#' Choose K that maximises the silhouette from a kernel matrix and a list of clusterings
+#' Choose K that maximises the silhouette from a set kernel matrices and clusterings
 #'
 #' @param kernelMatrix N X N X (maxK-1) array of kernel matrices.
 #' @param clustering (maxK-1) X N matrix containing the clusterings obtained for different values of K
