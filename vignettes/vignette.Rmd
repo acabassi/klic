@@ -3,7 +3,7 @@ title: "R package klic"
 author: "Alessandra Cabassi"
 date: "`r Sys.Date()`"
 output:
-    rmarkdown::html_vignette:
+    pdf_document:
         toc: true
         toc_depth: 2
         number_sections: true
@@ -50,7 +50,7 @@ data <- array(NA, c(N, P, n_separation_levels))
 for(i in 1:n_separation_levels){
     mu = rep(NA, N)
     for(k in 1:n_clusters){
-      mu = rep(k*(i-1).., n_variables)
+      mu = rep(k*(i-1)/2, n_variables)
       data[((k-1)*n_obs_per_cluster+1):(k*n_obs_per_cluster),,i] <- mvrnorm(n = n_obs_per_cluster, mu, Sigma)
     }
 }
@@ -71,7 +71,7 @@ heatmap(CM[,,3], Colv = NA, Rowv = NA)
 Before using kernel methods, we need to make sure that all the consensus matrices are positive semi-definite.
 
 ```{r, fig.show='hold', warning=FALSE, cache=TRUE}
-## Check if the eigenvalues of the consensus matrices are positive and apply a spectrum shift if needed.
+## Check if consensus matrices are PSD and shift eigenvalues if needed.
 for(i in 1: n_separation_levels){
   CM[,,i] <- spectrumShift(CM[,,i], verbose = FALSE)
 }
@@ -101,9 +101,42 @@ library(mclust, verbose = FALSE)
 adjustedRandIndex(true_labels, lmkkm$clustering) 
 ```
 
+If the global number of clusters is not known, one can find the weights and clusters for different values of K and then find the one that maximises the silhouette.
+
+```{r, fig.show='hold', warning=FALSE, cache=TRUE}
+## Find the value of k that maximises the silhouette
+
+# Initialise array of kernel matrices 
+maxK = 6
+KM <- array(0, c(N, N, maxK-1))
+clLabels <- array(NA, c(maxK-1, N))
+
+parameters <- list()
+parameters$iteration_count <- 100 # set the maximum number of iterations
+
+for(i in 2:maxK){
+  
+  # Use kernel k-means with K=i to find weights and cluster labels
+  parameters$cluster_count <- i # set the number of clusters K
+  lmkkm <- lmkkmeansTrain(CM, parameters)
+  
+  # Compute weighted matrix
+  for(j in 1:dim(CM)[3]){
+    KM[,,i-1] <- KM[,,i-1] + (lmkkm$Theta[,j]%*%t(lmkkm$Theta[,j]))*CM[,,j]
+  }
+  
+  # Save cluster labels
+  clLabels[i-1,] <- lmkkm$clustering 
+}
+
+# Find value of K that maximises silhouette
+maxSil <- maximiseSilhouette(KM, clLabels, maxK = 6)
+maxSil$k
+```
+
 # COCA
 
-COCA is an alternative method to do integrative clustering of multiple data types (TGCA, 2012). This R package contai
+COCA is an alternative method to do integrative clustering of multiple data types (TGCA, 2012).
 
 ```{r, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE}
 ## Fill label matrix with clusterings found with the k-means clustering algorithm
