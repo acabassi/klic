@@ -19,7 +19,7 @@ coca(dataset, K, B = 1000, pItem = 0.8, hclustMethod = "average")
 }
 \value{
 The output is a consensus matrix, that is a symmetric matrix where the element in position (i,j) corresponds to
-the proportion of times that items i and j have been clustered together.
+the proportion of times that items i and j have been clustered together and a vector of cluster labels.
 }
 \description{
 This function allows to do Cluster-Of-Clusters-Analysis on a binary matrix where each column is a clustering of the data,

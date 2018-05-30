@@ -169,9 +169,9 @@ labelMatrix <- labelMatrix*1
 # Build MOC matrix
 MOC = rbind(labelMatrix[,,1],labelMatrix[,,2], labelMatrix[,,3], labelMatrix[,,4])
 # Use COCA to find global clustering
-clusters <- coca(t(MOC), K = 6, hclustMethod = "average")
+coca <- coca(t(MOC), K = 6, hclustMethod = "average")
 # Compare clustering to the true labels
-ari <- adjustedRandIndex(true_labels, clusters)
+ari <- adjustedRandIndex(true_labels, coca$clusterLabels)
 ari
 ```
 
