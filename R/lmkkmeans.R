@@ -44,7 +44,7 @@ lmkkmeansTrain <- function(Km, parameters, verbose = FALSE){
                            v = Q[lower.tri(Q, diag = TRUE)])
       opts <- list()
       opts$verbose <- 0
-      result <- mosek(problem, opts)
+      result <- Rmosek::mosek(problem, opts)
       Theta <- matrix(result$sol$itr$xx, N, P, byrow = FALSE)
       K_Theta <- matrix(0, nrow(Km), ncol(Km))
       for (m in 1:P) {
