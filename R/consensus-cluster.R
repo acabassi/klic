@@ -25,7 +25,7 @@ consensusCluster = function(data, K, B = 100, pItem = 0.8, clMethod = "km", dist
     items <- sample(N, ceiling(N*0.8), replace = FALSE)
 
     if(clMethod == "km")
-      cl <- kmeans(data[items,], K)$cluster
+      cl <- kmeans(data[items,], K, iter.max = 100)$cluster
     else if(clMethod == "hc"){
       distances <- dist(data, method = distHC)
       hClustering <- hclust(distances, method = "average")
