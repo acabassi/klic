@@ -5,7 +5,7 @@
 #' @param parameters list of parameters
 #' @param verbose Boolean flag. If TRUE, at each iteration the iteration number is printed. Defaults to FALSE.
 #' @author Mehmet Gonen
-#' @references Gönen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means clustering with application to cancer biology. In Advances in Neural Information Processing Systems (pp. 1305-1313).
+#' @references Gonen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means clustering with application to cancer biology. In Advances in Neural Information Processing Systems (pp. 1305-1313).
 #' @export
 
 lmkkmeansTrain <- function(Km, parameters, verbose = FALSE){
@@ -34,7 +34,7 @@ lmkkmeansTrain <- function(Km, parameters, verbose = FALSE){
       problem <- list()
       problem$sense <- "min"
       problem$c <- rep(0, N * P)
-      problem$A <- Matrix(rep(diag(1, N, N), P), nrow = N, ncol = N * P, sparse = TRUE)
+      problem$A <- Matrix::Matrix(rep(diag(1, N, N), P), nrow = N, ncol = N * P, sparse = TRUE)
       problem$bc <- rbind(blc = rep(1, N), buc = rep(1, N))
       problem$bx <- rbind(blx = rep(0, N * P), bux = rep(1, N * P))
       I <- matrix(1:(N * P), N * P, N * P, byrow = FALSE)
