@@ -5,6 +5,7 @@
 #' @param M number of datasets.
 #' @param individualK Vector containing the number of clusters in each dataset. Default is NULL. If the number of clusters is not provided, then all the possible values between 2 and individualMaxK are considered and the best value is chosen for each dataset by maximising the silhouette.
 #' @param individualMaxK Maximum number of clusters considered for the individual data. Default is 6.
+#' @param individualClusteringAlgorithm Clustering algorithm used for 
 #' @param globalK Number of global clusters. Default is NULL. If the number of clusters is not provided, then all the possible values between 2 and globalMaxK are considered and the best value is chosen by maximising the silhouette.
 #' @param globalMaxK Maximum number of clusters considered for the final clustering. Default is 6.
 #' @param B Number of iterations for consensus clustering. Default is 1000.
@@ -13,8 +14,8 @@
 #' @param fileName If savePlots is TRUE, this is the name of the png file.
 #' @author Alessandra Cabassi \email{ac2051@cam.ac.uk}
 #' @export
-klic = function(data, M, individualK = NULL, individualMaxK = 6, globalK = NULL, globalMaxK = 6,
-                B = 1000, C = 100, savePlots = FALSE, fileName = "klic"){
+klic = function(data, M, individualK = NULL, individualMaxK = 6, individualClAlgorithm = "kkmeans", 
+                globalK = NULL, globalMaxK = 6, B = 1000, C = 100, savePlots = FALSE, fileName = "klic"){
 
   ### Data check ###
   N = dim(data[[1]])[1]
@@ -51,11 +52,31 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6, globalK = NULL,
           tempCM[,,j-1] <- consensusCluster(scaledDataset, j, B) 
           # Make consensus matrix positive definite
           tempCM[,,j-1] <- spectrumShift(tempCM[,,j-1]) 
-          # Find clusters through hiearchical clustering
-          hCl <- hclust(as.dist(1-tempCM[,,j-1]), method = "average") 
-          # Extract cluster labels
-          clLabels[j-1,] <-  cutree(hCl, j) 
+          
+          # If the chosen clustering algorithm is kernel k-means
+          if(individualClAlgorithm == "kkmeans"){
+            
+            # Initialise parameters for kernel k-means
+            parameters_kkmeans <- ()
+            # Set number of clusters for kernel k-means
+            parameters_kkmeans$cluster_count <- j
+            # Train kernel k-means 
+            kkm <- kkmeansTrain(tempCM[,,j-1], param)
+            # Extract cluster labels
+            clLabels[j-1,] <- kkm$clustering
+            
+          # If the chosen clustering algorithm is hierarchical clustering 
+          }else if(individualClAlgorithm == 'hclust'){
+            # Find clusters through hiearchical clustering
+            hCl <- hclust(as.dist(1-tempCM[,,j-1]), method = "average") 
+            # Extract cluster labels
+            clLabels[j-1,] <-  cutree(hCl, j)  
+            
+          }else{ # If the value of individualClAlgorithm is not any of the above
+            stop("individualClAlgorithm must be either 'kkmeans' or 'hclust'")
+          }
         }
+        
         # Find the number of clusters that maximises the silhouette
         maxSil <- maximiseSilhouette(tempCM, clLabels, individualMaxK) 
         # If there is more than one, choose smallest number of clusters among the ones that maximise the silhouette
@@ -144,7 +165,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6, globalK = NULL,
       # Train localised multiple kernel k-means
       lmkkm <- lmkkmeansTrain(CM, parameters) 
       # Initialise empty weighted matrix
-      weightedKM <- matrix(0, N, N) 
+      weightedKM <- matrix(0, N, N)
       # Compute weighted matrix
       for(j in 1:M){ 
         weightedKM <- weightedKM + (lmkkm$Theta[,j]%*%t(lmkkm$Theta[,j]))*CM[,,j]
