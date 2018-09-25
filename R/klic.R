@@ -51,7 +51,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6, globalK = NULL,
           tempCM[,,j-1] <- consensusCluster(scaledDataset, j, B) 
           # Make consensus matrix positive definite
           tempCM[,,j-1] <- spectrumShift(tempCM[,,j-1]) 
-          # Find clustering through hiearchical clustering
+          # Find clusters through hiearchical clustering
           hCl <- hclust(as.dist(1-tempCM[,,j-1]), method = "average") 
           # Extract cluster labels
           clLabels[j-1,] <-  cutree(hCl, j) 
