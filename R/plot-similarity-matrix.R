@@ -48,6 +48,10 @@ plotSimilarityMatrix = function(X, y = NULL, clusLabels = NULL, colX = NULL, col
 
   ### If the input data include a response variable...
   if(semiSupervised){
+
+    if(!is.integer(clusLabels))
+      stop("Cluster labels must be integers.")
+
     n_clusters = length(table(clusLabels))
     riordina = NULL
     for (i in 1:n_clusters){
