@@ -17,7 +17,7 @@ lmkkmeansTrain(Km, parameters, verbose = FALSE)
 Perform the training step of the localised multiple kernel k-means
 }
 \references{
-Gönen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means clustering with application to cancer biology. In Advances in Neural Information Processing Systems (pp. 1305-1313).
+Gonen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means clustering with application to cancer biology. In Advances in Neural Information Processing Systems (pp. 1305-1313).
 }
 \author{
 Mehmet Gonen

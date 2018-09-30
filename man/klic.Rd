@@ -4,14 +4,14 @@
 \alias{klic}
 \title{Kernel learning integrative clustering}
 \usage{
-klic(data, M, individualK = NULL, individualMaxK = 6, globalK = NULL,
-  globalMaxK = 6, B = 1000, C = 100, savePlots = FALSE,
-  fileName = "klic")
+klic(data, M, individualK = NULL, individualMaxK = 6,
+  individualClAlgorithm = "kkmeans", globalK = NULL, globalMaxK = 6,
+  B = 1000, C = 100, savePlots = FALSE, fileName = "klic")
 }
 \arguments{
 \item{data}{List of M datasets, each of size N X P_m, m = 1, ..., M.}
 
-\item{M}{number of data.}
+\item{M}{number of datasets.}
 
 \item{individualK}{Vector containing the number of clusters in each dataset. Default is NULL. If the number of clusters is not provided, then all the possible values between 2 and individualMaxK are considered and the best value is chosen for each dataset by maximising the silhouette.}
 
@@ -28,6 +28,8 @@ klic(data, M, individualK = NULL, individualMaxK = 6, globalK = NULL,
 \item{savePlots}{If TRUE, a plot of the silhouette is saved in the working folder. Default is FALSE.}
 
 \item{fileName}{If savePlots is TRUE, this is the name of the png file.}
+
+\item{individualClusteringAlgorithm}{Clustering algorithm used for}
 }
 \description{
 Perform kernel learning integrative clustering
