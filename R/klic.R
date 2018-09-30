@@ -5,7 +5,7 @@
 #' @param M number of datasets.
 #' @param individualK Vector containing the number of clusters in each dataset. Default is NULL. If the number of clusters is not provided, then all the possible values between 2 and individualMaxK are considered and the best value is chosen for each dataset by maximising the silhouette.
 #' @param individualMaxK Maximum number of clusters considered for the individual data. Default is 6.
-#' @param individualClusteringAlgorithm Clustering algorithm used for
+#' @param individualClAlgorithm Clustering algorithm used for clustering of each dataset individually if is required to find the best number of clusters.
 #' @param globalK Number of global clusters. Default is NULL. If the number of clusters is not provided, then all the possible values between 2 and globalMaxK are considered and the best value is chosen by maximising the silhouette.
 #' @param globalMaxK Maximum number of clusters considered for the final clustering. Default is 6.
 #' @param B Number of iterations for consensus clustering. Default is 1000.
