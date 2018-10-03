@@ -19,16 +19,15 @@
 
 coca = function(MOC, K, B = 1000, pItem = 0.8, hclustMethod = 'average'){
 
-
   output = list()
 
   # Step 1. Compute the consensus matrix
   output$consensusMatrix <- consensusCluster(MOC, K, B, pItem)
 
   # Step 2. Use hierarchical clustering on the consensus matrix to find the clustering
-  distances <- as.dist(1 - output$consensusMatrix)
-  hClustering <- hclust(distances, method = hclustMethod)
-  output$clusterLabels <- cutree(hClustering, K)
+  distances <- stats::as.dist(1 - output$consensusMatrix)
+  hClustering <- stats::hclust(distances, method = hclustMethod)
+  output$clusterLabels <- stats::cutree(hClustering, K)
 
   return(output)
 

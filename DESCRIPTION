@@ -1,11 +1,13 @@
 Package: klic
 Title: Kernel Learning Integrative Clustering
-Version: 0.0.1.6
+Version: 0.0.1.7
 Authors@R: person("Alessandra", "Cabassi", email = "ac2051@cam.ac.uk", role = c("aut", "cre"))
-Description: Unsupervised and semi-supervised clustering based on multiple kernel learning algorithms.
+Description: Unsupervised clustering based on multiple kernel learning algorithms.
 Depends: R (>= 3.4.1)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: Rmosek, Matrix, cluster
+Imports: Rmosek, Matrix, cluster, gplots, wesanderson
+Suggests: tikzDevice, mclust, utils, grDevices, graphics
 RoxygenNote: 6.0.1.9000
+VignetteBuilder: utils

@@ -7,11 +7,11 @@
 #' @export
 
 copheneticCorrelation = function(kernelMatrix){
-  
-  KMasDist   <- as.dist(1 - kernelMatrix)
-  hclustered  <- hclust(KMasDist)
-  cophDist <- cophenetic(hclustered)
-  cophCor  <- cor(KMasDist, cophDist)
+
+  KMasDist   <- stats::as.dist(1 - kernelMatrix)
+  hclustered  <- stats::hclust(KMasDist)
+  cophDist <- stats::cophenetic(hclustered)
+  cophCor  <- stats::cor(KMasDist, cophDist)
 
 }
 

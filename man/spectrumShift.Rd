@@ -8,6 +8,10 @@ spectrumShift(kernelMatrix, coeff = 1.2, verbose = FALSE)
 }
 \arguments{
 \item{kernelMatrix}{symmetric matrix}
+
+\item{coeff}{Coefficient by which the minimum eigenvalue is multiplied when shifting the eigenvalues, in order to avoid numeric problems. Default is 1.2.}
+
+\item{verbose}{Boolean flag: if TRUE, information about the shift is printed to screen. Default is FALSE.}
 }
 \description{
 Make a symmetric matrix positive semi-definite

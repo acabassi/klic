@@ -4,19 +4,19 @@
 \alias{maximiseSilhouette}
 \title{Choose K that maximises the silhouette from a set kernel matrices and clusterings}
 \usage{
-maximiseSilhouette(KM, clLabels, maxK, savePNG = FALSE,
+maximiseSilhouette(kernelMatrix, clLabels, maxK, savePNG = FALSE,
   fileName = "silhouette")
 }
 \arguments{
+\item{kernelMatrix}{N X N X (maxK-1) array of kernel matrices.}
+
+\item{clLabels}{(maxK-1) X N matrix containing the clusterings obtained for different values of K}
+
 \item{maxK}{Maximum number of clusters considered.}
 
 \item{savePNG}{If TRUE, a plot of the silhouette is saved in the working folder. Defaults to FALSE.}
 
 \item{fileName}{If savePNG is TRUE, this is the name of the png file.}
-
-\item{kernelMatrix}{N X N X (maxK-1) array of kernel matrices.}
-
-\item{clustering}{(maxK-1) X N matrix containing the clusterings obtained for different values of K}
 }
 \description{
 Choose K that maximises the silhouette from a set kernel matrices and clusterings

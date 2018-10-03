@@ -8,6 +8,7 @@
 #' @param B of iterations
 #' @param pItem proportion of items sampled at each iteration
 #' @param clMethod clustering method
+#' @param distHC distance used for hierarchical clustering
 #' @return The output is a consensus matrix, that is a symmetric matrix where the element in position (i,j) corresponds to
 #' the proportion of times that items i and j have been clustered together.
 #' @author Alessandra Cabassi \email{ac2051@cam.ac.uk}
@@ -32,15 +33,15 @@ consensusCluster = function(data, K, B = 100, pItem = 0.8, clMethod = "km", dist
     # If the chosen clustering method is k-means
     if(clMethod == "km")
       # Apply k-means to the subsample and extract cluster labels
-      cl <- kmeans(data[items,], K, iter.max = 100)$cluster
+      cl <- stats::kmeans(data[items,], K, iter.max = 100)$cluster
 
     # If the chosen clustering method is hierarchical clustering
     else if(clMethod == "hc"){
       # Calculate pairwise distances between observations
-      distances <- dist(data, method = distHC)
+      distances <- stats::dist(data, method = distHC)
       # Apply hierarchical clustering to the subsample
-      hClustering <- hclust(distances, method = "average")
-      clLabels <- cutree(hClustering, K)
+      hClustering <- stats::hclust(distances, method = "average")
+      clLabels <- stats::cutree(hClustering, K)
     }
 
     # Update matrix containing counts of number of times each pair has been sampled together

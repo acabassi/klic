@@ -17,6 +17,8 @@ klic(data, M, individualK = NULL, individualMaxK = 6,
 
 \item{individualMaxK}{Maximum number of clusters considered for the individual data. Default is 6.}
 
+\item{individualClAlgorithm}{Clustering algorithm used for clustering of each dataset individually if is required to find the best number of clusters.}
+
 \item{globalK}{Number of global clusters. Default is NULL. If the number of clusters is not provided, then all the possible values between 2 and globalMaxK are considered and the best value is chosen by maximising the silhouette.}
 
 \item{globalMaxK}{Maximum number of clusters considered for the final clustering. Default is 6.}
@@ -28,11 +30,33 @@ klic(data, M, individualK = NULL, individualMaxK = 6,
 \item{savePlots}{If TRUE, a plot of the silhouette is saved in the working folder. Default is FALSE.}
 
 \item{fileName}{If savePlots is TRUE, this is the name of the png file.}
-
-\item{individualClusteringAlgorithm}{Clustering algorithm used for}
 }
 \description{
 Perform kernel learning integrative clustering
+}
+\examples{
+# Load synthetic data
+data1 <- as.matrix(read.csv(system.file("extdata",
+"dataset1.csv", package = "klic"), row.names = 1))
+data2 <- as.matrix(read.csv(system.file("extdata",
+"dataset2.csv", package = "klic"), row.names = 1))
+data3 <- as.matrix(read.csv(system.file("extdata",
+"dataset3.csv", package = "klic"), row.names = 1))
+data <- list(data1, data2, data3)
+
+# Perform clustering with KLIC assuming to know the
+# number of clusters in each individual dataset and in
+# the final clustering
+klicOutput <- klic(data, 3, individualK = c(6,6,6),
+globalK = 6, B = 50, C = 5)
+
+# Extract cluster labels
+klic_labels <- klicOutput$globalClusterLabels
+
+cluster_labels <- as.matrix(read.csv(system.file("extdata",
+"cluster_labels.csv", package = "klic"), row.names = 1))
+# Compute ARI
+ari <- mclust::adjustedRandIndex(klic_labels, cluster_labels)
 }
 \author{
 Alessandra Cabassi \email{ac2051@cam.ac.uk}

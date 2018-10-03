@@ -11,31 +11,35 @@ plotSimilarityMatrix(X, y = NULL, clusLabels = NULL, colX = NULL,
   dendro = "none")
 }
 \arguments{
-\item{X}{matrix}
+\item{X}{Matrix}
 
-\item{y}{response}
+\item{y}{Response}
 
-\item{clusLabels}{cluster labels}
+\item{clusLabels}{Cluster labels}
 
-\item{colX}{colours for the matrix}
+\item{colX}{Colours for the matrix}
 
-\item{colY}{colours for the response}
+\item{colY}{Colours for the response}
 
-\item{myLegend}{vector of strings with the names of the variables}
+\item{myLegend}{Vector of strings with the names of the variables}
 
-\item{file_name}{name of the file}
+\item{file_name}{Name of the file}
 
-\item{savePNG}{boolean flag. if true, saves the plot as a png file}
+\item{savePNG}{Boolean flag: if TRUE, the plot is saved as a png file.}
 
-\item{saveTIKZ}{boolean flag. if true saves the plot as a tikz file}
+\item{saveTIKZ}{Boolean flag: if TRUE, the plot is saved as a tikz file.}
 
-\item{semiSupervised}{boolean flag. if true, the response is plotted next to the matrix.}
+\item{saveEPS}{Boolean flag: if TRUE, the plot is saved as an eps file.}
 
-\item{scale}{parameter scale of heatmap.2. can be "none" or "columns"}
+\item{semiSupervised}{Boolean flag: if TRUE, the response is plotted next to the matrix.}
 
-\item{labRow}{vector of row labels. default NA.}
+\item{scale}{Used as input for the parameter "scale" of the gplot::heatmap.2() function. Can be either "none" or "columns".}
 
-\item{labCol}{vector of column labels. default NA.}
+\item{labRow}{Vector of row labels, default is NA.}
+
+\item{labCol}{Vector of column labels, default is NA.}
+
+\item{dendro}{If 'both', plot dendrogram on rows and columns, if 'none' no dendrograms are shown. Default is 'none'.}
 }
 \description{
 Plot similarity matrix. It is possible to plot a side vector that corresponds to a

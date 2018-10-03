@@ -13,9 +13,35 @@
 #' @param savePlots If TRUE, a plot of the silhouette is saved in the working folder. Default is FALSE.
 #' @param fileName If savePlots is TRUE, this is the name of the png file.
 #' @author Alessandra Cabassi \email{ac2051@cam.ac.uk}
+#' @examples
+#' # Load synthetic data
+#' data1 <- as.matrix(read.csv(system.file("extdata",
+#' "dataset1.csv", package = "klic"), row.names = 1))
+#' data2 <- as.matrix(read.csv(system.file("extdata",
+#' "dataset2.csv", package = "klic"), row.names = 1))
+#' data3 <- as.matrix(read.csv(system.file("extdata",
+#' "dataset3.csv", package = "klic"), row.names = 1))
+#' data <- list(data1, data2, data3)
+#'
+#' # Perform clustering with KLIC assuming to know the
+#' # number of clusters in each individual dataset and in
+#' # the final clustering
+#' klicOutput <- klic(data, 3, individualK = c(6,6,6),
+#' globalK = 6, B = 50, C = 5)
+#'
+#' # Extract cluster labels
+#' klic_labels <- klicOutput$globalClusterLabels
+#'
+#' cluster_labels <- as.matrix(read.csv(system.file("extdata",
+#' "cluster_labels.csv", package = "klic"), row.names = 1))
+#' # Compute ARI
+#' ari <- mclust::adjustedRandIndex(klic_labels, cluster_labels)
 #' @export
-klic = function(data, M, individualK = NULL, individualMaxK = 6, individualClAlgorithm = "kkmeans",
-                globalK = NULL, globalMaxK = 6, B = 1000, C = 100, savePlots = FALSE, fileName = "klic"){
+#'
+klic = function(data, M, individualK = NULL, individualMaxK = 6,
+                individualClAlgorithm = "kkmeans",
+                globalK = NULL, globalMaxK = 6,
+                B = 1000, C = 100, savePlots = FALSE, fileName = "klic"){
 
   ### Data check ###
   N = dim(data[[1]])[1]
@@ -61,16 +87,16 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6, individualClAlg
             # Set number of clusters for kernel k-means
             parameters_kkmeans$cluster_count <- j
             # Train kernel k-means
-            kkm <- kkmeansTrain(tempCM[,,j-1], param)
+            kkm <- kkmeansTrain(tempCM[,,j-1], parameters_kkmeans)
             # Extract cluster labels
             clLabels[j-1,] <- kkm$clustering
 
           # If the chosen clustering algorithm is hierarchical clustering
           }else if(individualClAlgorithm == 'hclust'){
             # Find clusters through hiearchical clustering
-            hCl <- hclust(as.dist(1-tempCM[,,j-1]), method = "average")
+            hCl <- stats::hclust(stats::as.dist(1-tempCM[,,j-1]), method = "average")
             # Extract cluster labels
-            clLabels[j-1,] <-  cutree(hCl, j)
+            clLabels[j-1,] <-  stats::cutree(hCl, j)
 
           }else{ # If the value of individualClAlgorithm is not any of the above
             stop("individualClAlgorithm must be either 'kkmeans' or 'hclust'")
@@ -180,9 +206,9 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6, individualClAlg
 
     # Save plot of kernel matrix
     if(savePlots){
-      plotSimilarityMatrix(weightedKM, clusLabels = globalClusterLabels, savePNG = TRUE,
-                           file_name = cat(fileName, "_weightedCM", i , "_K", globalK, ".png", sep = ""),
-                           savePNG = TRUE)
+      plotSimilarityMatrix(weightedKM, clusLabels = output$globalClusterLabels,
+                           file_name = cat(fileName, "_weightedCM", i , "_K", globalK,
+                           ".png", sep = ""), savePNG = TRUE)
     }
 
   return(output)

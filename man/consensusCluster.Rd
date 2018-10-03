@@ -17,6 +17,8 @@ consensusCluster(data, K, B = 100, pItem = 0.8, clMethod = "km",
 \item{pItem}{proportion of items sampled at each iteration}
 
 \item{clMethod}{clustering method}
+
+\item{distHC}{distance used for hierarchical clustering}
 }
 \value{
 The output is a consensus matrix, that is a symmetric matrix where the element in position (i,j) corresponds to
