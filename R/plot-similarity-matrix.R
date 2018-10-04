@@ -18,11 +18,18 @@
 #' @param labRow Vector of row labels, default is NA.
 #' @param labCol Vector of column labels, default is NA.
 #' @param dendro If 'both', plot dendrogram on rows and columns, if 'none' no dendrograms are shown. Default is 'none'.
+#' @examples
+#' # Load one dataset with 300 observations, 2 variables, 6 clusters
+#' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+#' # Compute consensus clustering with K=6 clusters
+#' cm <- consensusCluster(data, 6)
+#' # Plot consensus (similarity) matrix
+#' plotSimilarityMatrix(cm)
 #' @export
 #'
 plotSimilarityMatrix = function(X, y = NULL, clusLabels = NULL, colX = NULL, colY = NULL, myLegend = NULL,
                                 file_name = "myheatmap.png", savePNG = FALSE, saveTIKZ = FALSE, saveEPS = FALSE, semiSupervised = FALSE,
-                                scale = "none", labRow = NA, labCol = NA, dendro = 'none'){
+                                scale = "none", labRow = NA, labCol = NA, dendro = "none"){
 
   ### Set the colours for the similarity matrix
   if(is.null(colX)){

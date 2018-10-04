@@ -14,6 +14,11 @@
 #' @author Alessandra Cabassi \email{ac2051@cam.ac.uk}
 #' @references Monti, S., Tamayo, P., Mesirov, J. and Golub, T., 2003. Consensus clustering: a resampling-based method for
 #' class discovery and visualization of gene expression microarray data. Machine learning, 52(1-2), pp.91-118.
+#' @examples
+#' # Load one dataset with 300 observations, 2 variables, 6 clusters
+#' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+#' # Compute consensus clustering with K=6 clusters
+#' cm <- consensusCluster(data, 6)
 #' @export
 
 consensusCluster = function(data, K, B = 100, pItem = 0.8, clMethod = "km", distHC = "euclidean"){

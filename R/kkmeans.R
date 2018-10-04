@@ -5,9 +5,24 @@
 #' @param parameters list of parameters
 #' @author Mehmet Gonen
 #' @references Gönen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means clustering with application to cancer biology. In Advances in Neural Information Processing Systems (pp. 1305-1313).
+#' @examples
+#' # Load one dataset with 300 observations, 2 variables, 6 clusters
+#' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+#' # Compute consensus clustering with K=6 clusters
+#' cm <- consensusCluster(data, 6)
+#' # Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)
+#' km <- spectrumShift(cm, coeff = 1.05)
+#' # Initalize the parameters of the algorithm
+#' parameters <- list()
+#' # Set the number of clusters
+#' parameters$cluster_count <- 6
+#' #perform training
+#' state <- kkmeans(km, parameters)
+#' # Display the clustering
+#' print(state$clustering)
 #' @export
 #'
-kkmeansTrain <- function(K, parameters) {
+kkmeans <- function(K, parameters) {
   state <- list()
   state$time <- system.time({
     H <- eigen(K, symmetric = TRUE)$vectors[, 1:parameters$cluster_count]

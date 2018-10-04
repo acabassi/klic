@@ -87,7 +87,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
             # Set number of clusters for kernel k-means
             parameters_kkmeans$cluster_count <- j
             # Train kernel k-means
-            kkm <- kkmeansTrain(tempCM[,,j-1], parameters_kkmeans)
+            kkm <- kkmeans(tempCM[,,j-1], parameters_kkmeans)
             # Extract cluster labels
             clLabels[j-1,] <- kkm$clustering
 
@@ -163,7 +163,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
         # Set the number of clusters K
         parameters$cluster_count <- i
         # Train localised multiple kernel k-means
-        lmkkm <- lmkkmeansTrain(CM, parameters)
+        lmkkm <- lmkkmeans(CM, parameters)
         # Save the weights
         weights[,,i-1] <- lmkkm$Theta
         # Save the combined kernel matrix
@@ -189,7 +189,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
       # Set number of clusters for localised multiple kernel k-means
       parameters$cluster_count <- globalK
       # Train localised multiple kernel k-means
-      lmkkm <- lmkkmeansTrain(CM, parameters)
+      lmkkm <- lmkkmeans(CM, parameters)
       # Initialise empty weighted matrix
       weightedKM <- matrix(0, N, N)
       # Compute weighted matrix
