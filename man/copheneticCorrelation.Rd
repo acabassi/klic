@@ -10,7 +10,17 @@ copheneticCorrelation(kernelMatrix)
 \item{kernelMatrix}{kernel matrix.}
 }
 \description{
-Compute the cophenetic correlation coefficient of a kernel matrix.
+Compute the cophenetic correlation coefficient of a kernel matrix, which is
+a measure of howfaithfully hierarchical clustering would preserve the
+pairwise distances between the original data points.
+}
+\examples{
+# Load kernel matrix
+km <- as.matrix(read.csv(system.file("extdata",
+"kernel-matrix1.csv", package = "klic"), row.names = 1))
+# Compute cophenetic correlation
+ccc <- copheneticCorrelation(km)
+print(ccc)
 }
 \references{
 Sokal, R.R. and Rohlf, F.J., 1962. The comparison of dendrograms by objective methods. Taxon, 11(2), pp.33-40.
