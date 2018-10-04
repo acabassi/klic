@@ -21,7 +21,7 @@ Perform the training step of the localised multiple kernel k-means
 # representing three different types of similarities
 # between 300 data points
 km <- array(NA, c(300, 300, 3))
-# Load kernels
+# Load kernel matrices
 km[,,1] <- as.matrix(read.csv(system.file("extdata",
 "kernel-matrix1.csv", package = "klic"), row.names = 1))
 km[,,2] <- as.matrix(read.csv(system.file("extdata",

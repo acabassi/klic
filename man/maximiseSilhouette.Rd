@@ -2,7 +2,7 @@
 % Please edit documentation in R/silhouette.R
 \name{maximiseSilhouette}
 \alias{maximiseSilhouette}
-\title{Choose K that maximises the silhouette from a set kernel matrices and clusterings}
+\title{Choose K that maximises the silhouette from a set of kernel matrices and clusterings}
 \usage{
 maximiseSilhouette(kernelMatrix, clLabels, maxK, savePNG = FALSE,
   fileName = "silhouette")
@@ -19,7 +19,40 @@ maximiseSilhouette(kernelMatrix, clLabels, maxK, savePNG = FALSE,
 \item{fileName}{If savePNG is TRUE, this is the name of the png file.}
 }
 \description{
-Choose K that maximises the silhouette from a set kernel matrices and clusterings
+Choose K that maximises the silhouette from a set of kernel matrices and clusterings
+}
+\examples{
+data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+
+cm_2cl <- consensusCluster(data, 2)
+cm_3cl <- consensusCluster(data, 3)
+
+km <- array(NA, c(300, 300, 2))
+km[,,1] <- spectrumShift(cm_2cl, coeff = 1.1)
+km[,,2] <- spectrumShift(cm_3cl, coeff = 1.1)
+
+clLabels <- array(NA, c(2,300))
+
+# Use kernel k-means to divide data into two clusters
+parameters_kkmeans <- list()
+parameters_kkmeans$cluster_count <- 2
+kkm <- kkmeans(km[,,1], parameters_kkmeans) # km[,,1] because 2 is the first number we try
+clLabels[1,] <- kkm$clustering
+
+# Use kernel k-means to divide data into three clusters
+parameters_kkmeans$cluster_count <- 3
+kkm <- kkmeans(km[,,2], parameters_kkmeans) # km[,,2] because 3 is the second number we try
+clLabels[2,] <- kkm$clustering
+
+# Call maximiseSilhouette function
+maxSil <- maximiseSilhouette(km, clLabels, maxK = 3)
+# The output of maximiseSilhouette contains:
+# * the values of the average silhoeutte for each number of clusters
+print(maxSil$silhouette)
+# * the number of clusters that maximises the average silhouette
+# (if more than one value for the number of clusters k maximises the silhouette,
+# all the such values are reported in the output)
+print(maxSil$k)
 }
 \author{
 Alessandra Cabassi \email{ac2051@cam.ac.uk}
