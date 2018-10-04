@@ -46,3 +46,11 @@ Plot similarity matrix. It is possible to plot a side vector that corresponds to
 response variable Y and to order the rows (and columns) according to some clustering
 structure specified by the variable clusLabels.
 }
+\examples{
+# Load one dataset with 300 observations, 2 variables, 6 clusters
+data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+# Compute consensus clustering with K=6 clusters
+cm <- consensusCluster(data, 6)
+# Plot consensus (similarity) matrix
+plotSimilarityMatrix(cm)
+}

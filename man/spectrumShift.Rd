@@ -16,6 +16,14 @@ spectrumShift(kernelMatrix, coeff = 1.2, verbose = FALSE)
 \description{
 Make a symmetric matrix positive semi-definite
 }
+\examples{
+# Load one dataset with 300 observations, 2 variables, 6 clusters
+data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+# Compute consensus clustering with K=6 clusters
+cm <- consensusCluster(data, 6)
+# Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)
+km <- spectrumShift(cm, coeff = 1.05)
+}
 \author{
 Alessandra Cabassi \email{ac2051@cam.ac.uk}
 }
