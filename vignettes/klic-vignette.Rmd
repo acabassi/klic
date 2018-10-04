@@ -2,7 +2,14 @@
 title: "R package klic"
 author: "Alessandra Cabassi"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  knitr:::html_vignette:
+    toc: true
+    css: custom.css
+    fig_caption: yes
+  pdf_document:
+    highlight: null
+    number_sections: yes
 vignette: >
   %\VignetteIndexEntry{R package klic}
   %\VignetteEngine{knitr::rmarkdown}
@@ -11,7 +18,7 @@ vignette: >
 
 The R package `klic` (**K**ernel **L**earning **I**ntegrative **C**lustering) contains a collection of tools for integrative clustering of multiple data types. 
 
-The main function in this package is `klic`. It builds one kernel per dataset and combines them through localised kernel k-means to obtain the final clustering. It also allows to try several different values for the number of clusters both at the individual level and for the final clustering. This is the simplest way to perform Kernel Learning Integrative Clustering. However, users may want to add include other types of kernels (instead of using only those derived from consensus clustering) or try different parameters for consensus clustering and include all the corresponding kernels in the analysis. Therefore, we also make available all the functions needed to build a customised KLIC pipeline, that are:
+The main function in this package is `klic`. It takes as input a list of datasets and builds one kernel per dataset, using consensus clustering. The kernels are then combined through localised kernel k-means to obtain the final clustering. The function also gives the user the option to try several different values for the number of clusters both at the level of the individual datasets and for the final clustering. This is the simplest way to perform Kernel Learning Integrative Clustering. However, users may want to include other types of kernels (instead of using only those derived from consensus clustering) or try different parameters for consensus clustering and include all the corresponding kernels in the analysis. Therefore, we also make available all the functions needed to build a customised KLIC pipeline, that are:
 
 * `consensusCluster`. This function can be used to perform consensus clustering on one dataset and obtain a co-clustering matrix  (Monti et al. 2003). 
 
@@ -24,7 +31,7 @@ The package also includes  `coca`, a function that we implemented in order to ru
 Other functions included in the package are:
 
 * `plotSimilarityMatrix`, to plot a similarity matrix with the option to divide the rows of the matrix according to the clusters and to include a vector of labels for each row; 
-* `kkmeansTrain`, another function implemented by Gonen and Margolin (2004) to perform kernel k-means with only one kernel matrix (Girolami, 2002);
+* `kkmeans`, another function implemented by Gonen and Margolin (2004) to perform kernel k-means with only one kernel matrix (Girolami, 2002);
 * `copheneticCorrelation`, to calculate the cophenetic correlation of a similarity matrix.
 
 # KLIC
@@ -32,31 +39,7 @@ Other functions included in the package are:
 First, we generate four datasets with the same clustering structure (6 clusters of equal size) and different levels of noise.
 
 ```{r generate data, fig.show='hold', warning=FALSE, cache=TRUE}
-## Load R packages
-#library(Rmosek)
-#library(Matrix)
-#library(klic)
-#library(MASS)
-## Set parameters
-#n_variables <- 2
-#n_obs_cl <- 50
-#n_clusters <- 6
-#n_separation_levels <- 3
-#Sigma <- diag(n_variables)
-#N <- n_obs_cl*n_clusters
-#P <- n_variables
-## Generate synthetic data
-#data <- list()
-#for(i in 1:n_separation_levels){
-#    data[[i]] <- array(NA, c(N, P))
-#    mu = rep(NA, N)
-#    for(k in 1:n_clusters){
-#      mu = rep(k*(i-1), n_variables)
-#      data[[i]][((k-1)*n_obs_cl+1):(k*n_obs_cl),] <- mvrnorm(n = n_obs_cl, mu, Sigma)
-#    }
-#}
-
-# Load synthetic data
+## Load synthetic data
 data1 <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
 data2 <- as.matrix(read.csv(system.file("extdata","dataset2.csv", package = "klic"), row.names = 1))
 data3 <- as.matrix(read.csv(system.file("extdata", "dataset3.csv", package = "klic"), row.names = 1))
@@ -69,6 +52,7 @@ Now we can use the `consensusClustering` function to compute a consensus matrix 
 
 ```{r consensus_cluster, fig.show='hold', warning=FALSE, cache=TRUE}
 ## Compute co-clustering matrices for each dataset
+library(klic)
 CM <- array(NA, c(N, N, n_datasets))
 for(i in 1: n_datasets){
   # Scale the columns to have zero mean and unitary variance
