@@ -149,7 +149,7 @@
 <a class="sourceLine" id="cb5-3" data-line-number="3">true_labels &lt;-<span class="st"> </span><span class="kw">c</span>(ones, ones<span class="op">*</span><span class="dv">2</span>, ones<span class="op">*</span><span class="dv">3</span>, ones<span class="op">*</span><span class="dv">4</span>, ones<span class="op">*</span><span class="dv">5</span>, ones<span class="op">*</span><span class="dv">6</span>)</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">library</span>(mclust, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw"><a href="http://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex">adjustedRandIndex</a></span>(true_labels, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.8990923</code></pre>
+<pre><code>## [1] 0.8990702</code></pre>
 <p>If the global number of clusters is not known, one can find the weights and clusters for different values of K and then find the one that maximises the silhouette.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">## Find the value of k that maximises the silhouette</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
@@ -195,7 +195,7 @@
 <a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">## Compare clustering to the true labels</span></a>
 <a class="sourceLine" id="cb11-8" data-line-number="8">clusterLabels &lt;-<span class="st"> </span>kkm<span class="op">$</span>clustering</a>
 <a class="sourceLine" id="cb11-9" data-line-number="9"><span class="kw"><a href="http://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex">adjustedRandIndex</a></span>(true_labels, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.8990923</code></pre>
+<pre><code>## [1] 0.8990702</code></pre>
 <p>We also included <code>copheneticCorrelation</code>, a function that calculates the cophenetic correlation coefficient of a similarity matrix:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">## Compute cophenetic correlation coefficient for each consensus matrix</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2">ccc &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, n_datasets)</a>
@@ -203,7 +203,7 @@
 <a class="sourceLine" id="cb13-4" data-line-number="4">  ccc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/copheneticCorrelation.html">copheneticCorrelation</a></span>(CM[,,i])</a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">}</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6">ccc</a></code></pre></div>
-<pre><code>## [1] 0.9347528 0.9215113 0.8870498</code></pre>
+<pre><code>## [1] 0.9157945 0.8936758 0.9433786</code></pre>
 <p>The cophenetic correlation coefficient is a measure of how faithfully hierarchical clustering would preserve the pairwise distances between the original data points.</p>
 <p>There is also a function that can be used to plot similarity matrices, ordered by cluster label, and with an additional side label for each row and to save the output in different formats. It is called <code>plotSimilarityMatrix</code>.</p>
 </section><section id="references" class="level1"><h1>References</h1>

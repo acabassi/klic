@@ -101,13 +101,7 @@ plotSimilarityMatrix = function(X, y = NULL, clusLabels = NULL, colX = NULL, col
               col = colX,
               labRow = labRow,
               labCol = labCol,
-              key = FALSE#,
-              # lmat = rbind(c(0,3),c(2,1),c(0,4)),
-              # lwid = c(1,8),
-              # lhei = c(1,8,1)
-              # lmat=rbind(c(2),c(3),c(1),c(4)),
-              # lhei=c(1,1,10,1),
-              # lwid=c(10)
+              key = FALSE
     )
     if(!is.null(myLegend)) graphics::legend("bottomleft", legend = myLegend, col = colY, lty = 1, lwd = 4, bty ="n")
   }else{
@@ -135,13 +129,7 @@ plotSimilarityMatrix = function(X, y = NULL, clusLabels = NULL, colX = NULL, col
               labRow = labRow,
               labCol = labCol,
               # key = FALSE,
-              symkey = FALSE#,
-              # lmat = rbind(c(0,3),c(2,1),c(0,4)),
-              # lwid = c(1,8),
-              # lhei = c(1,8,1)
-              # lmat=rbind(c(2),c(3),c(1),c(4)),
-              # lhei=c(1,1,10,1),
-              # lwid=c(10)
+              symkey = FALSE
     )
     if(!is.null(myLegend)) graphics::legend("bottomleft", legend = myLegend, col = colY, lty = 1, lwd = 4, bty ="n")
   }
