@@ -59,7 +59,7 @@ for(i in 1: n_datasets){
   CM[,,i] <- consensusCluster(scaledData, K = 6, B = 50)
 }
 ## Plot consensus matrix of one of the datasets
-heatmap(CM[,,3], Colv = NA, Rowv = NA)
+plotSimilarityMatrix(CM[,,3])
 ```
 
 Before using kernel methods, we need to make sure that all the consensus matrices are positive semi-definite.
@@ -70,7 +70,7 @@ for(i in 1: n_datasets){
   CM[,,i] <- spectrumShift(CM[,,i], verbose = FALSE)
 }
 ## Plot updated consensus matrix of one of the datasets
-heatmap(CM[,,3], Colv = NA, Rowv = NA)
+plotSimilarityMatrix(CM[,,3])
 ```
 
 Now we can perform localised kernel k-kmeans on the set of consensus matrices using the function `lmkkmeans` to find a global clustering. This functions also need to be provided with a list of parameters containing the prespecified number of clusters and the maximum number of iterations for the k-means algorihtm.
