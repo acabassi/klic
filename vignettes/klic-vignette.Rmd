@@ -1,5 +1,5 @@
 ---
-title: "R package klic"
+title: "Introduction to klic"
 author: "Alessandra Cabassi"
 date: "`r Sys.Date()`"
 output: 
