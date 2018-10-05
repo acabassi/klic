@@ -1,10 +1,11 @@
 Package: klic
 Title: Kernel Learning Integrative Clustering
-Version: 0.0.1.7
+Version: 0.0.1.9007
 Authors@R: person("Alessandra", "Cabassi", email = "ac2051@cam.ac.uk", role = c("aut", "cre"))
 Description: Unsupervised clustering based on multiple kernel learning algorithms.
 Depends: R (>= 3.4.1)
 License: GPL-3
+URL: http://github.com/acabassi/klic
 Encoding: UTF-8
 LazyData: true
 Imports: Rmosek, Matrix, cluster, gplots, wesanderson
