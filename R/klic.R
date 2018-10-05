@@ -1,6 +1,7 @@
 #' Kernel learning integrative clustering
 #'
 #'Perform kernel learning integrative clustering
+#'
 #' @param data List of M datasets, each of size N X P_m, m = 1, ..., M.
 #' @param M number of datasets.
 #' @param individualK Vector containing the number of clusters in each dataset. Default is NULL. If the number of clusters is not provided, then all the possible values between 2 and individualMaxK are considered and the best value is chosen for each dataset by maximising the silhouette.

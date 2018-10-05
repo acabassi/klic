@@ -16,7 +16,8 @@
 #' class discovery and visualization of gene expression microarray data. Machine learning, 52(1-2), pp.91-118.
 #' @examples
 #' # Load one dataset with 300 observations, 2 variables, 6 clusters
-#' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+#' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"),
+#' row.names = 1))
 #' # Compute consensus clustering with K=6 clusters
 #' cm <- consensusCluster(data, 6)
 #' @export

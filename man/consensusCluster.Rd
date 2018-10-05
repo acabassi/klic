@@ -31,7 +31,8 @@ clusters K to be fixed, for simplicity.
 }
 \examples{
 # Load one dataset with 300 observations, 2 variables, 6 clusters
-data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"),
+row.names = 1))
 # Compute consensus clustering with K=6 clusters
 cm <- consensusCluster(data, 6)
 }
