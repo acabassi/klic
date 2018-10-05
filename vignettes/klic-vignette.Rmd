@@ -3,20 +3,18 @@ title: "R package klic"
 author: "Alessandra Cabassi"
 date: "`r Sys.Date()`"
 output: 
-  knitr:::html_vignette:
+  html_document:
     toc: true
-    css: custom.css
-    fig_caption: yes
-  pdf_document:
-    highlight: null
-    number_sections: yes
+    theme: united
 vignette: >
   %\VignetteIndexEntry{R package klic}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-The R package `klic` (**K**ernel **L**earning **I**ntegrative **C**lustering) contains a collection of tools for integrative clustering of multiple data types. 
+# Introduction
+
+The R package **klic** (**K**ernel **L**earning **I**ntegrative **C**lustering) contains a collection of tools for integrative clustering of multiple data types. 
 
 The main function in this package is `klic`. It takes as input a list of datasets and builds one kernel per dataset, using consensus clustering. The kernels are then combined through localised kernel k-means to obtain the final clustering. The function also gives the user the option to try several different values for the number of clusters both at the level of the individual datasets and for the final clustering. This is the simplest way to perform Kernel Learning Integrative Clustering. However, users may want to include other types of kernels (instead of using only those derived from consensus clustering) or try different parameters for consensus clustering and include all the corresponding kernels in the analysis. Therefore, we also make available all the functions needed to build a customised KLIC pipeline, that are:
 
@@ -34,7 +32,7 @@ Other functions included in the package are:
 * `kkmeans`, another function implemented by Gonen and Margolin (2004) to perform kernel k-means with only one kernel matrix (Girolami, 2002);
 * `copheneticCorrelation`, to calculate the cophenetic correlation of a similarity matrix.
 
-# KLIC
+# How KLIC works 
 
 First, we generate four datasets with the same clustering structure (6 clusters of equal size) and different levels of noise.
 
@@ -84,10 +82,10 @@ library(Rmosek)
 parameters <- list()
 parameters$cluster_count <- 6 # set the number of clusters K
 parameters$iteration_count <- 100 # set the maximum number of iterations
-lmkkm <- lmkkmeansTrain(CM, parameters)
+lmkkm <- lmkkmeans(CM, parameters)
 ```
 
-The output of `lmkkmeansTrain` contains, among other things, the final cluster labels. To compare two clusterings, such as for example the true clustering (that is known in this case) and the clustering found with KLIC, we suggest to use the `adjustedRandIndex` function of the R package `mclust`. An ARI close to 1 indicates a high similarity between the two partitions of the data.
+The output of `lmkkmeans` contains, among other things, the final cluster labels. To compare two clusterings, such as for example the true clustering (that is known in this case) and the clustering found with KLIC, we suggest to use the `adjustedRandIndex` function of the R package `mclust`. An ARI close to 1 indicates a high similarity between the two partitions of the data.
 
 ```{r ari, fig.show='hold', warning=FALSE, cache=TRUE}
 ## Compare clustering found with KLIC to the true one
@@ -114,7 +112,7 @@ for(i in 2:maxK){
   
   # Use kernel k-means with K=i to find weights and cluster labels
   parameters$cluster_count <- i # set the number of clusters K
-  lmkkm <- lmkkmeansTrain(CM, parameters)
+  lmkkm <- lmkkmeans(CM, parameters)
   
   # Compute weighted matrix
   for(j in 1:dim(CM)[3]){
@@ -136,40 +134,10 @@ The same can be done simply using the function `klic`
 klic <- klic(data, M = n_datasets, individualK = c(6,6,6))
 klic$globalK
 ```
-# COCA
 
-COCA is an alternative method to do integrative clustering of multiple data types (TGCA, 2012).
+# Other useful functions
 
-```{r preparation_coca, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE}
-## Fill label matrix with clusterings found with the k-means clustering algorithm
-n_clusters <- 6
-n_datasets <- 3
-labelMatrix <- array(NA, c(n_clusters, N, n_datasets))
-for(i in 1:n_datasets){
-  output <- kmeans(data[[i]], n_clusters)
-  for(k in 1:n_clusters){
-    labelMatrix[k,,i] <- (output$cluster==k)
-  }
-}
-# Convert label matrix from logic to numeric matrix
-labelMatrix <- labelMatrix*1
-```
-
-`labelMatrix` is now a matrix that contains the binary labels of the data given by the k-means clustering algorithm for each dataset separately.
-
-```{r coca, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE}
-# Build MOC matrix
-MOC = rbind(labelMatrix[,,1],labelMatrix[,,2], labelMatrix[,,3])
-# Use COCA to find global clustering
-coca <- coca(t(MOC), K = 6, hclustMethod = "average")
-# Compare clustering to the true labels
-ari <- adjustedRandIndex(true_labels, coca$clusterLabels)
-ari
-```
-
-# Miscellanea 
-
-`kkmeansTrain` is the analogous of `lmkkmeans`, for just one dataset at a time.
+`kkmeans` is the analogous of `lmkkmeans`, for just one dataset at a time.
 
 ```{r k_kmeans, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE}
 ## Set parameters of the kernel k-means algorithm
@@ -177,22 +145,23 @@ parameters <- list()
 parameters$cluster_count <- 6
 parameters$iteration_count <- 100
 ## Run kernel k-means
-kkm <- kkmeansTrain(CM[,,3], parameters)
+kkm <- kkmeans(CM[,,3], parameters)
 ## Compare clustering to the true labels
 clusterLabels <- kkm$clustering
 adjustedRandIndex(true_labels, lmkkm$clustering) 
 ```
 
-We also included `copheneticCorrelation`, a function that calculates the cophenetic correlation coefficient of a similarity matrix 
+We also included `copheneticCorrelation`, a function that calculates the cophenetic correlation coefficient of a similarity matrix:
 
 ```{r cophenetic_correlation, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE}
 ## Compute cophenetic correlation coefficient for each consensus matrix
-cc <- rep(NA, n_datasets)
+ccc <- rep(NA, n_datasets)
 for(i in 1:n_datasets){
-  cc[i] <- copheneticCorrelation(CM[,,i])
+  ccc[i] <- copheneticCorrelation(CM[,,i])
 }
-cc
+ccc
 ```
+The cophenetic correlation coefficient is a measure of how faithfully hierarchical clustering would preserve the pairwise distances between the original data points.
 
 There is also a function that can be used to plot similarity matrices, ordered by cluster label, and with an additional side label for each row and to save the output in different formats. It is called `plotSimilarityMatrix`.
 
