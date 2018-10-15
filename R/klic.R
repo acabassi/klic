@@ -11,7 +11,7 @@
 #' @param globalMaxK Maximum number of clusters considered for the final clustering. Default is 6.
 #' @param B Number of iterations for consensus clustering. Default is 1000.
 #' @param C Maximum number of iterations for localised kernel k-means. Default is 100.
-#' @param savePlots If TRUE, a plot of the silhouette is saved in the working folder. Default is FALSE.
+#' @param savePlots Boolean. If TRUE, a plot of the silhouette is saved in the working folder. Default is FALSE.
 #' @param fileName If savePlots is TRUE, this is the name of the png file.
 #' @author Alessandra Cabassi \email{ac2051@cam.ac.uk}
 #' @examples
