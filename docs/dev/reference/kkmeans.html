@@ -29,12 +29,6 @@
 <script src="../pkgdown.js"></script>
 
 
-<!-- docsearch -->
-<script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
-
 
 <meta property="og:title" content="Kernel k-means — kkmeans" />
 
@@ -74,25 +68,25 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+  <a href="../articles/index.html">
+    <span class="fa fa-play-circle"></span>
      
+    Vignettes
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+  <a href="../reference/index.html">
+    <span class="fa fa-pencil"></span>
      
-    <span class="caret"></span>
+    Documentation
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/klic-vignette.html">Introduction to klic</a>
-    </li>
-  </ul>
+</li>
+<li>
+  <a href="https://github.com/acabassi/klic">
+    <span class="fa fa-github fa-lg"></span>
+     
+    GitHub
+  </a>
 </li>
       </ul>
       
@@ -104,12 +98,6 @@
   </a>
 </li>
       </ul>
-      
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
-        </div>
-      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -156,14 +144,25 @@
     <pre class="examples"><div class='input'><span class='co'># Load one dataset with 300 observations, 2 variables, 6 clusters</span>
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='fu'>read.csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute consensus clustering with K=6 clusters</span>
-<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='fu'>consensusCluster</span>(<span class='no'>data</span>, <span class='fl'>6</span>)</div><div class='output co'>#&gt; <span class='error'>Error in consensusCluster(data, 6): could not find function "consensusCluster"</span></div><div class='input'><span class='co'># Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)</span>
-<span class='no'>km</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='spectrumShift.html'>spectrumShift</a></span>(<span class='no'>cm</span>, <span class='kw'>coeff</span> <span class='kw'>=</span> <span class='fl'>1.05</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("isSymmetric"): no applicable method for 'isSymmetric' applied to an object of class "function"</span></div><div class='input'><span class='co'># Initalize the parameters of the algorithm</span>
+<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>coca</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/coca/topics/consensusCluster'>consensusCluster</a></span>(<span class='no'>data</span>, <span class='fl'>6</span>)
+<span class='co'># Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)</span>
+<span class='no'>km</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='spectrumShift.html'>spectrumShift</a></span>(<span class='no'>cm</span>, <span class='kw'>coeff</span> <span class='kw'>=</span> <span class='fl'>1.05</span>)
+<span class='co'># Initalize the parameters of the algorithm</span>
 <span class='no'>parameters</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>()
 <span class='co'># Set the number of clusters</span>
 <span class='no'>parameters</span>$<span class='no'>cluster_count</span> <span class='kw'>&lt;-</span> <span class='fl'>6</span>
 <span class='co'>#perform training</span>
-<span class='no'>state</span> <span class='kw'>&lt;-</span> <span class='fu'>kkmeans</span>(<span class='no'>km</span>, <span class='no'>parameters</span>)</div><div class='output co'>#&gt; <span class='error'>Error in as.matrix(x): object 'km' not found</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0.001 0 0</span></div><div class='input'><span class='co'># Display the clustering</span>
-<span class='fu'>print</span>(<span class='no'>state</span>$<span class='no'>clustering</span>)</div><div class='output co'>#&gt; <span class='error'>Error in print(state$clustering): object 'state' not found</span></div></pre>
+<span class='no'>state</span> <span class='kw'>&lt;-</span> <span class='fu'>kkmeans</span>(<span class='no'>km</span>, <span class='no'>parameters</span>)
+<span class='co'># Display the clustering</span>
+<span class='fu'>print</span>(<span class='no'>state</span>$<span class='no'>clustering</span>)</div><div class='output co'>#&gt;   [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 5 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+#&gt;  [38] 2 2 2 2 2 2 2 2 2 5 2 2 2 5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 2 5 5 6 5 5
+#&gt;  [75] 5 5 5 5 5 5 5 5 5 6 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 2 6 6 5 6 5 1 6 5 5 6 6
+#&gt; [112] 6 6 6 5 6 5 6 6 6 6 6 6 6 6 6 6 5 6 5 6 6 6 6 6 6 6 5 6 6 6 6 6 6 6 6 6 6
+#&gt; [149] 6 1 1 1 6 1 1 1 1 1 1 3 1 6 1 1 1 1 1 1 3 1 1 1 1 1 1 6 1 1 1 1 6 1 1 3 1
+#&gt; [186] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 6 3 3 3 3 3 1 3 1 1 3 3 3 3 3 3 3 4 3 1 3 3 3
+#&gt; [223] 3 4 3 3 3 3 1 3 3 3 3 3 4 3 3 3 3 3 3 4 1 3 3 1 3 3 3 3 4 4 4 4 4 4 4 4 4
+#&gt; [260] 4 4 4 4 4 4 3 4 4 4 4 4 4 3 4 4 4 4 4 4 3 4 4 3 4 4 4 3 4 4 4 4 4 4 4 4 4
+#&gt; [297] 3 4 4 4</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -195,23 +194,6 @@ Mehmet Gonen
    </div>
 
   
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-<script>
-  docsearch({
-    
-    
-    apiKey: 'API_KEY',
-    indexName: 'INDEX_NAME',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-
 
   </body>
 </html>
