@@ -27,7 +27,7 @@ klic(data, M, individualK = NULL, individualMaxK = 6,
 
 \item{C}{Maximum number of iterations for localised kernel k-means. Default is 100.}
 
-\item{savePlots}{If TRUE, a plot of the silhouette is saved in the working folder. Default is FALSE.}
+\item{savePlots}{Boolean. If TRUE, a plot of the silhouette is saved in the working folder. Default is FALSE.}
 
 \item{fileName}{If savePlots is TRUE, this is the name of the png file.}
 }
