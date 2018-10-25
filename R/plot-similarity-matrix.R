@@ -66,6 +66,16 @@ plotSimilarityMatrix = function(X, y = NULL, clusLabels = NULL, colX = NULL, col
     X_new = X[riordina,riordina]
     y_new = y[riordina]
 
+    y_new_int <- rep(0, length(y_new))
+    # Replace values in y_new with integers
+    count <- 0
+    for(i in unique(y_new)){
+        count <- count + 1
+        y_new_int[which(y_new==i)] = count
+    }
+
+    ### LEGEND MUST BE REORDERED TOO ###
+
     if(is.null(colY)){
       colY = wesanderson::wes_palette("Royal2")
       colY = colY[c(5,4,3,1,2)]
@@ -96,7 +106,7 @@ plotSimilarityMatrix = function(X, y = NULL, clusLabels = NULL, colX = NULL, col
               dendrogram = dendro,
               Rowv = Rowvv,
               Colv = Colvv,
-              RowSideColors = colY[y_new],
+              RowSideColors = colY[y_new_int],
               trace = 'none',
               col = colX,
               labRow = labRow,
