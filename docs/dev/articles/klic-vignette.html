@@ -99,13 +99,12 @@
     
 <section id="introduction" class="level1"><h1>Introduction</h1>
 <p>The R package <strong>klic</strong> (<strong>K</strong>ernel <strong>L</strong>earning <strong>I</strong>ntegrative <strong>C</strong>lustering) contains a collection of tools for integrative clustering of multiple data types.</p>
-<p>The main function in this package is <code>klic</code>. It takes as input a list of datasets and builds one kernel per dataset, using consensus clustering. The kernels are then combined through localised kernel k-means to obtain the final clustering. The function also gives the user the option to try several different values for the number of clusters both at the level of the individual datasets and for the final clustering. This is the simplest way to perform Kernel Learning Integrative Clustering. However, users may want to include other types of kernels (instead of using only those derived from consensus clustering) or try different parameters for consensus clustering and include all the corresponding kernels in the analysis. Therefore, we also make available all the functions needed to build a customised KLIC pipeline, that are:</p>
+<p>The main function in this package is <code>klic</code>. It takes as input a list of datasets and builds one kernel per dataset, using consensus clustering. The kernels are then combined through localised kernel k-means to obtain the final clustering. The function also gives the user the option to try several different values for the number of clusters both at the level of the individual datasets and for the final clustering. This is the simplest way to perform Kernel Learning Integrative Clustering. However, users may want to include other types of kernels (instead of using only those derived from consensus clustering) or try different parameters for consensus clustering and include all the corresponding kernels in the analysis. Therefore, we also make available some of the functions needed to build a customised KLIC pipeline, that are:</p>
 <ul>
-<li><p><code>consensusCluster</code>. This function can be used to perform consensus clustering on one dataset and obtain a co-clustering matrix (Monti et al. 2003).</p></li>
 <li><p><code>spectrumShift</code>. This function takes as input any symmetryc matrix (including co-clustering matrices) and checks whether it is positive semi-definite. If not, the eigenvalues of matrix are shifted by a (small) constant in order to make sure that it is a valid kernel.</p></li>
 <li><p><code>lmkkmeans</code>. This is a function implemented by Gonen and Margolin (2014) that performs localised kernel k-means on a set of kernel matrices (such as -appropriately shifted- co-clustering matrices, for example).</p></li>
 </ul>
-<p>The package also includes <code>coca</code>, a function that we implemented in order to run the Cluster-Of-Clusters-Analysis of TCGA (2012) and compare it with KLIC.</p>
+<p>The other function needed for this is * <code>consensusCluster</code>. This function can be found in the R package <code>coca</code> and is used to perform consensus clustering on one dataset and obtain a co-clustering matrix (Monti et al. 2003).</p>
 <p>Other functions included in the package are:</p>
 <ul>
 <li>
@@ -131,7 +130,7 @@
 <a class="sourceLine" id="cb2-5" data-line-number="5">  <span class="co"># Scale the columns to have zero mean and unitary variance</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6">  scaledData &lt;-<span class="st"> </span><span class="kw">scale</span>(data[[i]]) </a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="co"># Use consensus clustering to find the consensus matrix of each dataset</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">  CM[,,i] &lt;-<span class="st"> </span><span class="kw">consensusCluster</span>(scaledData, <span class="dt">K =</span> <span class="dv">6</span>, <span class="dt">B =</span> <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  CM[,,i] &lt;-<span class="st"> </span>coca<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/coca/topics/consensusCluster">consensusCluster</a></span>(scaledData, <span class="dt">K =</span> <span class="dv">6</span>, <span class="dt">B =</span> <span class="dv">50</span>)</a>
 <a class="sourceLine" id="cb2-9" data-line-number="9">}</a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">## Plot consensus matrix of one of the datasets</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw"><a href="../reference/plotSimilarityMatrix.html">plotSimilarityMatrix</a></span>(CM[,,<span class="dv">3</span>])</a></code></pre></div>
@@ -158,7 +157,7 @@
 <a class="sourceLine" id="cb5-3" data-line-number="3">true_labels &lt;-<span class="st"> </span><span class="kw">c</span>(ones, ones<span class="op">*</span><span class="dv">2</span>, ones<span class="op">*</span><span class="dv">3</span>, ones<span class="op">*</span><span class="dv">4</span>, ones<span class="op">*</span><span class="dv">5</span>, ones<span class="op">*</span><span class="dv">6</span>)</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">library</span>(mclust, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw"><a href="http://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex">adjustedRandIndex</a></span>(true_labels, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.899645</code></pre>
+<pre><code>## [1] 0.8993087</code></pre>
 <p>If the global number of clusters is not known, one can find the weights and clusters for different values of K and then find the one that maximises the silhouette.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">## Find the value of k that maximises the silhouette</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
@@ -186,9 +185,9 @@
 <a class="sourceLine" id="cb7-24" data-line-number="24">}</a>
 <a class="sourceLine" id="cb7-25" data-line-number="25"></a>
 <a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co"># Find value of K that maximises silhouette</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27">maxSil &lt;-<span class="st"> </span><span class="kw">maximiseSilhouette</span>(KM, clLabels, <span class="dt">maxK =</span> <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb7-27" data-line-number="27">maxSil &lt;-<span class="st"> </span>coca<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/coca/topics/maximiseSilhouette">maximiseSilhouette</a></span>(KM, clLabels, <span class="dt">maxK =</span> <span class="dv">6</span>)</a>
 <a class="sourceLine" id="cb7-28" data-line-number="28">maxSil<span class="op">$</span>k</a></code></pre></div>
-<pre><code>## [1] 6</code></pre>
+<pre><code>## NULL</code></pre>
 <p>The same can be done simply using the function <code>klic</code></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">klic &lt;-<span class="st"> </span><span class="kw"><a href="../reference/klic.html">klic</a></span>(data, <span class="dt">M =</span> n_datasets, <span class="dt">individualK =</span> <span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>))</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">klic<span class="op">$</span>globalK</a></code></pre></div>

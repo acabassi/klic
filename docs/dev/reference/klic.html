@@ -200,13 +200,15 @@
 <span class='co'># number of clusters in each individual dataset and in</span>
 <span class='co'># the final clustering</span>
 <span class='no'>klicOutput</span> <span class='kw'>&lt;-</span> <span class='fu'>klic</span>(<span class='no'>data</span>, <span class='fl'>3</span>, <span class='kw'>individualK</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>),
-<span class='kw'>globalK</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='error'>Error in consensusCluster(scaledDataset, individualK[i], B): could not find function "consensusCluster"</span></div><div class='input'>
+<span class='kw'>globalK</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+
 <span class='co'># Extract cluster labels</span>
-<span class='no'>klic_labels</span> <span class='kw'>&lt;-</span> <span class='no'>klicOutput</span>$<span class='no'>globalClusterLabels</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'klicOutput' not found</span></div><div class='input'>
+<span class='no'>klic_labels</span> <span class='kw'>&lt;-</span> <span class='no'>klicOutput</span>$<span class='no'>globalClusterLabels</span>
+
 <span class='no'>cluster_labels</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='fu'>read.csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata"</span>,
 <span class='st'>"cluster_labels.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute ARI</span>
-<span class='no'>ari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mclust</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex'>adjustedRandIndex</a></span>(<span class='no'>klic_labels</span>, <span class='no'>cluster_labels</span>)</div><div class='output co'>#&gt; <span class='error'>Error in as.vector(x): object 'klic_labels' not found</span></div></pre>
+<span class='no'>ari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mclust</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex'>adjustedRandIndex</a></span>(<span class='no'>klic_labels</span>, <span class='no'>cluster_labels</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

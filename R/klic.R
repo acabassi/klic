@@ -76,7 +76,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
         for(j in 2:individualMaxK){
 
           # Compute consensus matrix
-          tempCM[,,j-1] <- consensusCluster(scaledDataset, j, B)
+          tempCM[,,j-1] <- coca::consensusCluster(scaledDataset, j, B)
           # Make consensus matrix positive definite
           tempCM[,,j-1] <- spectrumShift(tempCM[,,j-1])
 
@@ -105,7 +105,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
         }
 
         # Find the number of clusters that maximises the silhouette
-        maxSil <- maximiseSilhouette(tempCM, clLabels, individualMaxK)
+        maxSil <- coca::maximiseSilhouette(tempCM, clLabels, individualMaxK)
         # If there is more than one, choose smallest number of clusters among the ones that maximise the silhouette
         bestK <- output$bestK[i] <- maxSil$k[1]
         # For dataset i, retain the consensus matrix corresponding to the smallest number of clusters for which the silhouette is maximised
@@ -127,7 +127,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
         # Scale the data such that each column has zero mean and unitary variance
         scaledDataset = scale(data[[i]])
         # Compute consensus matrix
-        CM[,,i] <- consensusCluster(scaledDataset, individualK[i], B)
+        CM[,,i] <- coca::consensusCluster(scaledDataset, individualK[i], B)
         # Make consensus matrix positive definite
         CM[,,i] <- spectrumShift(CM[,,i])
 
@@ -176,7 +176,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
       }
 
       # Find the number of clusters that maximises the silhouette
-      maxSil <- maximiseSilhouette(KM, clLabels, maxK = globalMaxK)
+      maxSil <- coca::maximiseSilhouette(KM, clLabels, maxK = globalMaxK)
       globalK <- output$globalK <- maxSil$k
       # Save chosen cluster labels
       output$globalClusterLabels <- clLabels[globalK-1,]

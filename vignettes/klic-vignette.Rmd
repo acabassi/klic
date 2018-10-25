@@ -16,15 +16,14 @@ vignette: >
 
 The R package **klic** (**K**ernel **L**earning **I**ntegrative **C**lustering) contains a collection of tools for integrative clustering of multiple data types. 
 
-The main function in this package is `klic`. It takes as input a list of datasets and builds one kernel per dataset, using consensus clustering. The kernels are then combined through localised kernel k-means to obtain the final clustering. The function also gives the user the option to try several different values for the number of clusters both at the level of the individual datasets and for the final clustering. This is the simplest way to perform Kernel Learning Integrative Clustering. However, users may want to include other types of kernels (instead of using only those derived from consensus clustering) or try different parameters for consensus clustering and include all the corresponding kernels in the analysis. Therefore, we also make available all the functions needed to build a customised KLIC pipeline, that are:
-
-* `consensusCluster`. This function can be used to perform consensus clustering on one dataset and obtain a co-clustering matrix  (Monti et al. 2003). 
+The main function in this package is `klic`. It takes as input a list of datasets and builds one kernel per dataset, using consensus clustering. The kernels are then combined through localised kernel k-means to obtain the final clustering. The function also gives the user the option to try several different values for the number of clusters both at the level of the individual datasets and for the final clustering. This is the simplest way to perform Kernel Learning Integrative Clustering. However, users may want to include other types of kernels (instead of using only those derived from consensus clustering) or try different parameters for consensus clustering and include all the corresponding kernels in the analysis. Therefore, we also make available some of the functions needed to build a customised KLIC pipeline, that are:
 
 * `spectrumShift`. This function takes as input any symmetryc matrix (including co-clustering matrices) and checks whether it is positive semi-definite. If not, the eigenvalues of matrix are shifted by a (small) constant in order to make sure that it is a valid kernel. 
 
 * `lmkkmeans`. This is a function implemented by Gonen and Margolin (2014) that performs localised kernel k-means on a set of kernel matrices (such as -appropriately shifted- co-clustering matrices, for example).
 
-The package also includes  `coca`, a function that we implemented in order to run the Cluster-Of-Clusters-Analysis of TCGA (2012) and compare it with KLIC. 
+The other function needed for this is 
+* `consensusCluster`. This function can be found in the R package `coca` and is used to perform consensus clustering on one dataset and obtain a co-clustering matrix  (Monti et al. 2003). 
 
 Other functions included in the package are:
 
@@ -56,7 +55,7 @@ for(i in 1: n_datasets){
   # Scale the columns to have zero mean and unitary variance
   scaledData <- scale(data[[i]]) 
   # Use consensus clustering to find the consensus matrix of each dataset
-  CM[,,i] <- consensusCluster(scaledData, K = 6, B = 50)
+  CM[,,i] <- coca::consensusCluster(scaledData, K = 6, B = 50)
 }
 ## Plot consensus matrix of one of the datasets
 plotSimilarityMatrix(CM[,,3])
@@ -124,7 +123,7 @@ for(i in 2:maxK){
 }
 
 # Find value of K that maximises silhouette
-maxSil <- maximiseSilhouette(KM, clLabels, maxK = 6)
+maxSil <- coca::maximiseSilhouette(KM, clLabels, maxK = 6)
 maxSil$k
 ```
 
