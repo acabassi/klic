@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot similarity matrix — plotSimilarityMatrix • klic</title>
+<title>Kernel k-means — kkmeans • klic</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,14 +30,12 @@
 
 
 
-<meta property="og:title" content="Plot similarity matrix — plotSimilarityMatrix" />
+<meta property="og:title" content="Kernel k-means — kkmeans" />
 
-<meta property="og:description" content="Plot similarity matrix. It is possible to plot a side vector that corresponds to a
-response variable Y and to order the rows (and columns) according to some clustering
-structure specified by the variable clusLabels." />
+<meta property="og:description" content="Perform the training step of kernel k-means" />
 <meta name="twitter:card" content="summary" />
 
-<meta name="robots" content="noindex">
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -63,7 +61,7 @@ structure specified by the variable clusLabels." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">klic</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development package">0.0.1.9007</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.1.9007</span>
       </span>
     </div>
 
@@ -111,105 +109,74 @@ structure specified by the variable clusLabels." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot similarity matrix</h1>
-    <small class="dont-index">Source: <a href='http://github.com/acabassi/klic/blob/master/R/plot-similarity-matrix.R'><code>R/plot-similarity-matrix.R</code></a></small>
-    <div class="hidden name"><code>plotSimilarityMatrix.Rd</code></div>
+    <h1>Kernel k-means</h1>
+    <small class="dont-index">Source: <a href='http://github.com/acabassi/klic/blob/master/R/kkmeans.R'><code>R/kkmeans.R</code></a></small>
+    <div class="hidden name"><code>kkmeans.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot similarity matrix. It is possible to plot a side vector that corresponds to a
-response variable Y and to order the rows (and columns) according to some clustering
-structure specified by the variable clusLabels.</p>
+    <p>Perform the training step of kernel k-means</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotSimilarityMatrix</span>(<span class='no'>X</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clusLabels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>colX</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>colY</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>myLegend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='st'>"myheatmap.png"</span>,
-  <span class='kw'>savePNG</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>saveTIKZ</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>saveEPS</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>semiSupervised</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>labRow</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>labCol</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>dendro</span> <span class='kw'>=</span> <span class='st'>"none"</span>)</pre>
+    <pre class="usage"><span class='fu'>kkmeans</span>(<span class='no'>K</span>, <span class='no'>parameters</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>X</th>
-      <td><p>Matrix</p></td>
+      <th>K</th>
+      <td><p>kernel matrix</p></td>
     </tr>
     <tr>
-      <th>y</th>
-      <td><p>Response</p></td>
-    </tr>
-    <tr>
-      <th>clusLabels</th>
-      <td><p>Cluster labels</p></td>
-    </tr>
-    <tr>
-      <th>colX</th>
-      <td><p>Colours for the matrix</p></td>
-    </tr>
-    <tr>
-      <th>colY</th>
-      <td><p>Colours for the response</p></td>
-    </tr>
-    <tr>
-      <th>myLegend</th>
-      <td><p>Vector of strings with the names of the variables</p></td>
-    </tr>
-    <tr>
-      <th>file_name</th>
-      <td><p>Name of the file</p></td>
-    </tr>
-    <tr>
-      <th>savePNG</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as a png file.</p></td>
-    </tr>
-    <tr>
-      <th>saveTIKZ</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as a tikz file.</p></td>
-    </tr>
-    <tr>
-      <th>saveEPS</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as an eps file.</p></td>
-    </tr>
-    <tr>
-      <th>semiSupervised</th>
-      <td><p>Boolean flag: if TRUE, the response is plotted next to the matrix.</p></td>
-    </tr>
-    <tr>
-      <th>scale</th>
-      <td><p>Used as input for the parameter "scale" of the gplot::heatmap.2() function. Can be either "none" or "columns".</p></td>
-    </tr>
-    <tr>
-      <th>labRow</th>
-      <td><p>Vector of row labels, default is NA.</p></td>
-    </tr>
-    <tr>
-      <th>labCol</th>
-      <td><p>Vector of column labels, default is NA.</p></td>
-    </tr>
-    <tr>
-      <th>dendro</th>
-      <td><p>If 'both', plot dendrogram on rows and columns, if 'none' no dendrograms are shown. Default is 'none'.</p></td>
+      <th>parameters</th>
+      <td><p>list of parameters</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Gönen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means clustering with application to cancer biology. In Advances in Neural Information Processing Systems (pp. 1305-1313).</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Load one dataset with 300 observations, 2 variables, 6 clusters</span>
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='fu'>read.csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute consensus clustering with K=6 clusters</span>
-<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='fu'>consensusCluster</span>(<span class='no'>data</span>, <span class='fl'>6</span>)</div><div class='output co'>#&gt; <span class='error'>Error in consensusCluster(data, 6): could not find function "consensusCluster"</span></div><div class='input'><span class='co'># Plot consensus (similarity) matrix</span>
-<span class='fu'>plotSimilarityMatrix</span>(<span class='no'>cm</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gplots::heatmap.2(X, scale = scale, dendrogram = dendro, Rowv = Rowvv,     Colv = Colvv, trace = "none", col = colX, labRow = labRow,     labCol = labCol, symkey = FALSE): `x' must be a numeric matrix</span></div></pre>
+<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>coca</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/coca/topics/consensusCluster'>consensusCluster</a></span>(<span class='no'>data</span>, <span class='fl'>6</span>)
+<span class='co'># Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)</span>
+<span class='no'>km</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='spectrumShift.html'>spectrumShift</a></span>(<span class='no'>cm</span>, <span class='kw'>coeff</span> <span class='kw'>=</span> <span class='fl'>1.05</span>)
+<span class='co'># Initalize the parameters of the algorithm</span>
+<span class='no'>parameters</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>()
+<span class='co'># Set the number of clusters</span>
+<span class='no'>parameters</span>$<span class='no'>cluster_count</span> <span class='kw'>&lt;-</span> <span class='fl'>6</span>
+<span class='co'>#perform training</span>
+<span class='no'>state</span> <span class='kw'>&lt;-</span> <span class='fu'>kkmeans</span>(<span class='no'>km</span>, <span class='no'>parameters</span>)
+<span class='co'># Display the clustering</span>
+<span class='fu'>print</span>(<span class='no'>state</span>$<span class='no'>clustering</span>)</div><div class='output co'>#&gt;   [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+#&gt;  [38] 2 2 2 2 2 2 2 2 2 3 2 2 2 3 3 3 3 3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 6 3 3
+#&gt;  [75] 3 3 3 3 3 3 3 3 3 6 3 3 2 3 3 3 3 3 3 3 3 3 3 3 3 2 6 6 3 6 3 5 6 3 3 6 6
+#&gt; [112] 6 6 6 3 6 3 6 6 6 6 6 6 6 6 6 6 3 6 3 6 6 6 6 6 6 6 3 6 6 6 6 6 6 6 6 6 6
+#&gt; [149] 6 5 5 5 6 5 5 5 5 5 5 1 5 6 5 5 5 5 5 5 1 5 5 5 5 5 5 6 5 5 5 5 6 5 5 1 5
+#&gt; [186] 5 5 5 5 5 5 5 5 5 5 5 5 5 5 6 1 1 1 1 1 5 1 5 5 1 1 1 1 1 1 1 4 1 5 1 1 1
+#&gt; [223] 1 4 1 1 1 1 5 1 1 1 1 1 4 1 1 1 1 1 1 4 5 1 1 5 1 1 1 1 4 4 4 4 4 4 4 4 4
+#&gt; [260] 4 4 4 4 4 4 1 4 4 4 4 4 4 1 4 4 4 4 4 4 1 4 4 1 4 4 4 1 4 4 4 4 4 4 4 4 4
+#&gt; [297] 1 4 4 4</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#references">References</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
+
+    <h2>Author</h2>
+    
+Mehmet Gonen
 
   </div>
 </div>

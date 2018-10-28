@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cophenetic correlation coefficient — copheneticCorrelation • klic</title>
+<title>Articles • klic</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,14 +30,9 @@
 
 
 
-<meta property="og:title" content="Cophenetic correlation coefficient — copheneticCorrelation" />
+<meta property="og:title" content="Articles" />
 
-<meta property="og:description" content="Compute the cophenetic correlation coefficient of a kernel matrix, which is
-a measure of howfaithfully hierarchical clustering would preserve the
-pairwise distances between the original data points." />
-<meta name="twitter:card" content="summary" />
 
-<meta name="robots" content="noindex">
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -51,7 +46,7 @@ pairwise distances between the original data points." />
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-article-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -63,7 +58,7 @@ pairwise distances between the original data points." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">klic</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development package">0.0.1.9007</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.1.9007</span>
       </span>
     </div>
 
@@ -111,57 +106,17 @@ pairwise distances between the original data points." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cophenetic correlation coefficient</h1>
-    <small class="dont-index">Source: <a href='http://github.com/acabassi/klic/blob/master/R/cophenetic-correlation.R'><code>R/cophenetic-correlation.R</code></a></small>
-    <div class="hidden name"><code>copheneticCorrelation.Rd</code></div>
+      <h1>Articles</h1>
     </div>
 
-    <div class="ref-description">
-    
-    <p>Compute the cophenetic correlation coefficient of a kernel matrix, which is
-a measure of howfaithfully hierarchical clustering would preserve the
-pairwise distances between the original data points.</p>
-    
+    <div class="section ">
+      <h3>All vignettes</h3>
+      <p class="section-desc"></p>
+
+      <ul>
+        <li><a href="klic-vignette.html">Introduction to klic</a></li>
+      </ul>
     </div>
-
-    <pre class="usage"><span class='fu'>copheneticCorrelation</span>(<span class='no'>kernelMatrix</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>kernelMatrix</th>
-      <td><p>kernel matrix.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Sokal, R.R. and Rohlf, F.J., 1962. The comparison of dendrograms by objective methods. Taxon, 11(2), pp.33-40.</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Load kernel matrix</span>
-<span class='no'>km</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='fu'>read.csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata"</span>,
-<span class='st'>"kernel-matrix1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
-<span class='co'># Compute cophenetic correlation</span>
-<span class='no'>ccc</span> <span class='kw'>&lt;-</span> <span class='fu'>copheneticCorrelation</span>(<span class='no'>km</span>)
-<span class='fu'>print</span>(<span class='no'>ccc</span>)</div><div class='output co'>#&gt; [1] 0.9012553</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    
-Alessandra Cabassi <a href='mailto:ac2051@cam.ac.uk'>ac2051@cam.ac.uk</a>
-
   </div>
 </div>
 

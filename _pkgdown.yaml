@@ -1,4 +1,3 @@
-
 template:
   params:
     bootswatch: yeti
@@ -17,6 +16,4 @@ navbar:
 
 authors:
   Alessandra Cabassi:
-    href: https://alessandracabassi.wordpress.com  
-development:
-  mode: devel
+    href: https://alessandracabassi.wordpress.com

@@ -12,7 +12,6 @@
 <script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to klic">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
-<meta name="robots" content="noindex">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -30,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">klic</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development package">0.0.1.9007</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.1.9007</span>
       </span>
     </div>
 
@@ -80,7 +79,7 @@
       <h1>Introduction to klic</h1>
                         <h4 class="author">Alessandra Cabassi</h4>
             
-            <h4 class="date">2018-10-25</h4>
+            <h4 class="date">2018-10-28</h4>
       
       <small class="dont-index">Source: <a href="http://github.com/acabassi/klic/blob/master/vignettes/klic-vignette.Rmd"><code>vignettes/klic-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>klic-vignette.Rmd</code></div>
@@ -126,7 +125,7 @@
 <a class="sourceLine" id="cb2-9" data-line-number="9">}</a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">## Plot consensus matrix of one of the datasets</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw"><a href="../reference/plotSimilarityMatrix.html">plotSimilarityMatrix</a></span>(CM[,,<span class="dv">3</span>])</a></code></pre></div>
-<p><img src="../docs/dev/articles/klic-vignette_files/figure-html/consensus_cluster-1.png" width="700"></p>
+<p><img src="klic-vignette_files/figure-html/consensus_cluster-1.png" width="700"></p>
 <p>Before using kernel methods, we need to make sure that all the consensus matrices are positive semi-definite.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">## Check if consensus matrices are PSD and shift eigenvalues if needed.</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="st"> </span>n_datasets){</a>
@@ -134,7 +133,7 @@
 <a class="sourceLine" id="cb3-4" data-line-number="4">}</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">## Plot updated consensus matrix of one of the datasets</span></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="../reference/plotSimilarityMatrix.html">plotSimilarityMatrix</a></span>(CM[,,<span class="dv">3</span>])</a></code></pre></div>
-<p><img src="../docs/dev/articles/klic-vignette_files/figure-html/spectrum_shift-1.png" width="700"></p>
+<p><img src="klic-vignette_files/figure-html/spectrum_shift-1.png" width="700"></p>
 <p>Now we can perform localised kernel k-kmeans on the set of consensus matrices using the function <code>lmkkmeans</code> to find a global clustering. This functions also need to be provided with a list of parameters containing the prespecified number of clusters and the maximum number of iterations for the k-means algorihtm.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">## Perform localised kernel k-means on the consensus matrices</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">library</span>(Matrix)</a>
@@ -149,7 +148,7 @@
 <a class="sourceLine" id="cb5-3" data-line-number="3">true_labels &lt;-<span class="st"> </span><span class="kw">c</span>(ones, ones<span class="op">*</span><span class="dv">2</span>, ones<span class="op">*</span><span class="dv">3</span>, ones<span class="op">*</span><span class="dv">4</span>, ones<span class="op">*</span><span class="dv">5</span>, ones<span class="op">*</span><span class="dv">6</span>)</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">library</span>(mclust, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw"><a href="http://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex">adjustedRandIndex</a></span>(true_labels, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.8993087</code></pre>
+<pre><code>## [1] 0.8921631</code></pre>
 <p>If the global number of clusters is not known, one can find the weights and clusters for different values of K and then find the one that maximises the silhouette.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">## Find the value of k that maximises the silhouette</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
@@ -183,7 +182,7 @@
 <p>The same can be done simply using the function <code>klic</code></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">klic &lt;-<span class="st"> </span><span class="kw"><a href="../reference/klic.html">klic</a></span>(data, <span class="dt">M =</span> n_datasets, <span class="dt">individualK =</span> <span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>))</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">klic<span class="op">$</span>globalK</a></code></pre></div>
-<pre><code>## [1] 6</code></pre>
+<pre><code>## NULL</code></pre>
 </section><section id="other-useful-functions" class="level1"><h1>Other useful functions</h1>
 <p><code>kkmeans</code> is the analogous of <code>lmkkmeans</code>, for just one dataset at a time.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co">## Set parameters of the kernel k-means algorithm</span></a>
@@ -195,7 +194,7 @@
 <a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">## Compare clustering to the true labels</span></a>
 <a class="sourceLine" id="cb11-8" data-line-number="8">clusterLabels &lt;-<span class="st"> </span>kkm<span class="op">$</span>clustering</a>
 <a class="sourceLine" id="cb11-9" data-line-number="9"><span class="kw"><a href="http://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex">adjustedRandIndex</a></span>(true_labels, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.899645</code></pre>
+<pre><code>## [1] 0.8921631</code></pre>
 <p>We also included <code>copheneticCorrelation</code>, a function that calculates the cophenetic correlation coefficient of a similarity matrix:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">## Compute cophenetic correlation coefficient for each consensus matrix</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2">ccc &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, n_datasets)</a>
@@ -203,7 +202,7 @@
 <a class="sourceLine" id="cb13-4" data-line-number="4">  ccc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/copheneticCorrelation.html">copheneticCorrelation</a></span>(CM[,,i])</a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">}</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6">ccc</a></code></pre></div>
-<pre><code>## [1] 0.9077940 0.8939368 0.8804504</code></pre>
+<pre><code>## [1] 0.9194493 0.8675228 0.9002285</code></pre>
 <p>The cophenetic correlation coefficient is a measure of how faithfully hierarchical clustering would preserve the pairwise distances between the original data points.</p>
 <p>There is also a function that can be used to plot similarity matrices, ordered by cluster label, and with an additional side label for each row and to save the output in different formats. It is called <code>plotSimilarityMatrix</code>.</p>
 </section><section id="references" class="level1"><h1>References</h1>
