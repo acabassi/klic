@@ -22,8 +22,7 @@ The main function in this package is `klic`. It takes as input a list of dataset
 
 * `lmkkmeans`. This is a function implemented by Gonen and Margolin (2014) that performs localised kernel k-means on a set of kernel matrices (such as -appropriately shifted- co-clustering matrices, for example).
 
-The other function needed for this is 
-* `consensusCluster`. This function can be found in the R package `coca` and is used to perform consensus clustering on one dataset and obtain a co-clustering matrix  (Monti et al. 2003). 
+The other function needed for this is `consensusCluster`. This function can be found in the R package `coca` and is used to perform consensus clustering on one dataset and obtain a co-clustering matrix  (Monti et al. 2003). 
 
 Other functions included in the package are:
 

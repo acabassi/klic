@@ -79,7 +79,7 @@
       <h1>Introduction to klic</h1>
                         <h4 class="author">Alessandra Cabassi</h4>
             
-            <h4 class="date">2018-10-28</h4>
+            <h4 class="date">2018-10-29</h4>
       
       <small class="dont-index">Source: <a href="http://github.com/acabassi/klic/blob/master/vignettes/klic-vignette.Rmd"><code>vignettes/klic-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>klic-vignette.Rmd</code></div>
@@ -95,7 +95,7 @@
 <li><p><code>spectrumShift</code>. This function takes as input any symmetryc matrix (including co-clustering matrices) and checks whether it is positive semi-definite. If not, the eigenvalues of matrix are shifted by a (small) constant in order to make sure that it is a valid kernel.</p></li>
 <li><p><code>lmkkmeans</code>. This is a function implemented by Gonen and Margolin (2014) that performs localised kernel k-means on a set of kernel matrices (such as -appropriately shifted- co-clustering matrices, for example).</p></li>
 </ul>
-<p>The other function needed for this is * <code>consensusCluster</code>. This function can be found in the R package <code>coca</code> and is used to perform consensus clustering on one dataset and obtain a co-clustering matrix (Monti et al. 2003).</p>
+<p>The other function needed for this is <code>consensusCluster</code>. This function can be found in the R package <code>coca</code> and is used to perform consensus clustering on one dataset and obtain a co-clustering matrix (Monti et al. 2003).</p>
 <p>Other functions included in the package are:</p>
 <ul>
 <li>
@@ -148,7 +148,7 @@
 <a class="sourceLine" id="cb5-3" data-line-number="3">true_labels &lt;-<span class="st"> </span><span class="kw">c</span>(ones, ones<span class="op">*</span><span class="dv">2</span>, ones<span class="op">*</span><span class="dv">3</span>, ones<span class="op">*</span><span class="dv">4</span>, ones<span class="op">*</span><span class="dv">5</span>, ones<span class="op">*</span><span class="dv">6</span>)</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">library</span>(mclust, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw"><a href="http://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex">adjustedRandIndex</a></span>(true_labels, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.8921631</code></pre>
+<pre><code>## [1] 0.8850316</code></pre>
 <p>If the global number of clusters is not known, one can find the weights and clusters for different values of K and then find the one that maximises the silhouette.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">## Find the value of k that maximises the silhouette</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
@@ -194,7 +194,7 @@
 <a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">## Compare clustering to the true labels</span></a>
 <a class="sourceLine" id="cb11-8" data-line-number="8">clusterLabels &lt;-<span class="st"> </span>kkm<span class="op">$</span>clustering</a>
 <a class="sourceLine" id="cb11-9" data-line-number="9"><span class="kw"><a href="http://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex">adjustedRandIndex</a></span>(true_labels, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.8921631</code></pre>
+<pre><code>## [1] 0.8850316</code></pre>
 <p>We also included <code>copheneticCorrelation</code>, a function that calculates the cophenetic correlation coefficient of a similarity matrix:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">## Compute cophenetic correlation coefficient for each consensus matrix</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2">ccc &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, n_datasets)</a>
@@ -202,7 +202,7 @@
 <a class="sourceLine" id="cb13-4" data-line-number="4">  ccc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/copheneticCorrelation.html">copheneticCorrelation</a></span>(CM[,,i])</a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">}</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6">ccc</a></code></pre></div>
-<pre><code>## [1] 0.9194493 0.8675228 0.9002285</code></pre>
+<pre><code>## [1] 0.8933803 0.8863156 0.8948024</code></pre>
 <p>The cophenetic correlation coefficient is a measure of how faithfully hierarchical clustering would preserve the pairwise distances between the original data points.</p>
 <p>There is also a function that can be used to plot similarity matrices, ordered by cluster label, and with an additional side label for each row and to save the output in different formats. It is called <code>plotSimilarityMatrix</code>.</p>
 </section><section id="references" class="level1"><h1>References</h1>
