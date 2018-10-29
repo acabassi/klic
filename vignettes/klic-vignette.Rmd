@@ -18,7 +18,7 @@ The R package **klic** (**K**ernel **L**earning **I**ntegrative **C**lustering) 
 
 The main function in this package is `klic`. It takes as input a list of datasets and builds one kernel per dataset, using consensus clustering. The kernels are then combined through localised kernel k-means to obtain the final clustering. The function also gives the user the option to try several different values for the number of clusters both at the level of the individual datasets and for the final clustering. This is the simplest way to perform Kernel Learning Integrative Clustering. However, users may want to include other types of kernels (instead of using only those derived from consensus clustering) or try different parameters for consensus clustering and include all the corresponding kernels in the analysis. Therefore, we also make available some of the functions needed to build a customised KLIC pipeline, that are:
 
-* `spectrumShift`. This function takes as input any symmetryc matrix (including co-clustering matrices) and checks whether it is positive semi-definite. If not, the eigenvalues of matrix are shifted by a (small) constant in order to make sure that it is a valid kernel. 
+* `spectrumShift`. This function takes as input any symmetric matrix (including co-clustering matrices) and checks whether it is positive semi-definite. If not, the eigenvalues of matrix are shifted by a (small) constant in order to make sure that it is a valid kernel. 
 
 * `lmkkmeans`. This is a function implemented by Gonen and Margolin (2014) that performs localised kernel k-means on a set of kernel matrices (such as -appropriately shifted- co-clustering matrices, for example).
 

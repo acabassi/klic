@@ -15,7 +15,13 @@
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-128138627-4"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128138627-4');
+</script>
 </head>
 <body>
     <div class="container template-article">
@@ -92,7 +98,7 @@
 <p>The R package <strong>klic</strong> (<strong>K</strong>ernel <strong>L</strong>earning <strong>I</strong>ntegrative <strong>C</strong>lustering) contains a collection of tools for integrative clustering of multiple data types.</p>
 <p>The main function in this package is <code>klic</code>. It takes as input a list of datasets and builds one kernel per dataset, using consensus clustering. The kernels are then combined through localised kernel k-means to obtain the final clustering. The function also gives the user the option to try several different values for the number of clusters both at the level of the individual datasets and for the final clustering. This is the simplest way to perform Kernel Learning Integrative Clustering. However, users may want to include other types of kernels (instead of using only those derived from consensus clustering) or try different parameters for consensus clustering and include all the corresponding kernels in the analysis. Therefore, we also make available some of the functions needed to build a customised KLIC pipeline, that are:</p>
 <ul>
-<li><p><code>spectrumShift</code>. This function takes as input any symmetryc matrix (including co-clustering matrices) and checks whether it is positive semi-definite. If not, the eigenvalues of matrix are shifted by a (small) constant in order to make sure that it is a valid kernel.</p></li>
+<li><p><code>spectrumShift</code>. This function takes as input any symmetric matrix (including co-clustering matrices) and checks whether it is positive semi-definite. If not, the eigenvalues of matrix are shifted by a (small) constant in order to make sure that it is a valid kernel.</p></li>
 <li><p><code>lmkkmeans</code>. This is a function implemented by Gonen and Margolin (2014) that performs localised kernel k-means on a set of kernel matrices (such as -appropriately shifted- co-clustering matrices, for example).</p></li>
 </ul>
 <p>The other function needed for this is <code>consensusCluster</code>. This function can be found in the R package <code>coca</code> and is used to perform consensus clustering on one dataset and obtain a co-clustering matrix (Monti et al. 2003).</p>
