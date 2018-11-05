@@ -6,24 +6,24 @@ In order to install this package, you will need to have _Rmosek_ installed.
 
 ### Installing Rmosek [Linux]
 
-* Download mosek from https://www.mosek.com/downloads/ to `my-downloads-directory`:
+* Download mosek from https://www.mosek.com/downloads/ to any folder (usually `/home/<username>/bin`). We will refer to it as `<my-mosek-directory>`.
 * Unzip it:
 ```bash
-cd my-downloads-directory
+cd <my-mosek-directory>
 tar -xvf mosektoolslinux64x86.tar.bz2
 ```
-* Add the following to your `~/.bashrc`
+* Add the following to your `~/.bashrc` file:
 
 ```bash
-export PATH=$PATH:/home/username/bin/mosek/8/tools/platform/linux64x86/bin
+export PATH=$PATH:<my-mosek-directory>/mosek/8/tools/platform/linux64x86/bin
 ```
 
-* If you are eligible apply for a free academic license at https://www.mosek.com/products/academic-licenses/ You will receive it via email. 
-* Put the license file in `~/mosek`
+* If you are eligible apply for a free personal academic license at https://www.mosek.com/products/academic-licenses/ You will receive it (immediately) via email. 
+* Put the license file in `<my-mosek-directory>/mosek`
 * Proceed with the installation of _mosek_
 
 ```bash
-export PKG_MOSEKHOME=/home/username/bin/mosek/8/tools/platform/linux64x86`
+export PKG_MOSEKHOME=<my-mosek-directory>/mosek/8/tools/platform/linux64x86
 export PKG_MOSEKLIB=mosek64
 ```
 * Now that you have _mosek_ installed, you can open R and install the _Rmosek_ package with 
