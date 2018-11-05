@@ -4,7 +4,7 @@
 
 In order to install this package, you will need to have _Rmosek_ installed. 
 
-### Installing Rmosek
+### Installing Rmosek [Linux]
 
 * Download mosek from https://www.mosek.com/downloads/ to `my-downloads-directory`:
 * Unzip it:
