@@ -18,8 +18,8 @@ tar -xvf mosektoolslinux64x86.tar.bz2
 export PATH=$PATH:/home/username/bin/mosek/8/tools/platform/linux64x86/bin
 ```
 
-* If you are eligible apply for a free academic license at https://www.mosek.com/products/academic-licenses/ You will receive via email. 
-* Put the licsense file in `~/mosek`
+* If you are eligible apply for a free academic license at https://www.mosek.com/products/academic-licenses/ You will receive it via email. 
+* Put the license file in `~/mosek`
 * Proceed with the installation of _mosek_
 
 ```bash
