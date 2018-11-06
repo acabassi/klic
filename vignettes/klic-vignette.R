@@ -6,6 +6,8 @@ data3 <- as.matrix(read.csv(system.file("extdata", "dataset3.csv", package = "kl
 data <- list(data1, data2, data3)
 n_datasets <- 3
 N <- dim(data[[1]])[1]
+trueLab <- as.matrix(read.csv(system.file("extdata", "cluster_labels.csv", 
+                                                 package = "klic"), row.names = 1))
 
 ## ----consensus_cluster, fig.show='hold', warning=FALSE, cache=TRUE-------
 ## Compute co-clustering matrices for each dataset
@@ -18,7 +20,11 @@ for(i in 1: n_datasets){
   CM[,,i] <- coca::consensusCluster(scaledData, K = 6, B = 50)
 }
 ## Plot consensus matrix of one of the datasets
-plotSimilarityMatrix(CM[,,3])
+trueLab <- as.factor(trueLab)
+names(trueLab) <- as.character(1:N)
+CM3 <- as.matrix(CM[,,3])
+rownames(CM3) <- colnames(CM3) <- names(trueLab)
+plotSimilarityMatrix2(CM3, y = as.data.frame(trueLab))
 
 ## ----spectrum_shift, fig.show='hold', warning=FALSE, cache=TRUE----------
 ## Check if consensus matrices are PSD and shift eigenvalues if needed.
@@ -26,7 +32,11 @@ for(i in 1: n_datasets){
   CM[,,i] <- spectrumShift(CM[,,i], verbose = FALSE)
 }
 ## Plot updated consensus matrix of one of the datasets
-plotSimilarityMatrix(CM[,,3])
+trueLab <- as.factor(trueLab)
+names(trueLab) <- as.character(1:N)
+CM3 <- as.matrix(CM[,,3])
+rownames(CM3) <- colnames(CM3) <- names(trueLab)
+plotSimilarityMatrix2(CM3, y = as.data.frame(trueLab))
 
 ## ----lmk_kmeans, fig.show='hold', warning=FALSE, cache=TRUE--------------
 ## Perform localised kernel k-means on the consensus matrices
@@ -39,10 +49,8 @@ lmkkm <- lmkkmeans(CM, parameters)
 
 ## ----ari, fig.show='hold', warning=FALSE, cache=TRUE---------------------
 ## Compare clustering found with KLIC to the true one
-ones <- rep(1, N/parameters$cluster_count)
-true_labels <- c(ones, ones*2, ones*3, ones*4, ones*5, ones*6)
 library(mclust, verbose = FALSE)
-adjustedRandIndex(true_labels, lmkkm$clustering) 
+adjustedRandIndex(trueLab, lmkkm$clustering) 
 
 ## ----maximise_silhouette, fig.show='hold', warning=FALSE, cache=TRUE-----
 ## Find the value of k that maximises the silhouette
@@ -87,7 +95,7 @@ parameters$iteration_count <- 100
 kkm <- kkmeans(CM[,,3], parameters)
 ## Compare clustering to the true labels
 clusterLabels <- kkm$clustering
-adjustedRandIndex(true_labels, lmkkm$clustering) 
+adjustedRandIndex(trueLab, lmkkm$clustering) 
 
 ## ----cophenetic_correlation, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE----
 ## Compute cophenetic correlation coefficient for each consensus matrix
