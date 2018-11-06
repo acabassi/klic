@@ -1,7 +1,7 @@
 #' Plot similarity matrix with pheatmap
 #'
-#' @param X Matrix
-#' @param y Response
+#' @param X Similarity matrix.
+#' @param y Vector
 #' @param clusLabels Cluster labels
 #' @param colX Colours for the matrix
 #' @param colY Colours for the response
@@ -14,8 +14,8 @@
 #' @param showObsNames Boolean. If TRUE, observation names are shown in the plot. Default is FALSE.
 #' @param clr Boolean. If TRUE, rows are ordered by hierarchical clustering. Default is FALSE.
 #' @param clc Boolean. If TRUE, columns are ordered by hierarchical clustering. Default is FALSE.
-#' @param plotWidth Plot width. Default is 8.75.
-#' @param plotHeight Plot height. Default is 7.
+#' @param plotWidth Plot width. Default is 500.
+#' @param plotHeight Plot height. Default is 450.
 #' @examples
 #' # Load one dataset with 300 observations, 2 variables, 6 clusters
 #' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
@@ -37,7 +37,7 @@ plotSimilarityMatrix2 = function(X, y = NULL, clusLabels = NULL, colX = NULL, co
                                  semiSupervised = FALSE,
                                  scale = "none",  showObsNames = FALSE,
                                  clr = FALSE, clc = FALSE,
-                                 plotWidth = 8.75, plotHeight = 7){
+                                 plotWidth = 500, plotHeight = 450){
 
     if(!is.null(y)){
         # Check if the rownames correspond to the ones in the similarity matrix
@@ -46,10 +46,20 @@ plotSimilarityMatrix2 = function(X, y = NULL, clusLabels = NULL, colX = NULL, co
     }
 
     if(!is.null(clusLabels)){
-        # Riordinare...
+
+        if(!is.integer(clusLabels))
+            stop("Cluster labels must be integers.")
+
+        n_clusters <- length(table(clusLabels))
+        riordina <- NULL
+        for (i in 1:n_clusters){
+            riordina <- c(riordina, which(clusLabels==i))
+        }
+        X <- X[riordina,riordina]
+        y <- y[riordina]
     }
 
-    if(save) grDevices::pdf(fileName, width = plotWidth, height = plotHeight)
+    if(save) grDevices::png(fileName, width = plotWidth, height = plotHeight)
 
     pheatmap::pheatmap(X, legend = TRUE,
                      color =  c("white", (RColorBrewer::brewer.pal(n = 6, name = "PuBu"))),
