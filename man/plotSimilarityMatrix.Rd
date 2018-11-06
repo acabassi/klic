@@ -33,7 +33,8 @@ plotSimilarityMatrix(X, y = NULL, clusLabels = NULL, colX = NULL,
 
 \item{semiSupervised}{Boolean flag: if TRUE, the response is plotted next to the matrix.}
 
-\item{scale}{Used as input for the parameter "scale" of the gplot::heatmap.2() function. Can be either "none" or "columns".}
+\item{scale}{Used as input for the parameter "scale" of the gplot::heatmap.2() function.
+Can be either "none" or "columns".}
 
 \item{labRow}{Vector of row labels, default is NA.}
 
@@ -48,9 +49,10 @@ structure specified by the variable clusLabels.
 }
 \examples{
 # Load one dataset with 300 observations, 2 variables, 6 clusters
-data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
+package = "klic"), row.names = 1))
 # Compute consensus clustering with K=6 clusters
-cm <- consensusCluster(data, 6)
+cm <- coca::consensusCluster(data, 6)
 # Plot consensus (similarity) matrix
 plotSimilarityMatrix(cm)
 }

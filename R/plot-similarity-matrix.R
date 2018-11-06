@@ -14,32 +14,41 @@
 #' @param saveTIKZ Boolean flag: if TRUE, the plot is saved as a tikz file.
 #' @param saveEPS Boolean flag: if TRUE, the plot is saved as an eps file.
 #' @param semiSupervised Boolean flag: if TRUE, the response is plotted next to the matrix.
-#' @param scale Used as input for the parameter "scale" of the gplot::heatmap.2() function. Can be either "none" or "columns".
+#' @param scale Used as input for the parameter "scale" of the gplot::heatmap.2() function.
+#' Can be either "none" or "columns".
 #' @param labRow Vector of row labels, default is NA.
 #' @param labCol Vector of column labels, default is NA.
 #' @param dendro If 'both', plot dendrogram on rows and columns, if 'none' no dendrograms are shown. Default is 'none'.
 #' @examples
 #' # Load one dataset with 300 observations, 2 variables, 6 clusters
-#' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+#' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
+#' package = "klic"), row.names = 1))
 #' # Compute consensus clustering with K=6 clusters
-#' cm <- consensusCluster(data, 6)
+#' cm <- coca::consensusCluster(data, 6)
 #' # Plot consensus (similarity) matrix
 #' plotSimilarityMatrix(cm)
 #' @export
 #'
-plotSimilarityMatrix = function(X, y = NULL, clusLabels = NULL, colX = NULL, colY = NULL, myLegend = NULL,
-                                file_name = "myheatmap.png", savePNG = FALSE, saveTIKZ = FALSE, saveEPS = FALSE, semiSupervised = FALSE,
+plotSimilarityMatrix = function(X, y = NULL, clusLabels = NULL, colX = NULL, colY = NULL,
+                                myLegend = NULL, file_name = "myheatmap.png", savePNG = FALSE,
+                                saveTIKZ = FALSE, saveEPS = FALSE, semiSupervised = FALSE,
                                 scale = "none", labRow = NA, labCol = NA, dendro = "none"){
 
   ### Set the colours for the similarity matrix
   if(is.null(colX)){
-    colX= grDevices::colorRampPalette(c(grDevices::rgb(232/255, 119/255, 34/255), grDevices::rgb(1,1,1), grDevices::rgb(0/255, 114/255, 206/255))) # white - blue
+    colX= grDevices::colorRampPalette(c(grDevices::rgb(232/255, 119/255, 34/255),
+                                        grDevices::rgb(1,1,1),
+                                        grDevices::rgb(0/255, 114/255, 206/255))) # white - blue
   }else if(colX == "dark"){
-    colX= grDevices::colorRampPalette(c(grDevices::rgb(190/255, 77/255, 0/255), grDevices::rgb(1,1,1), grDevices::rgb(0/255, 60/255, 113/255))) # white - blue
+    colX= grDevices::colorRampPalette(c(grDevices::rgb(190/255, 77/255, 0/255),
+                                        grDevices::rgb(1,1,1),
+                                        grDevices::rgb(0/255, 60/255, 113/255))) # white - blue
   }else if(colX == "default"){
     colX = "heat.colors"
   }else if(colX == "weights"){
-    colX = grDevices::colorRampPalette(c(grDevices::rgb(213/255, 0/255, 50/255), grDevices::rgb(1,1,1), grDevices::rgb(0/255, 176/255, 185/255)))
+    colX = grDevices::colorRampPalette(c(grDevices::rgb(213/255, 0/255, 50/255),
+                                         grDevices::rgb(1,1,1),
+                                         grDevices::rgb(0/255, 176/255, 185/255)))
   }
 
   ### Set the options to save the plot in a file
@@ -85,7 +94,8 @@ plotSimilarityMatrix = function(X, y = NULL, clusLabels = NULL, colX = NULL, col
     if(dim(table(clusLabels))>length(colY)) {
       cl <- grDevices::colors(distinct = TRUE)
       set.seed(151) # to set random generator seed
-      colY <- sample(cl, dim(table(clusLabels))) #stop("There are more classes than colours available.")
+      colY <- sample(cl, dim(table(clusLabels)))
+      #stop("There are more classes than colours available.")
     }
 
     rowseparators = cumsum(table(clusLabels))
@@ -113,7 +123,8 @@ plotSimilarityMatrix = function(X, y = NULL, clusLabels = NULL, colX = NULL, col
               labCol = labCol,
               key = FALSE
     )
-    if(!is.null(myLegend)) graphics::legend("bottomleft", legend = myLegend, col = colY, lty = 1, lwd = 4, bty ="n")
+    if(!is.null(myLegend)) graphics::legend("bottomleft", legend = myLegend, col = colY,
+                                            lty = 1, lwd = 4, bty ="n")
   }else{
 
     if(dendro == 'both'){
@@ -141,7 +152,8 @@ plotSimilarityMatrix = function(X, y = NULL, clusLabels = NULL, colX = NULL, col
               # key = FALSE,
               symkey = FALSE
     )
-    if(!is.null(myLegend)) graphics::legend("bottomleft", legend = myLegend, col = colY, lty = 1, lwd = 4, bty ="n")
+    if(!is.null(myLegend)) graphics::legend("bottomleft", legend = myLegend, col = colY,
+                                            lty = 1, lwd = 4, bty ="n")
   }
 
   if(savePNG || saveTIKZ) grDevices::dev.off()

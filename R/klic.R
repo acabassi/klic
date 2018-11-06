@@ -1,18 +1,37 @@
 #' Kernel learning integrative clustering
 #'
-#'Perform kernel learning integrative clustering
+#' This function allows to perform Kernel Learning Integrative Clustering on `M` data sets relative
+#' to the same observations. The similarities between the observations in each data set
+#' are summarised into `M` different kernels, that are then fed into a kernel k-means clustering
+#' algorithm. The output is a clustering of the observations that takes into account all the
+#' available data types and a set of weights that sum up to one, indicating how much each data set
+#' contributed to the kernel k-means clustering.
 #'
 #' @param data List of M datasets, each of size N X P_m, m = 1, ..., M.
 #' @param M number of datasets.
-#' @param individualK Vector containing the number of clusters in each dataset. Default is NULL. If the number of clusters is not provided, then all the possible values between 2 and individualMaxK are considered and the best value is chosen for each dataset by maximising the silhouette.
+#' @param individualK Vector containing the number of clusters in each dataset. Default is NULL.
+#' If the number of clusters is not provided, then all the possible values between 2 and individualMaxK
+#' are considered and the best value is chosen for each dataset by maximising the silhouette.
 #' @param individualMaxK Maximum number of clusters considered for the individual data. Default is 6.
-#' @param individualClAlgorithm Clustering algorithm used for clustering of each dataset individually if is required to find the best number of clusters.
-#' @param globalK Number of global clusters. Default is NULL. If the number of clusters is not provided, then all the possible values between 2 and globalMaxK are considered and the best value is chosen by maximising the silhouette.
+#' @param individualClAlgorithm Clustering algorithm used for clustering of each dataset individually
+#' if is required to find the best number of clusters.
+#' @param globalK Number of global clusters. Default is NULL. If the number of clusters is not provided,
+#' then all the possible values between 2 and globalMaxK are considered and the best value is chosen by
+#' maximising the silhouette.
 #' @param globalMaxK Maximum number of clusters considered for the final clustering. Default is 6.
 #' @param B Number of iterations for consensus clustering. Default is 1000.
 #' @param C Maximum number of iterations for localised kernel k-means. Default is 100.
-#' @param savePlots Boolean. If TRUE, a plot of the silhouette is saved in the working folder. Default is FALSE.
+#' @param savePlots Boolean. If TRUE, a plot of the silhouette is saved in the working folder.
+#' Default is FALSE.
 #' @param fileName If savePlots is TRUE, this is the name of the png file.
+#' @return The function returns `consensusMatrices`, which is an array containing one consensus matrix
+#' per data set, `weights`, that is a vector containing the weights assigned by the kernel k-means
+#' algorithm to each consensu matrix, `globalClusterLabels`, a vector containing the cluster labels
+#' of the observations, according to kernel k-means clustering done on the kernel matrices. If the number
+#' of clusters is not provided, the function also returns `bestK`, the best number of clusters between
+#' 2 and `maxIndividualK` for each data set. Similarly, if the final number of clusters is not
+#' provided, the best number of clusters for the final (global) clustering `globalK` is also returned.
+#' This too is chosen so as to maximise the silhouette index.
 #' @author Alessandra Cabassi \email{ac2051@cam.ac.uk}
 #' @examples
 #' # Load synthetic data

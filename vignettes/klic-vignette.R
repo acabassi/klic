@@ -15,7 +15,7 @@ for(i in 1: n_datasets){
   # Scale the columns to have zero mean and unitary variance
   scaledData <- scale(data[[i]]) 
   # Use consensus clustering to find the consensus matrix of each dataset
-  CM[,,i] <- consensusCluster(scaledData, K = 6, B = 50)
+  CM[,,i] <- coca::consensusCluster(scaledData, K = 6, B = 50)
 }
 ## Plot consensus matrix of one of the datasets
 plotSimilarityMatrix(CM[,,3])
@@ -71,7 +71,7 @@ for(i in 2:maxK){
 }
 
 # Find value of K that maximises silhouette
-maxSil <- maximiseSilhouette(KM, clLabels, maxK = 6)
+maxSil <- coca::maximiseSilhouette(KM, clLabels, maxK = 6)
 maxSil$k
 
 ## ----klic, fig.show='hold', warning=FALSE, cache=TRUE--------------------

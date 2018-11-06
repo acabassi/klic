@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot similarity matrix — plotSimilarityMatrix • klic</title>
+<title>Plot similarity matrix with pheatmap — plotSimilarityMatrix2 • klic</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,11 +30,9 @@
 
 
 
-<meta property="og:title" content="Plot similarity matrix — plotSimilarityMatrix" />
+<meta property="og:title" content="Plot similarity matrix with pheatmap — plotSimilarityMatrix2" />
 
-<meta property="og:description" content="Plot similarity matrix. It is possible to plot a side vector that corresponds to a
-response variable Y and to order the rows (and columns) according to some clustering
-structure specified by the variable clusLabels." />
+<meta property="og:description" content="Plot similarity matrix with pheatmap" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,24 +119,22 @@ structure specified by the variable clusLabels." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot similarity matrix</h1>
-    <small class="dont-index">Source: <a href='http://github.com/acabassi/klic/blob/master/R/plot-similarity-matrix.R'><code>R/plot-similarity-matrix.R</code></a></small>
-    <div class="hidden name"><code>plotSimilarityMatrix.Rd</code></div>
+    <h1>Plot similarity matrix with pheatmap</h1>
+    <small class="dont-index">Source: <a href='http://github.com/acabassi/klic/blob/master/R/plot-similarity-matrix-2.R'><code>R/plot-similarity-matrix-2.R</code></a></small>
+    <div class="hidden name"><code>plotSimilarityMatrix2.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot similarity matrix. It is possible to plot a side vector that corresponds to a
-response variable Y and to order the rows (and columns) according to some clustering
-structure specified by the variable clusLabels.</p>
+    <p>Plot similarity matrix with pheatmap</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotSimilarityMatrix</span>(<span class='no'>X</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clusLabels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>colX</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>plotSimilarityMatrix2</span>(<span class='no'>X</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clusLabels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>colX</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>colY</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>myLegend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='st'>"myheatmap.png"</span>,
-  <span class='kw'>savePNG</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>saveTIKZ</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>saveEPS</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>semiSupervised</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>labRow</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>labCol</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>dendro</span> <span class='kw'>=</span> <span class='st'>"none"</span>)</pre>
+  <span class='kw'>save</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>semiSupervised</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
+  <span class='kw'>labRow</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>labCol</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>showObsNames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>clr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>clc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,18 +168,6 @@ structure specified by the variable clusLabels.</p>
       <td><p>Name of the file</p></td>
     </tr>
     <tr>
-      <th>savePNG</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as a png file.</p></td>
-    </tr>
-    <tr>
-      <th>saveTIKZ</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as a tikz file.</p></td>
-    </tr>
-    <tr>
-      <th>saveEPS</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as an eps file.</p></td>
-    </tr>
-    <tr>
       <th>semiSupervised</th>
       <td><p>Boolean flag: if TRUE, the response is plotted next to the matrix.</p></td>
     </tr>
@@ -201,8 +185,20 @@ Can be either "none" or "columns".</p></td>
       <td><p>Vector of column labels, default is NA.</p></td>
     </tr>
     <tr>
+      <th>savePNG</th>
+      <td><p>Boolean flag: if TRUE, the plot is saved as a png file.</p></td>
+    </tr>
+    <tr>
+      <th>saveTIKZ</th>
+      <td><p>Boolean flag: if TRUE, the plot is saved as a tikz file.</p></td>
+    </tr>
+    <tr>
+      <th>saveEPS</th>
+      <td><p>Boolean flag: if TRUE, the plot is saved as an eps file.</p></td>
+    </tr>
+    <tr>
       <th>dendro</th>
-      <td><p>If 'both', plot dendrogram on rows and columns, if 'none' no dendrograms are shown. Default is 'none'.</p></td>
+      <td><p>If 'both', plot dendrogram on rows and columns, if 'none' no dendrograms are shown.</p></td>
     </tr>
     </table>
     
@@ -211,9 +207,15 @@ Can be either "none" or "columns".</p></td>
     <pre class="examples"><div class='input'><span class='co'># Load one dataset with 300 observations, 2 variables, 6 clusters</span>
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='fu'>read.csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset1.csv"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+<span class='no'>cluster_labels</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='fu'>read.csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata"</span>,
+<span class='st'>"cluster_labels.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute consensus clustering with K=6 clusters</span>
-<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='fu'>consensusCluster</span>(<span class='no'>data</span>, <span class='fl'>6</span>)</div><div class='output co'>#&gt; <span class='error'>Error in consensusCluster(data, 6): could not find function "consensusCluster"</span></div><div class='input'><span class='co'># Plot consensus (similarity) matrix</span>
-<span class='fu'>plotSimilarityMatrix</span>(<span class='no'>cm</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gplots::heatmap.2(X, scale = scale, dendrogram = dendro, Rowv = Rowvv,     Colv = Colvv, trace = "none", col = colX, labRow = labRow,     labCol = labCol, symkey = FALSE): `x' must be a numeric matrix</span></div></pre>
+<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>coca</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/coca/topics/consensusCluster'>consensusCluster</a></span>(<span class='no'>data</span>, <span class='fl'>6</span>)
+<span class='co'># Plot consensus (similarity) matrix</span>
+<span class='fu'>plotSimilarityMatrix2</span>(<span class='no'>cm</span>)</div><div class='img'><img src='plotSimilarityMatrix2-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Plot consensus (similarity) matrix with response</span>
+<span class='fu'>names</span>(<span class='no'>cluster_labels</span>) <span class='kw'>&lt;-</span> <span class='fu'>as.character</span>(<span class='fl'>1</span>:<span class='fl'>300</span>)
+<span class='fu'>rownames</span>(<span class='no'>cm</span>) <span class='kw'>&lt;-</span> <span class='fu'>names</span>(<span class='no'>cluster_labels</span>)
+<span class='fu'>plotSimilarityMatrix2</span>(<span class='no'>cm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>cluster_labels</span>)</div><div class='output co'>#&gt; <span class='error'>Error in if (!(names(annotation)[i] %in% names(annotation_colors))) {    if (is.character(annotation[[i]]) | is.factor(annotation[[i]])) {        n = length(unique(annotation[[i]]))        if (is.factor(annotation[[i]]) &amp; !drop) {            n = length(levels(annotation[[i]]))        }        ind = sample(1:length(factor_colors), n)        annotation_colors[[names(annotation)[i]]] = factor_colors[ind]        l = levels(as.factor(annotation[[i]]))        l = l[l %in% unique(annotation[[i]])]        if (is.factor(annotation[[i]]) &amp; !drop) {            l = levels(annotation[[i]])        }        names(annotation_colors[[names(annotation)[i]]]) = l        factor_colors = factor_colors[-ind]    }    else {        annotation_colors[[names(annotation)[i]]] = brewer_pal("seq",             cont_counter)(5)[1:4]        cont_counter = cont_counter + 1    }}: argument is of length zero</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

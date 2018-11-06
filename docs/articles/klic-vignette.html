@@ -85,7 +85,7 @@
       <h1>Introduction to klic</h1>
                         <h4 class="author">Alessandra Cabassi</h4>
             
-            <h4 class="date">2018-10-29</h4>
+            <h4 class="date">2018-11-02</h4>
       
       <small class="dont-index">Source: <a href="http://github.com/acabassi/klic/blob/master/vignettes/klic-vignette.Rmd"><code>vignettes/klic-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>klic-vignette.Rmd</code></div>
@@ -94,7 +94,6 @@
 
     
     
-<section id="introduction" class="level1"><h1>Introduction</h1>
 <p>The R package <strong>klic</strong> (<strong>K</strong>ernel <strong>L</strong>earning <strong>I</strong>ntegrative <strong>C</strong>lustering) contains a collection of tools for integrative clustering of multiple data types.</p>
 <p>The main function in this package is <code>klic</code>. It takes as input a list of datasets and builds one kernel per dataset, using consensus clustering. The kernels are then combined through localised kernel k-means to obtain the final clustering. The function also gives the user the option to try several different values for the number of clusters both at the level of the individual datasets and for the final clustering. This is the simplest way to perform Kernel Learning Integrative Clustering. However, users may want to include other types of kernels (instead of using only those derived from consensus clustering) or try different parameters for consensus clustering and include all the corresponding kernels in the analysis. Therefore, we also make available some of the functions needed to build a customised KLIC pipeline, that are:</p>
 <ul>
@@ -110,7 +109,8 @@
 <code>kkmeans</code>, another function implemented by Gonen and Margolin (2004) to perform kernel k-means with only one kernel matrix (Girolami, 2002);</li>
 <li>
 <code>copheneticCorrelation</code>, to calculate the cophenetic correlation of a similarity matrix.</li>
-</ul></section><section id="how-klic-works" class="level1"><h1>How KLIC works</h1>
+</ul>
+<section id="how-klic-works" class="level1"><h1>How KLIC works</h1>
 <p>First, we generate four datasets with the same clustering structure (6 clusters of equal size) and different levels of noise.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">## Load synthetic data</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">data1 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">read.csv</span>(<span class="kw">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"dataset1.csv"</span>, <span class="dt">package =</span> <span class="st">"klic"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>))</a>
@@ -154,7 +154,7 @@
 <a class="sourceLine" id="cb5-3" data-line-number="3">true_labels &lt;-<span class="st"> </span><span class="kw">c</span>(ones, ones<span class="op">*</span><span class="dv">2</span>, ones<span class="op">*</span><span class="dv">3</span>, ones<span class="op">*</span><span class="dv">4</span>, ones<span class="op">*</span><span class="dv">5</span>, ones<span class="op">*</span><span class="dv">6</span>)</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">library</span>(mclust, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw"><a href="http://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex">adjustedRandIndex</a></span>(true_labels, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.8850316</code></pre>
+<pre><code>## [1] 0.9066185</code></pre>
 <p>If the global number of clusters is not known, one can find the weights and clusters for different values of K and then find the one that maximises the silhouette.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">## Find the value of k that maximises the silhouette</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
@@ -200,7 +200,7 @@
 <a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">## Compare clustering to the true labels</span></a>
 <a class="sourceLine" id="cb11-8" data-line-number="8">clusterLabels &lt;-<span class="st"> </span>kkm<span class="op">$</span>clustering</a>
 <a class="sourceLine" id="cb11-9" data-line-number="9"><span class="kw"><a href="http://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex">adjustedRandIndex</a></span>(true_labels, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.8850316</code></pre>
+<pre><code>## [1] 0.9066185</code></pre>
 <p>We also included <code>copheneticCorrelation</code>, a function that calculates the cophenetic correlation coefficient of a similarity matrix:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">## Compute cophenetic correlation coefficient for each consensus matrix</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2">ccc &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, n_datasets)</a>
@@ -208,7 +208,7 @@
 <a class="sourceLine" id="cb13-4" data-line-number="4">  ccc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/copheneticCorrelation.html">copheneticCorrelation</a></span>(CM[,,i])</a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">}</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6">ccc</a></code></pre></div>
-<pre><code>## [1] 0.8933803 0.8863156 0.8948024</code></pre>
+<pre><code>## [1] 0.9120386 0.9064696 0.8903084</code></pre>
 <p>The cophenetic correlation coefficient is a measure of how faithfully hierarchical clustering would preserve the pairwise distances between the original data points.</p>
 <p>There is also a function that can be used to plot similarity matrices, ordered by cluster label, and with an additional side label for each row and to save the output in different formats. It is called <code>plotSimilarityMatrix</code>.</p>
 </section><section id="references" class="level1"><h1>References</h1>
@@ -225,8 +225,7 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction">Introduction</a></li>
-      <li><a href="#how-klic-works">How KLIC works</a></li>
+<li><a href="#how-klic-works">How KLIC works</a></li>
       <li><a href="#other-useful-functions">Other useful functions</a></li>
       <li><a href="#references">References</a></li>
       </ul>

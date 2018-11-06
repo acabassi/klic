@@ -9,7 +9,7 @@
 #' # Load one dataset with 300 observations, 2 variables, 6 clusters
 #' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
 #' # Compute consensus clustering with K=6 clusters
-#' cm <- consensusCluster(data, 6)
+#' cm <- coca::consensusCluster(data, 6)
 #' # Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)
 #' km <- spectrumShift(cm, coeff = 1.05)
 #' @export

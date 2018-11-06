@@ -37,14 +37,22 @@ lmkkmeans <- function(Km, parameters, verbose = FALSE){
   state$time <- system.time({
     N <- dim(Km)[2]
     P <- dim(Km)[3]
+
+    # Initialise weight matrix assigning equal weights to each object in each kernel
     Theta <- matrix(1 / P, N, P)
+
+    # Initialise weighted kernel matrix
     K_Theta <- matrix(0, nrow(Km), ncol(Km))
     for (m in 1:P) {
       K_Theta <- K_Theta + (Theta[,m,drop = FALSE] %*% t(Theta[,m,drop = FALSE])) * Km[,,m]
     }
 
+    # Initialise vector of objective functions
     objective <- rep(0, parameters$iteration_count)
+
+
     for (iter in 1:parameters$iteration_count) {
+
       if(verbose) print(sprintf("running iteration %d...", iter))
       H <- eigen(K_Theta, symmetric = TRUE)$vectors[, 1:parameters$cluster_count]
       HHT <- H %*% t(H)
@@ -55,26 +63,42 @@ lmkkmeans <- function(Km, parameters, verbose = FALSE){
         end_index <- m * N
         Q[start_index:end_index, start_index:end_index] <- diag(1, N, N) * Km[,,m] - HHT * Km[,,m]
       }
+
+      ### Solve QP problem ###
       problem <- list()
+      # problem$sense: Objective sense: e.g. "min" or "max"
       problem$sense <- "min"
+      # problem$c: Objective coefficient array
       problem$c <- rep(0, N * P)
+      # problem$A: Constraint sparse matrix
       problem$A <- Matrix::Matrix(rep(diag(1, N, N), P), nrow = N, ncol = N * P, sparse = TRUE)
+      # problem$bc: Lower and upper constraint bounds
       problem$bc <- rbind(blc = rep(1, N), buc = rep(1, N))
+      # problem$bx: Lower and upper variable bounds
       problem$bx <- rbind(blx = rep(0, N * P), bux = rep(1, N * P))
+      # problem$qobj: Quadratic convex optimization
       I <- matrix(1:(N * P), N * P, N * P, byrow = FALSE)
       J <- matrix(1:(N * P), N * P, N * P, byrow = TRUE)
       problem$qobj <- list(i = I[lower.tri(I, diag = TRUE)],
                            j = J[lower.tri(J, diag = TRUE)],
                            v = Q[lower.tri(Q, diag = TRUE)])
       opts <- list()
+      # opts$verbose: Output logging verbosity
       opts$verbose <- 0
+
+      # Solve QP problem
       result <- Rmosek::mosek(problem, opts)
+
+      # Extract Theta and put it in matrix form
       Theta <- matrix(result$sol$itr$xx, N, P, byrow = FALSE)
+
+      # Update weighted kernel
       K_Theta <- matrix(0, nrow(Km), ncol(Km))
       for (m in 1:P) {
         K_Theta <- K_Theta + (Theta[,m,drop = FALSE] %*% t(Theta[,m,drop = FALSE])) * Km[,,m]
       }
 
+      # Update objective function
       objective[iter] <- sum(diag(t(H) %*% K_Theta %*% H)) - sum(diag(K_Theta))
     }
     H_normalized <- H / matrix(sqrt(rowSums(H^2, 2)), nrow(H), parameters$cluster_count, byrow = FALSE)
