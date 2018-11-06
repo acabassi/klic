@@ -14,6 +14,8 @@
 #' @param showObsNames Boolean. If TRUE, observation names are shown in the plot. Default is FALSE.
 #' @param clr Boolean. If TRUE, rows are ordered by hierarchical clustering. Default is FALSE.
 #' @param clc Boolean. If TRUE, columns are ordered by hierarchical clustering. Default is FALSE.
+#' @param plotWidth Plot width. Default is 8.75.
+#' @param plotHeight Plot height. Default is 7.
 #' @examples
 #' # Load one dataset with 300 observations, 2 variables, 6 clusters
 #' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
@@ -34,7 +36,8 @@ plotSimilarityMatrix2 = function(X, y = NULL, clusLabels = NULL, colX = NULL, co
                                  myLegend = NULL, fileName = "posteriorSimilarityMatrix.pdf", save = FALSE,
                                  semiSupervised = FALSE,
                                  scale = "none",  showObsNames = FALSE,
-                                 clr = FALSE, clc = FALSE){
+                                 clr = FALSE, clc = FALSE,
+                                 plotWidth = 8.75, plotHeight = 7){
 
     if(!is.null(y)){
         # Check if the rownames correspond to the ones in the similarity matrix
@@ -46,7 +49,7 @@ plotSimilarityMatrix2 = function(X, y = NULL, clusLabels = NULL, colX = NULL, co
         # Riordinare...
     }
 
-    if(save) grDevices::pdf(fileName, width = 8.75, height = 7)
+    if(save) grDevices::pdf(fileName, width = plotWidth, height = plotHeight)
 
     pheatmap::pheatmap(X, legend = TRUE,
                      color =  c("white", (RColorBrewer::brewer.pal(n = 6, name = "PuBu"))),
