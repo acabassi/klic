@@ -131,10 +131,10 @@
     </div>
 
     <pre class="usage"><span class='fu'>plotSimilarityMatrix2</span>(<span class='no'>X</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clusLabels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>colX</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>colY</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>myLegend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='st'>"myheatmap.png"</span>,
-  <span class='kw'>save</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>semiSupervised</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
-  <span class='kw'>labRow</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>labCol</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>showObsNames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>clr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>clc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>colY</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>myLegend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"posteriorSimilarityMatrix.pdf"</span>, <span class='kw'>save</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>semiSupervised</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>showObsNames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>clr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>clc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,8 +164,12 @@
       <td><p>Vector of strings with the names of the variables</p></td>
     </tr>
     <tr>
-      <th>file_name</th>
-      <td><p>Name of the file</p></td>
+      <th>fileName</th>
+      <td><p>Name of pdf file</p></td>
+    </tr>
+    <tr>
+      <th>save</th>
+      <td><p>Boolean flag: if TRUE, the plot is saved as a png file.</p></td>
     </tr>
     <tr>
       <th>semiSupervised</th>
@@ -177,28 +181,16 @@
 Can be either "none" or "columns".</p></td>
     </tr>
     <tr>
-      <th>labRow</th>
-      <td><p>Vector of row labels, default is NA.</p></td>
+      <th>showObsNames</th>
+      <td><p>Boolean. If TRUE, observation names are shown in the plot. Default is FALSE.</p></td>
     </tr>
     <tr>
-      <th>labCol</th>
-      <td><p>Vector of column labels, default is NA.</p></td>
+      <th>clr</th>
+      <td><p>Boolean. If TRUE, rows are ordered by hierarchical clustering. Default is FALSE.</p></td>
     </tr>
     <tr>
-      <th>savePNG</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as a png file.</p></td>
-    </tr>
-    <tr>
-      <th>saveTIKZ</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as a tikz file.</p></td>
-    </tr>
-    <tr>
-      <th>saveEPS</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as an eps file.</p></td>
-    </tr>
-    <tr>
-      <th>dendro</th>
-      <td><p>If 'both', plot dendrogram on rows and columns, if 'none' no dendrograms are shown.</p></td>
+      <th>clc</th>
+      <td><p>Boolean. If TRUE, columns are ordered by hierarchical clustering. Default is FALSE.</p></td>
     </tr>
     </table>
     
@@ -215,7 +207,7 @@ Can be either "none" or "columns".</p></td>
 <span class='fu'>plotSimilarityMatrix2</span>(<span class='no'>cm</span>)</div><div class='img'><img src='plotSimilarityMatrix2-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Plot consensus (similarity) matrix with response</span>
 <span class='fu'>names</span>(<span class='no'>cluster_labels</span>) <span class='kw'>&lt;-</span> <span class='fu'>as.character</span>(<span class='fl'>1</span>:<span class='fl'>300</span>)
 <span class='fu'>rownames</span>(<span class='no'>cm</span>) <span class='kw'>&lt;-</span> <span class='fu'>names</span>(<span class='no'>cluster_labels</span>)
-<span class='fu'>plotSimilarityMatrix2</span>(<span class='no'>cm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>cluster_labels</span>)</div><div class='output co'>#&gt; <span class='error'>Error in if (!(names(annotation)[i] %in% names(annotation_colors))) {    if (is.character(annotation[[i]]) | is.factor(annotation[[i]])) {        n = length(unique(annotation[[i]]))        if (is.factor(annotation[[i]]) &amp; !drop) {            n = length(levels(annotation[[i]]))        }        ind = sample(1:length(factor_colors), n)        annotation_colors[[names(annotation)[i]]] = factor_colors[ind]        l = levels(as.factor(annotation[[i]]))        l = l[l %in% unique(annotation[[i]])]        if (is.factor(annotation[[i]]) &amp; !drop) {            l = levels(annotation[[i]])        }        names(annotation_colors[[names(annotation)[i]]]) = l        factor_colors = factor_colors[-ind]    }    else {        annotation_colors[[names(annotation)[i]]] = brewer_pal("seq",             cont_counter)(5)[1:4]        cont_counter = cont_counter + 1    }}: argument is of length zero</span></div></pre>
+<span class='fu'>plotSimilarityMatrix2</span>(<span class='no'>cm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>cluster_labels</span>)</div><div class='img'><img src='plotSimilarityMatrix2-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -88,28 +88,27 @@
 <h2 class="hasAnchor">
 <a href="#installing" class="anchor"></a>Installing</h2>
 <p>In order to install this package, you will need to have <em>Rmosek</em> installed.</p>
-<div id="installing-rmosek" class="section level3">
+<div id="installing-rmosek-linux" class="section level3">
 <h3 class="hasAnchor">
-<a href="#installing-rmosek" class="anchor"></a>Installing Rmosek</h3>
+<a href="#installing-rmosek-linux" class="anchor"></a>Installing Rmosek [Linux]</h3>
 <ul>
-<li>Download mosek from <a href="https://www.mosek.com/downloads/" class="uri">https://www.mosek.com/downloads/</a> to <code>my-downloads-directory</code>:</li>
+<li>Download mosek from <a href="https://www.mosek.com/downloads/" class="uri">https://www.mosek.com/downloads/</a> to any folder (usually <code>/home/&lt;username&gt;/bin</code>). We will refer to it as <code>&lt;my-mosek-directory&gt;</code>.</li>
 <li>Unzip it:</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="bu">cd</span> my-downloads-directory</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="bu">cd</span> <span class="op">&lt;</span>my-mosek-directory<span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="fu">tar</span> -xvf mosektoolslinux64x86.tar.bz2</a></code></pre></div>
 <ul>
-<li>Add the following to your <code>~/.bashrc</code>
-</li>
+<li>Add the following to your <code>~/.bashrc</code> file:</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="bu">export</span> <span class="va">PATH=$PATH</span>:/home/username/bin/mosek/8/tools/platform/linux64x86/bin</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="bu">export</span> <span class="va">PATH=$PATH</span>:<span class="op">&lt;</span><span class="ex">my-mosek-directory</span><span class="op">&gt;</span>/mosek/8/tools/platform/linux64x86/bin</a></code></pre></div>
 <ul>
-<li>If you are eligible apply for a free academic license at <a href="https://www.mosek.com/products/academic-licenses/" class="uri">https://www.mosek.com/products/academic-licenses/</a> You will receive via email.</li>
-<li>Put the licsense file in <code>~/mosek</code>
+<li>If you are eligible apply for a free personal academic license at <a href="https://www.mosek.com/products/academic-licenses/" class="uri">https://www.mosek.com/products/academic-licenses/</a> You will receive it (immediately) via email.</li>
+<li>Put the license file in <code>&lt;my-mosek-directory&gt;/mosek</code>
 </li>
 <li>Proceed with the installation of <em>mosek</em>
 </li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="bu">export</span> <span class="va">PKG_MOSEKHOME=</span>/home/username/bin/mosek/8/tools/platform/linux64x86<span class="kw">`</span></a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="bu">export</span> <span class="va">PKG_MOSEKHOME=</span><span class="op">&lt;</span><span class="ex">my-mosek-directory</span><span class="op">&gt;</span>/mosek/8/tools/platform/linux64x86</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="bu">export</span> <span class="va">PKG_MOSEKLIB=</span>mosek64</a></code></pre></div>
 <ul>
 <li>Now that you have <em>mosek</em> installed, you can open R and install the <em>Rmosek</em> package with</li>

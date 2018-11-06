@@ -212,8 +212,9 @@ Can be either "none" or "columns".</p></td>
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'>as.matrix</span>(<span class='fu'>read.csv</span>(<span class='fu'>system.file</span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset1.csv"</span>,
 <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute consensus clustering with K=6 clusters</span>
-<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='fu'>consensusCluster</span>(<span class='no'>data</span>, <span class='fl'>6</span>)</div><div class='output co'>#&gt; <span class='error'>Error in consensusCluster(data, 6): could not find function "consensusCluster"</span></div><div class='input'><span class='co'># Plot consensus (similarity) matrix</span>
-<span class='fu'>plotSimilarityMatrix</span>(<span class='no'>cm</span>)</div><div class='output co'>#&gt; <span class='error'>Error in gplots::heatmap.2(X, scale = scale, dendrogram = dendro, Rowv = Rowvv,     Colv = Colvv, trace = "none", col = colX, labRow = labRow,     labCol = labCol, symkey = FALSE): `x' must be a numeric matrix</span></div></pre>
+<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>coca</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/coca/topics/consensusCluster'>consensusCluster</a></span>(<span class='no'>data</span>, <span class='fl'>6</span>)
+<span class='co'># Plot consensus (similarity) matrix</span>
+<span class='fu'>plotSimilarityMatrix</span>(<span class='no'>cm</span>)</div><div class='img'><img src='plotSimilarityMatrix-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
