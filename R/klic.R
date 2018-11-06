@@ -21,9 +21,13 @@
 #' @param globalMaxK Maximum number of clusters considered for the final clustering. Default is 6.
 #' @param B Number of iterations for consensus clustering. Default is 1000.
 #' @param C Maximum number of iterations for localised kernel k-means. Default is 100.
+#' @param scale Boolean. If TRUE, each dataset is scaled such that each column has zero mean and
+#' unitary variance.
 #' @param savePlots Boolean. If TRUE, a plot of the silhouette is saved in the working folder.
 #' Default is FALSE.
 #' @param fileName If savePlots is TRUE, this is the name of the png file.
+#' @param verbose Boolean. Default is TRUE.
+#' @param annotations Data frame containing annotations for final plot.
 #' @return The function returns `consensusMatrices`, which is an array containing one consensus matrix
 #' per data set, `weights`, that is a vector containing the weights assigned by the kernel k-means
 #' algorithm to each consensu matrix, `globalClusterLabels`, a vector containing the cluster labels
@@ -61,102 +65,173 @@
 klic = function(data, M, individualK = NULL, individualMaxK = 6,
                 individualClAlgorithm = "kkmeans",
                 globalK = NULL, globalMaxK = 6,
-                B = 1000, C = 100, savePlots = FALSE, fileName = "klic"){
+                B = 1000, C = 100, scale = FALSE, savePlots = FALSE, fileName = "klic",
+                verbose = TRUE, annotations = NULL){
 
-  ### Data check ###
-  N = dim(data[[1]])[1]
-  for(i in 1:M){
-    if(dim(data[[i]])[1]!=N) stop("All datasets must have the same number of rows.")
-  }
+    ### Data check ###
+    N = dim(data[[1]])[1]
+    for(i in 1:M){
+        if(dim(data[[i]])[1]!=N) stop("All datasets must have the same number of rows.")
+    }
+    if(verbose)
+        print(paste("All datasets contain the same number of observations, ", N,".", sep = ""))
+        print(paste("We assume that the observations are the same in each dataset and that they are in the same order."))
 
-  # Initialise empty list for output
-  output = list()
+    # Check values of K
+    if(individualMaxK == 2){
+        individualK = 2
+        warning('Since individualMaxK = 2, individualK is automatically set to 2.')
+    }
 
-  ### Consensus clustering ###
-  CM = array(NA, c(N, N, M))
+    if(globalMaxK == 2){
+        globalK = 2
+        warning('Since globalMaxK = 2, globalK is automatically set to 2.')
+    }
 
-  # If individual numbers of clusters are not known
-  if(is.null(individualK)){
+    # Initialise empty list for output
+    output = list()
 
-      # Initialise empty vector for best number of clusters in each dataset
-      output$bestK <- rep(NA, M)
-      # Initialise empty consensus matrices for all possible numbers of clusters
-      tempCM = array(NA, c(N, N, individualMaxK-1))
-      # Initialise empty cluster labels for all possible numbers of clusters
-      clLabels = matrix(NA, individualMaxK-1, N)
+    ### Consensus clustering ###
+    CM = array(NA, c(N, N, M))
 
-      # For each dataset
-      for(i in 1:M){
+    # If individual numbers of clusters are not known
+    if(is.null(individualK)){
 
-        # Scale the data such that each column has zero mean and unitary variance
-        scaledDataset = scale(data[[i]])
+        if(verbose)
+            print("*** Choosing the number of clusters for each dataset ***")
 
-        # For each possible number of clusters
-        for(j in 2:individualMaxK){
+        # Initialise empty vector for best number of clusters in each dataset
+        output$bestK <- rep(NA, M)
+        # Initialise empty consensus matrices for all possible numbers of clusters
+        tempCM = array(NA, c(N, N, individualMaxK-1))
+        # Initialise empty cluster labels for all possible numbers of clusters
+        clLabels = matrix(NA, individualMaxK-1, N)
 
-          # Compute consensus matrix
-          tempCM[,,j-1] <- coca::consensusCluster(scaledDataset, j, B)
-          # Make consensus matrix positive definite
-          tempCM[,,j-1] <- spectrumShift(tempCM[,,j-1])
+        # For each dataset
+        for(i in 1:M){
 
-          # If the chosen clustering algorithm is kernel k-means
-          if(individualClAlgorithm == "kkmeans"){
+            if(verbose){
+                print(paste("Dataset", i, sep = " "))
+                pb = txtProgressBar(min = 0, max = individualMaxK-1, style = 3) # create progress bar
+            }
 
-            # Initialise parameters for kernel k-means
-            parameters_kkmeans <- list()
-            # Set number of clusters for kernel k-means
-            parameters_kkmeans$cluster_count <- j
-            # Train kernel k-means
-            kkm <- kkmeans(tempCM[,,j-1], parameters_kkmeans)
-            # Extract cluster labels
-            clLabels[j-1,] <- kkm$clustering
+            if(scale){
+                # Scale the data such that each column has zero mean and unitary variance
+                dataset_i = scale(data[[i]])
+            }else{
+                dataset_i = data[[i]]
+            }
 
-          # If the chosen clustering algorithm is hierarchical clustering
-          }else if(individualClAlgorithm == 'hclust'){
-            # Find clusters through hiearchical clustering
-            hCl <- stats::hclust(stats::as.dist(1-tempCM[,,j-1]), method = "average")
-            # Extract cluster labels
-            clLabels[j-1,] <-  stats::cutree(hCl, j)
+            # For each possible number of clusters
+            for(j in 2:individualMaxK){
 
-          }else{ # If the value of individualClAlgorithm is not any of the above
-            stop("individualClAlgorithm must be either 'kkmeans' or 'hclust'")
-          }
+                # Compute consensus matrix
+                tempCM[,,j-1] <- coca::consensusCluster(dataset_i, j, B)
+                # Make consensus matrix positive definite
+                tempCM[,,j-1] <- spectrumShift(tempCM[,,j-1])
+
+                # If the chosen clustering algorithm is kernel k-means
+                if(individualClAlgorithm == "kkmeans"){
+
+                    # Initialise parameters for kernel k-means
+                    parameters_kkmeans <- list()
+                    # Set number of clusters for kernel k-means
+                    parameters_kkmeans$cluster_count <- j
+                    # Train kernel k-means
+                    kkm <- kkmeans(tempCM[,,j-1], parameters_kkmeans)
+                    # Extract cluster labels
+                    clLabels[j-1,] <- kkm$clustering
+
+                # If the chosen clustering algorithm is hierarchical clustering
+                }else if(individualClAlgorithm == 'hclust'){
+
+                    # Find clusters through hiearchical clustering
+                    hCl <- stats::hclust(stats::as.dist(1-tempCM[,,j-1]), method = "average")
+                    # Extract cluster labels
+                    clLabels[j-1,] <-  stats::cutree(hCl, j)
+
+                }else if(individualClAlgorithm == 'pam'){
+
+                    # Find clusters through partitioning around medoids
+                    clLabels[j-1,] <- cluster::pam(stats::as.dist(1-tempCM[,,j-1]))$clustering
+
+                }else{ # If the value of individualClAlgorithm is not any of the above
+                    stop("If there are factors among the covariates, individualClAlgorithm must be 'kkmeans', 'hclust', or 'pam'")
+                }
+                if(verbose) setTxtProgressBar(pb, j-1)
+            }
+            if(verbose) close(pb)
+
+            # Find the number of clusters that maximises the silhouette
+            maxSil <- coca::maximiseSilhouette(tempCM, clLabels, maxK = individualMaxK, savePNG = savePlots,
+                                               fileName = paste("KLIC_dataset",i,sep=""))
+            # If there is more than one, choose smallest number of clusters among the ones that maximise the silhouette
+            bestK <- output$bestK[i] <- maxSil$K[1]
+
+            if(verbose)
+                print(paste("K =", bestK, sep = " "))
+
+            # For dataset i, retain the consensus matrix corresponding to the smallest number of clusters for which the silhouette is maximised
+            CM[,,i] <- tempCM[,,bestK-1]
+
+            # Save plot of similarity matrix
+            if(savePlots){
+
+                if(!dir.exists("consensus-matrix")) dir.create("consensus-matrix", showWarnings = FALSE)
+                fileName_i = paste('consensus-matrix/',fileName, "_CM", i, ".png", sep = "")
+
+                clLab_i_bestK <- as.factor(clLabels[bestK-1,])
+                names(clLab_i_bestK) <- as.character(1:N)
+                CM_i_bestK <- as.matrix(CM[,,i])
+                rownames(CM_i_bestK) <- colnames(CM_i_bestK) <- names(clLab_i_bestK)
+
+                plotSimilarityMatrix2(CM_i_bestK, y = as.data.frame(clLab_i_bestK),
+                                      fileName = fileName_i, save = TRUE)
+            }
         }
 
-        # Find the number of clusters that maximises the silhouette
-        maxSil <- coca::maximiseSilhouette(tempCM, clLabels, individualMaxK)
-        # If there is more than one, choose smallest number of clusters among the ones that maximise the silhouette
-        bestK <- output$bestK[i] <- maxSil$k[1]
-        # For dataset i, retain the consensus matrix corresponding to the smallest number of clusters for which the silhouette is maximised
-        CM[,,i] <- tempCM[,,bestK]
+    }else{ # If individual numbers of clusters are known
 
-        # Save plot of similarity matrix
-        if(savePlots){
-          plotSimilarityMatrix(CM[,,i],
-                               file_name = cat(fileName, "_CM", i, "_K", bestK, ".png", sep = ""),
-                               savePNG = TRUE)
+        if(verbose){
+            print("*** Generating similarity matrices ***")
+            pb = txtProgressBar(min = 0, max = M, style = 3) # create progress bar
         }
-      }
 
-      }else{ # If individual numbers of clusters are known
+        # For each dataset
+        for(i in 1:M){
 
-      # For each dataset
-      for(i in 1:M){
+            if(scale){
 
-        # Scale the data such that each column has zero mean and unitary variance
-        scaledDataset = scale(data[[i]])
-        # Compute consensus matrix
-        CM[,,i] <- coca::consensusCluster(scaledDataset, individualK[i], B)
-        # Make consensus matrix positive definite
-        CM[,,i] <- spectrumShift(CM[,,i])
+            # Scale the data such that each column has zero mean and unitary variance
+            dataset_i = scale(data[[i]])
 
-        # Save plot of similarity matrix
-        if(savePlots){
-          plotSimilarityMatrix(CM[,,i],
-                               file_name = cat(fileName, "_CM", i, "_K", individualK[i], ".png", sep = ""),
-                               savePNG = TRUE)
         }
-      }
+            else{
+
+            dataset_i = data[[i]]
+        }
+
+            # Compute consensus matrix
+            CM[,,i] <- coca::consensusCluster(dataset_i, individualK[i], B)
+
+            # Make consensus matrix positive definite
+            CM[,,i] <- spectrumShift(CM[,,i])
+
+            # Save plot of similarity matrix
+            if(savePlots){
+                if(!dir.exists("consensus-matrix")) dir.create("consensus-matrix", showWarnings = FALSE)
+                fileName_i = paste('consensus-matrix/',fileName, "_CM", i, ".png", sep = "")
+
+                CM_i <- CM[,,i]
+                rownames(CM_i) <- colnames(CM_i) <- as.character(1:N)
+                plotSimilarityMatrix2(CM_i, fileName = fileName_i, save = TRUE)
+            }
+
+            if(verbose)
+                setTxtProgressBar(pb, i)
+        }
+
+        if(verbose) close(pb)
     }
 
     # Save individual consensus matrices for each dataset
@@ -171,65 +246,95 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
 
     # If the global number of clusters is not known
     if(is.null(globalK)){
-      # Initialise empty kernel matrix for each possible number of clusters
-      KM <- array(0, c(N, N, globalMaxK-1))
-      # Initialise empty cluster labels for each possible number of clusters
-      clLabels <- array(NA, c(globalMaxK-1, N))
-      # Initialise empty sets of weights for each possible number of clusters
-      weights <- array(NA, c(N, M, globalMaxK - 1))
 
-      # For every possible number of clusters
-      for(i in 2:globalMaxK){
-        # Set the number of clusters K
-        parameters$cluster_count <- i
-        # Train localised multiple kernel k-means
-        lmkkm <- lmkkmeans(CM, parameters)
-        # Save the weights
-        weights[,,i-1] <- lmkkm$Theta
-        # Save the combined kernel matrix
-        for(j in 1:M){
-          KM[,,i-1] <- KM[,,i-1] + (lmkkm$Theta[,j]%*%t(lmkkm$Theta[,j]))*CM[,,j]
+        if(verbose){
+            print("*** Choosing the number of clusters for the global clustering ***")
+            pb = txtProgressBar(min = 0, max = globalMaxK-1, style = 3) # create progress bar
         }
-        # Save the cluster labels
-        clLabels[i-1,] <- lmkkm$clustering
-      }
 
-      # Find the number of clusters that maximises the silhouette
-      maxSil <- coca::maximiseSilhouette(KM, clLabels, maxK = globalMaxK)
-      globalK <- output$globalK <- maxSil$k
-      # Save chosen cluster labels
-      output$globalClusterLabels <- clLabels[globalK-1,]
-      # Save chosen weights
-      output$weights <- weights[,,globalK-1]
-      # Save chosen consensus matrix
-      output$weightedKM <- KM[,,globalK-1]
+        # Initialise empty kernel matrix for each possible number of clusters
+        KM <- array(0, c(N, N, globalMaxK-1))
+        # Initialise empty cluster labels for each possible number of clusters
+        clLabels <- array(NA, c(globalMaxK-1, N))
+        # Initialise empty sets of weights for each possible number of clusters
+        weights <- array(NA, c(N, M, globalMaxK - 1))
+
+        # For every possible number of clusters
+        for(i in 2:globalMaxK){
+            # Set the number of clusters K
+            parameters$cluster_count <- i
+            # Train localised multiple kernel k-means
+            lmkkm <- lmkkmeans(CM, parameters)
+            # Save the weights
+            weights[,,i-1] <- lmkkm$Theta
+            # Save the combined kernel matrix
+            for(j in 1:M){
+                KM[,,i-1] <- KM[,,i-1] + (lmkkm$Theta[,j]%*%t(lmkkm$Theta[,j]))*CM[,,j]
+            }
+            # Save the cluster labels
+            clLabels[i-1,] <- lmkkm$clustering
+
+            if(verbose) setTxtProgressBar(pb, i-1)
+        }
+        if(verbose) close(pb)
+
+        # Find the number of clusters that maximises the silhouette
+        maxSil <- coca::maximiseSilhouette(KM, clLabels, maxK = globalMaxK,
+                                           savePNG = TRUE, fileName = "KLIC_global")
+        globalK <- output$globalK <- maxSil$K
+
+        if(verbose)
+            print(paste("Global K =", globalK, sep = " "))
+
+        # Save chosen cluster labels
+        output$globalClusterLabels <- clLabels[globalK-1,]
+        # Save chosen weights
+        output$weights <- weights[,,globalK-1]
+        # Save chosen consensus matrix
+        output$weightedKM <- KM[,,globalK-1]
 
     }else{ # If the global number of clusters is known
 
-      # Set number of clusters for localised multiple kernel k-means
-      parameters$cluster_count <- globalK
-      # Train localised multiple kernel k-means
-      lmkkm <- lmkkmeans(CM, parameters)
-      # Initialise empty weighted matrix
-      weightedKM <- matrix(0, N, N)
-      # Compute weighted matrix
-      for(j in 1:M){
-        weightedKM <- weightedKM + (lmkkm$Theta[,j]%*%t(lmkkm$Theta[,j]))*CM[,,j]
-      }
-      # Save cluster labels
-      output$globalClusterLabels <-lmkkm$clustering
-      # Save weights
-      output$weights <- lmkkm$Theta
-      # Save weighted kernel matrix
-      output$weightedKM <- weightedKM
+        if(verbose)
+            print("*** Finding the global clustering ***")
+
+        # Set number of clusters for localised multiple kernel k-means
+        parameters$cluster_count <- globalK
+        # Train localised multiple kernel k-means
+        lmkkm <- lmkkmeans(CM, parameters)
+        # Initialise empty weighted matrix
+        weightedKM <- matrix(0, N, N)
+        # Compute weighted matrix
+        for(j in 1:M){
+            weightedKM <- weightedKM + (lmkkm$Theta[,j]%*%t(lmkkm$Theta[,j]))*CM[,,j]
+        }
+        # Save cluster labels
+        output$globalClusterLabels <-lmkkm$clustering
+        # Save weights
+        output$weights <- lmkkm$Theta
+        # Save weighted kernel matrix
+        output$weightedKM <- weightedKM
     }
 
-    # Save plot of kernel matrix
+    # Save plot of similarity matrix
     if(savePlots){
-      plotSimilarityMatrix(weightedKM, clusLabels = output$globalClusterLabels,
-                           file_name = cat(fileName, "_weightedCM", i , "_K", globalK,
-                           ".png", sep = ""), savePNG = TRUE)
+
+        if(!dir.exists("consensus-matrix")) dir.create("consensus-matrix", showWarnings = FALSE)
+        fileName_i = paste('consensus-matrix/',fileName, "_weightedCM", i, ".png", sep = "")
+
+        glClLab <- as.factor(output$globalClusterLabels)
+        names(glClLab) <- as.character(1:N)
+        weightedKM <- output$weightedKM
+        rownames(weightedKM) <- colnames(weightedKM) <- names(glClLab)
+
+        allAnnotations <- as.data.frame(glClLab)
+
+        if(!is.null(annotations))
+            allAnnotations <- cbind(allAnnotations, annotations)
+
+        plotSimilarityMatrix2(weightedKM, y = allAnnotations, fileName = fileName_i,
+                              save = TRUE)
     }
 
-  return(output)
+    return(output)
 }
