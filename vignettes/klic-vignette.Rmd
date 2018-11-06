@@ -6,8 +6,6 @@ output:
   html_document:
     toc: true
     theme: united
-fig_width: 6 
-fig_height: 4 
 vignette: >
   %\VignetteIndexEntry{R package klic}
   %\VignetteEngine{knitr::rmarkdown}
