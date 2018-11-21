@@ -28,6 +28,16 @@
 #' @param fileName If savePlots is TRUE, this is the name of the png file.
 #' @param verbose Boolean. Default is TRUE.
 #' @param annotations Data frame containing annotations for final plot.
+#' @param ccClMethods The i-th element of this vector goes into the `clMethod`` argument of consensusCluster()
+#' for the i-th dataset.
+#' @param ccDistHCs The i-th element of this vector goes into the `dist` argument of consensusCluster()
+#' for the i-th dataset.
+#' @param widestGap Boolean. If TRUE, compute also widest gap index to choose best number
+#' of clusters. Default is FALSE.
+#' @param dunns Boolean. If TRUE, compute also Dunn's index to choose best number
+#' of clusters. Default is FALSE.
+#' @param dunn2s Boolean. If TRUE, compute also alternative Dunn's index to choose best number
+#' of clusters. Default is FALSE.
 #' @return The function returns `consensusMatrices`, which is an array containing one consensus matrix
 #' per data set, `weights`, that is a vector containing the weights assigned by the kernel k-means
 #' algorithm to each consensu matrix, `globalClusterLabels`, a vector containing the cluster labels
@@ -66,7 +76,9 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
                 individualClAlgorithm = "kkmeans",
                 globalK = NULL, globalMaxK = 6,
                 B = 1000, C = 100, scale = FALSE, savePlots = FALSE, fileName = "klic",
-                verbose = TRUE, annotations = NULL){
+                verbose = TRUE, annotations = NULL,
+                ccClMethods = 'km', ccDistHCs = 'euclidean',
+                widestGap = FALSE, dunns = FALSE, dunn2s = FALSE){
 
     ### Data check ###
     N = dim(data[[1]])[1]
@@ -122,11 +134,15 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
                 dataset_i = data[[i]]
             }
 
+            ccClMethod_i = ccClMethods[i]
+            ccDistHC_i = ccDistHCs[i]
+
             # For each possible number of clusters
             for(j in 2:individualMaxK){
 
                 # Compute consensus matrix
-                tempCM[,,j-1] <- coca::consensusCluster(dataset_i, j, B)
+                tempCM[,,j-1] <- coca::consensusCluster(dataset_i, j, B,
+                                                        clMethod = ccClMethod_i, distHC = ccDistHC_i)
                 # Make consensus matrix positive definite
                 tempCM[,,j-1] <- spectrumShift(tempCM[,,j-1])
 
@@ -164,7 +180,9 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
 
             # Find the number of clusters that maximises the silhouette
             maxSil <- coca::maximiseSilhouette(tempCM, clLabels, maxK = individualMaxK, savePNG = savePlots,
-                                               fileName = paste("KLIC_dataset",i,sep=""))
+                                               fileName = paste("KLIC_dataset",i,sep=""),
+                                               widestGap = widestGap,
+                                               dunns = dunns, dunn2s = dunn2s)
             # If there is more than one, choose smallest number of clusters among the ones that maximise the silhouette
             bestK <- output$bestK[i] <- maxSil$K[1]
 
@@ -224,7 +242,8 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
 
                 CM_i <- CM[,,i]
                 rownames(CM_i) <- colnames(CM_i) <- as.character(1:N)
-                plotSimilarityMatrix2(CM_i, fileName = fileName_i, save = TRUE)
+                plotSimilarityMatrix2(CM_i, clr = TRUE, clc = TRUE,
+                                      fileName = fileName_i, save = TRUE)
             }
 
             if(verbose)
@@ -280,7 +299,9 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
 
         # Find the number of clusters that maximises the silhouette
         maxSil <- coca::maximiseSilhouette(KM, clLabels, maxK = globalMaxK,
-                                           savePNG = TRUE, fileName = "KLIC_global")
+                                           savePNG = TRUE, fileName = "KLIC_global",
+                                           widestGap = widestGap,
+                                           dunns = dunns, dunn2s = dunn2s)
         globalK <- output$globalK <- maxSil$K
 
         if(verbose)

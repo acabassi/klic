@@ -6,7 +6,10 @@
 \usage{
 klic(data, M, individualK = NULL, individualMaxK = 6,
   individualClAlgorithm = "kkmeans", globalK = NULL, globalMaxK = 6,
-  B = 1000, C = 100, savePlots = FALSE, fileName = "klic")
+  B = 1000, C = 100, scale = FALSE, savePlots = FALSE,
+  fileName = "klic", verbose = TRUE, annotations = NULL,
+  ccClMethods = "km", ccDistHCs = "euclidean", widestGap = FALSE,
+  dunns = FALSE, dunn2s = FALSE)
 }
 \arguments{
 \item{data}{List of M datasets, each of size N X P_m, m = 1, ..., M.}
@@ -32,10 +35,32 @@ maximising the silhouette.}
 
 \item{C}{Maximum number of iterations for localised kernel k-means. Default is 100.}
 
+\item{scale}{Boolean. If TRUE, each dataset is scaled such that each column has zero mean and
+unitary variance.}
+
 \item{savePlots}{Boolean. If TRUE, a plot of the silhouette is saved in the working folder.
 Default is FALSE.}
 
 \item{fileName}{If savePlots is TRUE, this is the name of the png file.}
+
+\item{verbose}{Boolean. Default is TRUE.}
+
+\item{annotations}{Data frame containing annotations for final plot.}
+
+\item{ccClMethods}{The i-th element of this vector goes into the `clMethod`` argument of consensusCluster()
+for the i-th dataset.}
+
+\item{ccDistHCs}{The i-th element of this vector goes into the `dist` argument of consensusCluster()
+for the i-th dataset.}
+
+\item{widestGap}{Boolean. If TRUE, compute also widest gap index to choose best number
+of clusters. Default is FALSE.}
+
+\item{dunns}{Boolean. If TRUE, compute also Dunn's index to choose best number
+of clusters. Default is FALSE.}
+
+\item{dunn2s}{Boolean. If TRUE, compute also alternative Dunn's index to choose best number
+of clusters. Default is FALSE.}
 }
 \value{
 The function returns `consensusMatrices`, which is an array containing one consensus matrix
