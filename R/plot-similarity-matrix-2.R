@@ -53,22 +53,39 @@ plotSimilarityMatrix2 = function(X, y = NULL, clusLabels = NULL, colX = NULL, co
         n_clusters <- length(table(clusLabels))
         riordina <- NULL
         for (i in 1:n_clusters){
+            print(i)
+            print(riordina)
+            print(which(clusLabels==i))
             riordina <- c(riordina, which(clusLabels==i))
         }
+        print(riordina)
         X <- X[riordina,riordina]
-        y <- y[riordina]
+        y <- y[riordina,]
+        y <- as.data.frame(y)
+        print(dim(X))
     }
 
     if(save) grDevices::png(fileName, width = plotWidth, height = plotHeight)
 
-    pheatmap::pheatmap(X, legend = TRUE,
-                     color =  c("white", (RColorBrewer::brewer.pal(n = 6, name = "PuBu"))),
-                     cluster_rows = clr,
-                     cluster_cols = clc,
-                     annotation_col = y,
-                     show_rownames = showObsNames,
-                     show_colnames = showObsNames,
-                     drop_levels = FALSE, na_col = "seashell2")
+    if(!is.null(y)){
+        pheatmap::pheatmap(X, legend = TRUE,
+                           color =  c("white", (RColorBrewer::brewer.pal(n = 6, name = "PuBu"))),
+                           cluster_rows = clr,
+                           cluster_cols = clc,
+                           annotation_col = y,
+                           show_rownames = showObsNames,
+                           show_colnames = showObsNames,
+                           drop_levels = FALSE, na_col = "seashell2")
+    }else{
+        pheatmap::pheatmap(X, legend = TRUE,
+                           color =  c("white", (RColorBrewer::brewer.pal(n = 6, name = "PuBu"))),
+                           cluster_rows = clr,
+                           cluster_cols = clc,
+                           show_rownames = showObsNames,
+                           show_colnames = showObsNames,
+                           drop_levels = FALSE, na_col = "seashell2")
+    }
+
 
     if(save){
         grDevices::dev.off()
