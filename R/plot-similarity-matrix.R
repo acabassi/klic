@@ -3,13 +3,13 @@
 #' Plot similarity matrix. It is possible to plot a side vector that corresponds to a
 #' response variable Y and to order the rows (and columns) according to some clustering
 #' structure specified by the variable clusLabels.
-#' @param X Matrix
-#' @param y Response
-#' @param clusLabels Cluster labels
-#' @param colX Colours for the matrix
-#' @param colY Colours for the response
-#' @param myLegend Vector of strings with the names of the variables
-#' @param file_name Name of the file
+#' @param X Similarity matrix.
+#' @param y Response variable.
+#' @param clusLabels Cluster labels.
+#' @param colX Colours for the matrix.
+#' @param colY Colours for the response.
+#' @param myLegend Vector of strings with the names of the variables.
+#' @param file_name Name of the file.
 #' @param savePNG Boolean flag: if TRUE, the plot is saved as a png file.
 #' @param saveTIKZ Boolean flag: if TRUE, the plot is saved as a tikz file.
 #' @param saveEPS Boolean flag: if TRUE, the plot is saved as an eps file.
@@ -18,7 +18,8 @@
 #' Can be either "none" or "columns".
 #' @param labRow Vector of row labels, default is NA.
 #' @param labCol Vector of column labels, default is NA.
-#' @param dendro If 'both', plot dendrogram on rows and columns, if 'none' no dendrograms are shown. Default is 'none'.
+#' @param dendro If 'both', plot dendrogram on rows and columns; if 'none', no dendrograms are shown.
+#' Default is 'none'.
 #' @examples
 #' # Load one dataset with 300 observations, 2 variables, 6 clusters
 #' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
