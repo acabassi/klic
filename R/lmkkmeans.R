@@ -50,7 +50,6 @@ lmkkmeans <- function(Km, parameters, verbose = FALSE){
     # Initialise vector of objective functions
     objective <- rep(0, parameters$iteration_count)
 
-
     for (iter in 1:parameters$iteration_count) {
 
       if(verbose) print(sprintf("running iteration %d...", iter))

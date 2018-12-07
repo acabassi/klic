@@ -53,16 +53,13 @@ plotSimilarityMatrix2 = function(X, y = NULL, clusLabels = NULL, colX = NULL, co
         n_clusters <- length(table(clusLabels))
         riordina <- NULL
         for (i in 1:n_clusters){
-            print(i)
-            print(riordina)
-            print(which(clusLabels==i))
             riordina <- c(riordina, which(clusLabels==i))
         }
-        print(riordina)
+
         X <- X[riordina,riordina]
         y <- y[riordina,]
         y <- as.data.frame(y)
-        print(dim(X))
+
     }
 
     if(save) grDevices::png(fileName, width = plotWidth, height = plotHeight)
