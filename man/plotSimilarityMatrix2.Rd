@@ -8,12 +8,12 @@ plotSimilarityMatrix2(X, y = NULL, clusLabels = NULL, colX = NULL,
   colY = NULL, myLegend = NULL,
   fileName = "posteriorSimilarityMatrix.pdf", save = FALSE,
   semiSupervised = FALSE, scale = "none", showObsNames = FALSE,
-  clr = FALSE, clc = FALSE, plotWidth = 8.75, plotHeight = 7)
+  clr = FALSE, clc = FALSE, plotWidth = 500, plotHeight = 450)
 }
 \arguments{
-\item{X}{Matrix}
+\item{X}{Similarity matrix.}
 
-\item{y}{Response}
+\item{y}{Vector}
 
 \item{clusLabels}{Cluster labels}
 
@@ -38,9 +38,9 @@ Can be either "none" or "columns".}
 
 \item{clc}{Boolean. If TRUE, columns are ordered by hierarchical clustering. Default is FALSE.}
 
-\item{plotWidth}{Plot width. Default is 8.75.}
+\item{plotWidth}{Plot width. Default is 500.}
 
-\item{plotHeight}{Plot height. Default is 7.}
+\item{plotHeight}{Plot height. Default is 450.}
 }
 \description{
 Plot similarity matrix with pheatmap
