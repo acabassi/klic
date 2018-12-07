@@ -3,7 +3,6 @@
 export(copheneticCorrelation)
 export(kkmeans)
 export(klic)
-export(klic_missingData)
 export(lmkkmeans)
 export(lmkkmeans_missingData)
 export(plotSimilarityMatrix)

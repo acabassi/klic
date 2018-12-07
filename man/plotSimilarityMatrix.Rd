@@ -11,19 +11,19 @@ plotSimilarityMatrix(X, y = NULL, clusLabels = NULL, colX = NULL,
   dendro = "none")
 }
 \arguments{
-\item{X}{Matrix}
+\item{X}{Similarity matrix.}
 
-\item{y}{Response}
+\item{y}{Response variable.}
 
-\item{clusLabels}{Cluster labels}
+\item{clusLabels}{Cluster labels.}
 
-\item{colX}{Colours for the matrix}
+\item{colX}{Colours for the matrix.}
 
-\item{colY}{Colours for the response}
+\item{colY}{Colours for the response.}
 
-\item{myLegend}{Vector of strings with the names of the variables}
+\item{myLegend}{Vector of strings with the names of the variables.}
 
-\item{file_name}{Name of the file}
+\item{file_name}{Name of the file.}
 
 \item{savePNG}{Boolean flag: if TRUE, the plot is saved as a png file.}
 
@@ -40,7 +40,8 @@ Can be either "none" or "columns".}
 
 \item{labCol}{Vector of column labels, default is NA.}
 
-\item{dendro}{If 'both', plot dendrogram on rows and columns, if 'none' no dendrograms are shown. Default is 'none'.}
+\item{dendro}{If 'both', plot dendrogram on rows and columns; if 'none', no dendrograms are shown.
+Default is 'none'.}
 }
 \description{
 Plot similarity matrix. It is possible to plot a side vector that corresponds to a
