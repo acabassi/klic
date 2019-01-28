@@ -29,6 +29,7 @@ kkmeans <- function(K, parameters) {
     objective <- sum(diag(t(H) %*% K %*% H)) - sum(diag(K))
     H_normalized <- H / matrix(sqrt(rowSums(H^2, 2)), nrow(H),
                                parameters$cluster_count, byrow = FALSE)
+    H_normalized[sqrt(rowSums(H^2, 2))==0,] <- 0 # Trying to fix bug by replacing values that have been divided by zero
 
     set.seed(NULL)
     state$clustering <- stats::kmeans(H_normalized, centers = parameters$cluster_count,
