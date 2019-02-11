@@ -1,6 +1,6 @@
 Package: klic
 Title: Kernel Learning Integrative Clustering
-Version: 0.0.1.9007
+Version: 1.0.0
 Authors@R: person("Alessandra", "Cabassi", email = "ac2051@cam.ac.uk", role = c("aut", "cre"))
 Description: Unsupervised clustering based on multiple kernel learning algorithms.
 Depends: R (>= 3.3.2)
@@ -9,7 +9,7 @@ URL: http://github.com/acabassi/klic
 BugReports: http://github.com/acabassi/klic/issues
 Encoding: UTF-8
 LazyData: true
-Imports: Rmosek, Matrix, cluster, gplots, wesanderson, coca, RColorBrewer, pheatmap
+Imports: Rmosek, Matrix, cluster, gplots, wesanderson, coca, RColorBrewer, pheatmap, utils
 Suggests: tikzDevice, mclust, grDevices, graphics, knitr
 Remotes: acabassi/coca
 RoxygenNote: 6.1.0.9000
