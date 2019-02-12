@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • klic</title>
+<title>Localised multiple kernel k-means — lmkkmeans_missingData • klic</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Localised multiple kernel k-means — lmkkmeans_missingData" />
+
+<meta property="og:description" content="Perform the training step of the localised multiple kernel k-means" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -57,7 +60,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -116,84 +119,61 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Localised multiple kernel k-means</h1>
+    <small class="dont-index">Source: <a href='https://github.com/acabassi/klic/blob/master/R/lmkkmeans_missingData.R'><code>R/lmkkmeans_missingData.R</code></a></small>
+    <div class="hidden name"><code>lmkkmeans_missingData.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Perform the training step of the localised multiple kernel k-means</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="copheneticCorrelation.html">copheneticCorrelation()</a></code> </p>
-        </td>
-        <td><p>Cophenetic correlation coefficient</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="kkmeans.html">kkmeans()</a></code> </p>
-        </td>
-        <td><p>Kernel k-means</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="klic.html">klic()</a></code> </p>
-        </td>
-        <td><p>Kernel learning integrative clustering</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lmkkmeans.html">lmkkmeans()</a></code> </p>
-        </td>
-        <td><p>Localised multiple kernel k-means</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lmkkmeans_missingData.html">lmkkmeans_missingData()</a></code> </p>
-        </td>
-        <td><p>Localised multiple kernel k-means</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotSimilarityMatrix.html">plotSimilarityMatrix()</a></code> </p>
-        </td>
-        <td><p>Plot similarity matrix</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotSimilarityMatrix2.html">plotSimilarityMatrix2()</a></code> </p>
-        </td>
-        <td><p>Plot similarity matrix with pheatmap</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="spectrumShift.html">spectrumShift()</a></code> </p>
-        </td>
-        <td><p>Spectrum shift</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>lmkkmeans_missingData</span>(<span class='no'>Km</span>, <span class='no'>parameters</span>, <span class='kw'>missing</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>Km</th>
+      <td><p>Array of size N X N X M containing M kernel matrices.</p></td>
+    </tr>
+    <tr>
+      <th>parameters</th>
+      <td><p>List of parameters, containing `iteration_count`, `cluster_count`.</p></td>
+    </tr>
+    <tr>
+      <th>missing</th>
+      <td><p>Matrix of size N X M containing missingness indicators.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Boolean flag. If TRUE, at each iteration the iteration number is printed.
+Defaults to FALSE.</p></td>
+    </tr>
     </table>
-  </div>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
+    <p>Gonen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means
+clustering with application to cancer biology. In Advances in Neural Information Processing
+Systems (pp. 1305-1313).</p>
+    
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#references">References</a></li>
+          </ul>
+
+    <h2>Author</h2>
+    <p>Mehmet Gonen, Alessandra Cabassi</p>
   </div>
 </div>
 

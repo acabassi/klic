@@ -12,5 +12,5 @@ LazyData: true
 Imports: Rmosek, Matrix, cluster, gplots, wesanderson, coca, RColorBrewer, pheatmap, utils
 Suggests: tikzDevice, mclust, grDevices, graphics, knitr
 Remotes: acabassi/coca
-RoxygenNote: 6.1.0.9000
+RoxygenNote: 6.1.1.9000
 VignetteBuilder: knitr
