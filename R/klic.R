@@ -142,7 +142,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
 
                 # Compute consensus matrix
                 tempCM[,,j-1] <- coca::consensusCluster(dataset_i, j, B,
-                                                        clMethod = ccClMethod_i, distHC = ccDistHC_i)
+                                                        clMethod = ccClMethod_i, dist = ccDistHC_i)
                 # Make consensus matrix positive definite
                 tempCM[,,j-1] <- spectrumShift(tempCM[,,j-1])
 
