@@ -47,6 +47,8 @@
 #' provided, the best number of clusters for the final (global) clustering `globalK` is also returned.
 #' This too is chosen so as to maximise the silhouette index.
 #' @author Alessandra Cabassi \email{ac2051@cam.ac.uk}
+#' @references Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning for
+#' integrative consensus clustering of genomic datasets. arXiv preprint. arXiv:1904.07701.
 #' @examples
 #' # Load synthetic data
 #' data1 <- as.matrix(read.csv(system.file("extdata",

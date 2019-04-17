@@ -171,7 +171,7 @@ There is also a function that can be used to plot similarity matrices, ordered b
 
 # References 
 
-Cabassi, A. and Kirk, P. D. W. (2018). Multiple kernel learning for integrative consensus clustering. In preparation.
+Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning for integrative consensus clustering of genomic datasets. arXiv preprint. arXiv:1904.07701.
 
 Girolami, M. (2002). Mercer kernel-based clustering in feature space. IEEE Transactions on Neural Networks, 13(3), pp.780-784.
 

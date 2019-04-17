@@ -272,14 +272,13 @@ This too is chosen so as to maximise the silhouette index.</p>
 #&gt; [1] "We assume that the observations are the same in each dataset and that they are in the same order."
 #&gt; [1] "*** Generating similarity matrices ***"
 #&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%
-#&gt; [1] "*** Finding the global clustering ***"</div><div class='input'>
+#&gt; [1] "*** Finding the global clustering ***"</div><div class='output co'>#&gt; <span class='error'>Error in matrix(result$sol$itr$xx, N, P, byrow = FALSE): 'data' must be of a vector type, was 'NULL'</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0.15 0.04 0.229</span></div><div class='input'>
 <span class='co'># Extract cluster labels</span>
-<span class='no'>klic_labels</span> <span class='kw'>&lt;-</span> <span class='no'>klicOutput</span>$<span class='no'>globalClusterLabels</span>
-
+<span class='no'>klic_labels</span> <span class='kw'>&lt;-</span> <span class='no'>klicOutput</span>$<span class='no'>globalClusterLabels</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'klicOutput' not found</span></div><div class='input'>
 <span class='no'>cluster_labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/read.table'>read.csv</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>,
 <span class='st'>"cluster_labels.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute ARI</span>
-<span class='no'>ari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mclust</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex'>adjustedRandIndex</a></span>(<span class='no'>klic_labels</span>, <span class='no'>cluster_labels</span>)</div></pre>
+<span class='no'>ari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mclust</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex'>adjustedRandIndex</a></span>(<span class='no'>klic_labels</span>, <span class='no'>cluster_labels</span>)</div><div class='output co'>#&gt; <span class='error'>Error in as.vector(x): object 'klic_labels' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -302,7 +301,7 @@ This too is chosen so as to maximise the silhouette index.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>
