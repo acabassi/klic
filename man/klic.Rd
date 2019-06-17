@@ -104,6 +104,10 @@ cluster_labels <- as.matrix(read.csv(system.file("extdata",
 # Compute ARI
 ari <- mclust::adjustedRandIndex(klic_labels, cluster_labels)
 }
+\references{
+Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning for
+integrative consensus clustering of genomic datasets. arXiv preprint. arXiv:1904.07701.
+}
 \author{
 Alessandra Cabassi \email{ac2051@cam.ac.uk}
 }

@@ -126,7 +126,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
 
             if(verbose){
                 print(paste("Dataset", i, sep = " "))
-                pb = txtProgressBar(min = 0, max = individualMaxK-1, style = 3) # create progress bar
+                pb = utils::txtProgressBar(min = 0, max = individualMaxK-1, style = 3) # create progress bar
             }
 
             if(scale){
@@ -176,7 +176,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
                 }else{ # If the value of individualClAlgorithm is not any of the above
                     stop("If there are factors among the covariates, individualClAlgorithm must be 'kkmeans', 'hclust', or 'pam'")
                 }
-                if(verbose) setTxtProgressBar(pb, j-1)
+                if(verbose) utils::setTxtProgressBar(pb, j-1)
             }
             if(verbose) close(pb)
 
@@ -270,7 +270,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
 
         if(verbose){
             print("*** Choosing the number of clusters for the global clustering ***")
-            pb = txtProgressBar(min = 0, max = globalMaxK-1, style = 3) # create progress bar
+            pb = utils::txtProgressBar(min = 0, max = globalMaxK-1, style = 3) # create progress bar
         }
 
         # Initialise empty kernel matrix for each possible number of clusters
@@ -295,7 +295,7 @@ klic = function(data, M, individualK = NULL, individualMaxK = 6,
             # Save the cluster labels
             clLabels[i-1,] <- lmkkm$clustering
 
-            if(verbose) setTxtProgressBar(pb, i-1)
+            if(verbose) utils::setTxtProgressBar(pb, i-1)
         }
         if(verbose) close(pb)
 

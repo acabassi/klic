@@ -11,13 +11,47 @@ lmkkmeans_missingData(Km, parameters, missing = NULL, verbose = FALSE)
 
 \item{parameters}{List of parameters, containing `iteration_count`, `cluster_count`.}
 
-\item{missing}{Matrix of size N X M containing missingness indicators.}
+\item{missing}{Matrix of size N X M containing missingness indicators, i.e. missing[i,j] = 1
+(or =TRUE) if observation `i` is missing in dataset `j`, missing[i,j]=0 (or =FALSE).}
 
 \item{verbose}{Boolean flag. If TRUE, at each iteration the iteration number is printed.
 Defaults to FALSE.}
 }
 \description{
 Perform the training step of the localised multiple kernel k-means
+}
+\examples{
+# Intialise 300 x 300 x 3 array containing M kernel matrices
+# representing three different types of similarities
+# between 300 data points
+km <- array(NA, c(300, 300, 3))
+# Load kernel matrices
+km[,,1] <- as.matrix(read.csv(system.file("extdata",
+                                         "kernel-matrix1.csv", package = "klic"), row.names = 1))
+km[,,2] <- as.matrix(read.csv(system.file("extdata",
+                                         "kernel-matrix2.csv", package = "klic"), row.names = 1))
+km[,,3] <- as.matrix(read.csv(system.file("extdata",
+                                         "kernel-matrix3.csv", package = "klic"), row.names = 1))
+# Introduce some missing data
+km[76:100, , 1] <- NA
+km[, 76:100, 1] <- NA
+
+# Define missingness indicators
+missing <- matrix(FALSE, 300, 3)
+missing[76:100,1] <- TRUE
+
+#initalize the parameters of the algorithm
+parameters <- list()
+#set the number of clusters
+parameters$cluster_count <- 2
+# set the number of iterations
+parameters$iteration_count <- 10
+#perform training
+state <- lmkkmeans_missingData(km, parameters, missing)
+#display the clustering
+print(state$clustering)
+#display the kernel weights
+print(state$Theta)
 }
 \references{
 Gonen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means

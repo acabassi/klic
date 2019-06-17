@@ -3,8 +3,8 @@
 #' Perform the training step of the localised multiple kernel k-means
 #' @param Km Array of size N X N X M containing M kernel matrices.
 #' @param parameters List of parameters, containing `iteration_count`, `cluster_count`.
-#' @param missing Matrix of size N X M containing missingness indicators. missing[i,j]=1 if
-#' observation `i` is missing in dataset `j`
+#' @param missing Matrix of size N X M containing missingness indicators, i.e. missing[i,j] = 1
+#' (or =TRUE) if observation `i` is missing in dataset `j`, missing[i,j]=0 (or =FALSE).
 #' @param verbose Boolean flag. If TRUE, at each iteration the iteration number is printed.
 #' Defaults to FALSE.
 #' @author Mehmet Gonen, Alessandra Cabassi
@@ -47,9 +47,6 @@
 
 lmkkmeans_missingData <- function(Km, parameters, missing = NULL, verbose = FALSE){
 
-    # Assumiamo che `missing` sia una matrice N X P in cui missing[i,j]=1 se il dato `i`
-    # manca nel dataset `j`
-
     state <- list()
 
     N <- dim(Km)[2]
@@ -88,10 +85,14 @@ lmkkmeans_missingData <- function(Km, parameters, missing = NULL, verbose = FALS
 
         Q <- matrix(0, N * P, N * P)
         for (m in 1:P) {
+
+            avail_m <- avail[,m]>0
             start_index <- (m - 1) * N + 1
             end_index <- m * N
-            Q[start_index:end_index, start_index:end_index] <- diag(1, N, N) * Km[,,m] -
-                HHT * Km[,,m]
+
+            Q[(start_index:end_index)[avail_m], (start_index:end_index)[avail_m]] <-
+                diag(1, sum(avail_m), sum(avail_m)) * Km[avail_m,avail_m,m] -
+                HHT[avail_m,avail_m] * Km[avail_m,avail_m,m]
             # See Gonen & Margolin 2014 NIPS, page 5
         }
 
@@ -139,8 +140,12 @@ lmkkmeans_missingData <- function(Km, parameters, missing = NULL, verbose = FALS
         # Update weighted kernel
         K_Theta <- matrix(0, nrow(Km), ncol(Km))
         for (m in 1:P) {
-            K_Theta <- K_Theta + (Theta[,m,drop = FALSE] %*% t(Theta[,m,drop = FALSE])) * Km[,,m]
+            avail_m <- avail[,m]>0
+            K_Theta[avail_m, avail_m] <- K_Theta[avail_m, avail_m] +
+                (Theta[avail_m, m, drop = FALSE] %*% t(Theta[avail_m, m, drop = FALSE] )) *
+                Km[avail_m, avail_m, m]
         }
+
 
         # Update objective function
         objective[iter] <- sum(diag(t(H) %*% K_Theta %*% H)) - sum(diag(K_Theta))
@@ -148,14 +153,16 @@ lmkkmeans_missingData <- function(Km, parameters, missing = NULL, verbose = FALS
 
     normalize <- which(rowSums(H^2, 2)>.Machine$double.eps)
     H_normalized <- matrix(0, N, parameters$cluster_count)
-    H_normalized[normalize,] <- H[normalize,] / matrix(sqrt(rowSums(H[normalize,]^2, 2)), nrow(H[normalize,]), parameters$cluster_count, byrow = FALSE)
+    H_normalized[normalize,] <- H[normalize,] / matrix(sqrt(rowSums(H[normalize,]^2, 2)),
+                                                       nrow(H[normalize,]), parameters$cluster_count,
+                                                       byrow = FALSE)
 
     set.seed(NULL)
-    state$clustering <- stats::kmeans(H_normalized, centers = parameters$cluster_count, iter.max = 1000, nstart = 10)$cluster
+    state$clustering <- stats::kmeans(H_normalized, centers = parameters$cluster_count,
+                                      iter.max = 1000, nstart = 10)$cluster
     state$objective <- objective
     state$parameters <- parameters
     state$Theta <- Theta
 
     state
 }
-

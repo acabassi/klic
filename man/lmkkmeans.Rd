@@ -17,7 +17,7 @@ lmkkmeans(Km, parameters, verbose = FALSE)
 Perform the training step of the localised multiple kernel k-means
 }
 \examples{
-# Intialise 300 x 300 x 3 array containing M kernel matrices
+# Initialise 300 x 300 x 3 array containing M kernel matrices
 # representing three different types of similarities
 # between 300 data points
 km <- array(NA, c(300, 300, 3))
