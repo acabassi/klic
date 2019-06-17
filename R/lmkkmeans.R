@@ -7,7 +7,7 @@
 #' @author Mehmet Gonen
 #' @references Gonen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means clustering with application to cancer biology. In Advances in Neural Information Processing Systems (pp. 1305-1313).
 #' @examples
-#' # Intialise 300 x 300 x 3 array containing M kernel matrices
+#' # Initialise 300 x 300 x 3 array containing M kernel matrices
 #' # representing three different types of similarities
 #' # between 300 data points
 #' km <- array(NA, c(300, 300, 3))

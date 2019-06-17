@@ -1,6 +1,6 @@
 Package: klic
 Title: Kernel Learning Integrative Clustering
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: person("Alessandra", "Cabassi", email = "ac2051@cam.ac.uk", role = c("aut", "cre"))
 Description: Unsupervised clustering based on multiple kernel learning algorithms.
 Depends: R (>= 3.3.2)

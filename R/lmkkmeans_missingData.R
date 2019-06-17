@@ -3,13 +3,46 @@
 #' Perform the training step of the localised multiple kernel k-means
 #' @param Km Array of size N X N X M containing M kernel matrices.
 #' @param parameters List of parameters, containing `iteration_count`, `cluster_count`.
-#' @param missing Matrix of size N X M containing missingness indicators.
+#' @param missing Matrix of size N X M containing missingness indicators. missing[i,j]=1 if
+#' observation `i` is missing in dataset `j`
 #' @param verbose Boolean flag. If TRUE, at each iteration the iteration number is printed.
 #' Defaults to FALSE.
 #' @author Mehmet Gonen, Alessandra Cabassi
 #' @references Gonen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means
 #' clustering with application to cancer biology. In Advances in Neural Information Processing
 #' Systems (pp. 1305-1313).
+#' @examples
+#' # Intialise 300 x 300 x 3 array containing M kernel matrices
+#' # representing three different types of similarities
+#' # between 300 data points
+#' km <- array(NA, c(300, 300, 3))
+#' # Load kernel matrices
+#' km[,,1] <- as.matrix(read.csv(system.file("extdata",
+#'                                          "kernel-matrix1.csv", package = "klic"), row.names = 1))
+#' km[,,2] <- as.matrix(read.csv(system.file("extdata",
+#'                                          "kernel-matrix2.csv", package = "klic"), row.names = 1))
+#' km[,,3] <- as.matrix(read.csv(system.file("extdata",
+#'                                          "kernel-matrix3.csv", package = "klic"), row.names = 1))
+#' # Introduce some missing data
+#' km[76:100, , 1] <- NA
+#' km[, 76:100, 1] <- NA
+#'
+#' # Define missingness indicators
+#' missing <- matrix(FALSE, 300, 3)
+#' missing[76:100,1] <- TRUE
+#'
+#' #initalize the parameters of the algorithm
+#' parameters <- list()
+#' #set the number of clusters
+#' parameters$cluster_count <- 2
+#' # set the number of iterations
+#' parameters$iteration_count <- 10
+#' #perform training
+#' state <- lmkkmeans_missingData(km, parameters, missing)
+#' #display the clustering
+#' print(state$clustering)
+#' #display the kernel weights
+#' print(state$Theta)
 #' @export
 
 lmkkmeans_missingData <- function(Km, parameters, missing = NULL, verbose = FALSE){
@@ -23,23 +56,25 @@ lmkkmeans_missingData <- function(Km, parameters, missing = NULL, verbose = FALS
     P <- dim(Km)[3]
 
     if(!is.null(missing)){
-        avail <- abs(1-missing)
+        avail <- abs(1 - missing)
     }else{
         avail <- matrix(1, N, P)
     }
 
     # Initialise weight matrix assigning equal weights to each object in each kernel
     Theta <- matrix(NA, N, P)
-    for(i in 1:P){
-        Theta[,i] <- 1/sum(avail[,i])
+    for(i in 1:N){
+        Theta[i,] <- 1/sum(avail[i,])
     }
-    Theta <- Theta*avail # mettiamo a zero quelli che non sono disponibili
-
+    Theta <- Theta*avail # Set to zero the weights of missing observations
 
     # Initialise weighted kernel matrix
     K_Theta <- matrix(0, nrow(Km), ncol(Km))
     for (m in 1:P) {
-        K_Theta <- K_Theta + (Theta[,m,drop = FALSE] %*% t(Theta[,m,drop = FALSE])) * Km[,,m]
+        avail_m <- avail[,m]>0
+        K_Theta[avail_m, avail_m] <- K_Theta[avail_m, avail_m] +
+            (Theta[avail_m, m, drop = FALSE] %*% t(Theta[avail_m, m, drop = FALSE] )) *
+            Km[avail_m, avail_m, m]
     }
 
     # Initialise vector of objective functions
@@ -55,7 +90,8 @@ lmkkmeans_missingData <- function(Km, parameters, missing = NULL, verbose = FALS
         for (m in 1:P) {
             start_index <- (m - 1) * N + 1
             end_index <- m * N
-            Q[start_index:end_index, start_index:end_index] <- diag(1, N, N) * Km[,,m] - HHT * Km[,,m]
+            Q[start_index:end_index, start_index:end_index] <- diag(1, N, N) * Km[,,m] -
+                HHT * Km[,,m]
             # See Gonen & Margolin 2014 NIPS, page 5
         }
 
