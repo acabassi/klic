@@ -6,7 +6,7 @@
 
 In order to install this package, you will need to have _Rmosek_ installed. 
 
-### Installing Rmosek [Linux]
+### Installing Rmosek [Unix]
 
 * Download mosek from https://www.mosek.com/downloads/ to any folder (usually `/home/<username>/bin`). We will refer to it as `<my-mosek-directory>`.
 * Unzip it:
@@ -42,3 +42,8 @@ library(devtools)
 install_github("acabassi/klic")
 library(klic)
 ```
+
+### Examples
+
+- Clustering tumour samples: https://github.com/acabassi/klic-pancan12
+- Clustering genes: https://github.com/acabassi/klic-transcriptional-modules
