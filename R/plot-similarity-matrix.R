@@ -20,6 +20,7 @@
 #' @param labCol Vector of column labels, default is NA.
 #' @param dendro If 'both', plot dendrogram on rows and columns; if 'none', no dendrograms are shown.
 #' Default is 'none'.
+#' @author Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 #' @examples
 #' # Load one dataset with 300 observations, 2 variables, 6 clusters
 #' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",

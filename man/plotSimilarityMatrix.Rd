@@ -4,11 +4,23 @@
 \alias{plotSimilarityMatrix}
 \title{Plot similarity matrix}
 \usage{
-plotSimilarityMatrix(X, y = NULL, clusLabels = NULL, colX = NULL,
-  colY = NULL, myLegend = NULL, file_name = "myheatmap.png",
-  savePNG = FALSE, saveTIKZ = FALSE, saveEPS = FALSE,
-  semiSupervised = FALSE, scale = "none", labRow = NA, labCol = NA,
-  dendro = "none")
+plotSimilarityMatrix(
+  X,
+  y = NULL,
+  clusLabels = NULL,
+  colX = NULL,
+  colY = NULL,
+  myLegend = NULL,
+  file_name = "myheatmap.png",
+  savePNG = FALSE,
+  saveTIKZ = FALSE,
+  saveEPS = FALSE,
+  semiSupervised = FALSE,
+  scale = "none",
+  labRow = NA,
+  labCol = NA,
+  dendro = "none"
+)
 }
 \arguments{
 \item{X}{Similarity matrix.}

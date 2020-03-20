@@ -4,7 +4,7 @@
 #' a measure of howfaithfully hierarchical clustering would preserve the
 #' pairwise distances between the original data points.
 #' @param kernelMatrix kernel matrix.
-#' @author Alessandra Cabassi \email{ac2051@cam.ac.uk}
+#' @author Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 #' @references Sokal, R.R. and Rohlf, F.J., 1962. The comparison of dendrograms by objective methods. Taxon, 11(2), pp.33-40.
 #' @examples
 #' # Load kernel matrix

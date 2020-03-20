@@ -8,21 +8,25 @@
 
 <title>Kernel learning integrative clustering — klic • klic</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,8 +34,8 @@
 
 
 
-<meta property="og:title" content="Kernel learning integrative clustering — klic" />
 
+<meta property="og:title" content="Kernel learning integrative clustering — klic" />
 <meta property="og:description" content="This function allows to perform Kernel Learning Integrative Clustering on `M` data sets relative
 to the same observations. The similarities between the observations in each data set
 are summarised into `M` different kernels, that are then fed into a kernel k-means clustering
@@ -39,6 +43,7 @@ algorithm. The output is a clustering of the observations that takes into accoun
 available data types and a set of weights that sum up to one, indicating how much each data set
 contributed to the kernel k-means clustering." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -62,6 +67,7 @@ contributed to the kernel k-means clustering." />
   gtag('config', 'UA-128138627-4');
 </script>
 
+
   </head>
 
   <body>
@@ -78,7 +84,7 @@ contributed to the kernel k-means clustering." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">klic</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -106,11 +112,10 @@ contributed to the kernel k-means clustering." />
   </a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/acabassi/klic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -121,6 +126,7 @@ contributed to the kernel k-means clustering." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -132,23 +138,36 @@ contributed to the kernel k-means clustering." />
     </div>
 
     <div class="ref-description">
-    
     <p>This function allows to perform Kernel Learning Integrative Clustering on `M` data sets relative
 to the same observations. The similarities between the observations in each data set
 are summarised into `M` different kernels, that are then fed into a kernel k-means clustering
 algorithm. The output is a clustering of the observations that takes into account all the
 available data types and a set of weights that sum up to one, indicating how much each data set
 contributed to the kernel k-means clustering.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>klic</span>(<span class='no'>data</span>, <span class='no'>M</span>, <span class='kw'>individualK</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>individualMaxK</span> <span class='kw'>=</span> <span class='fl'>6</span>,
-  <span class='kw'>individualClAlgorithm</span> <span class='kw'>=</span> <span class='st'>"kkmeans"</span>, <span class='kw'>globalK</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>globalMaxK</span> <span class='kw'>=</span> <span class='fl'>6</span>,
-  <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>savePlots</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"klic"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>annotations</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ccClMethods</span> <span class='kw'>=</span> <span class='st'>"km"</span>, <span class='kw'>ccDistHCs</span> <span class='kw'>=</span> <span class='st'>"euclidean"</span>, <span class='kw'>widestGap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>dunns</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dunn2s</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>klic</span>(
+  <span class='no'>data</span>,
+  <span class='no'>M</span>,
+  <span class='kw'>individualK</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>individualMaxK</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>individualClAlgorithm</span> <span class='kw'>=</span> <span class='st'>"kkmeans"</span>,
+  <span class='kw'>globalK</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>globalMaxK</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>savePlots</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"klic"</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>annotations</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ccClMethods</span> <span class='kw'>=</span> <span class='st'>"km"</span>,
+  <span class='kw'>ccDistHCs</span> <span class='kw'>=</span> <span class='st'>"euclidean"</span>,
+  <span class='kw'>widestGap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>dunns</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>dunn2s</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -241,7 +260,7 @@ of clusters. Default is FALSE.</p></td>
 of clusters. Default is FALSE.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The function returns `consensusMatrices`, which is an array containing one consensus matrix
@@ -252,41 +271,44 @@ of clusters is not provided, the function also returns `bestK`, the best number 
 2 and `maxIndividualK` for each data set. Similarly, if the final number of clusters is not
 provided, the best number of clusters for the final (global) clustering `globalK` is also returned.
 This too is chosen so as to maximise the silhouette index.</p>
-    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning for
+integrative consensus clustering of genomic datasets. arXiv preprint. arXiv:1904.07701.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Load synthetic data</span>
-<span class='no'>data1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/read.table'>read.csv</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>,
+<span class='no'>data1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
 <span class='st'>"dataset1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
-<span class='no'>data2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/read.table'>read.csv</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>,
+<span class='no'>data2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
 <span class='st'>"dataset2.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
-<span class='no'>data3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/read.table'>read.csv</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>,
+<span class='no'>data3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
 <span class='st'>"dataset3.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>data1</span>, <span class='no'>data2</span>, <span class='no'>data3</span>)
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>data1</span>, <span class='no'>data2</span>, <span class='no'>data3</span>)
 
 <span class='co'># Perform clustering with KLIC assuming to know the</span>
 <span class='co'># number of clusters in each individual dataset and in</span>
 <span class='co'># the final clustering</span>
-<span class='no'>klicOutput</span> <span class='kw'>&lt;-</span> <span class='fu'>klic</span>(<span class='no'>data</span>, <span class='fl'>3</span>, <span class='kw'>individualK</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>),
+<span class='no'>klicOutput</span> <span class='kw'>&lt;-</span> <span class='fu'>klic</span>(<span class='no'>data</span>, <span class='fl'>3</span>, <span class='kw'>individualK</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>),
 <span class='kw'>globalK</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] "All datasets contain the same number of observations, 300."
 #&gt; [1] "We assume that the observations are the same in each dataset and that they are in the same order."
 #&gt; [1] "*** Generating similarity matrices ***"
 #&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%
-#&gt; [1] "*** Finding the global clustering ***"</div><div class='output co'>#&gt; <span class='error'>Error in matrix(result$sol$itr$xx, N, P, byrow = FALSE): 'data' must be of a vector type, was 'NULL'</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0.15 0.04 0.229</span></div><div class='input'>
+#&gt; [1] "*** Finding the global clustering ***"</div><div class='input'>
 <span class='co'># Extract cluster labels</span>
-<span class='no'>klic_labels</span> <span class='kw'>&lt;-</span> <span class='no'>klicOutput</span>$<span class='no'>globalClusterLabels</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'klicOutput' not found</span></div><div class='input'>
-<span class='no'>cluster_labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/read.table'>read.csv</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>,
+<span class='no'>klic_labels</span> <span class='kw'>&lt;-</span> <span class='no'>klicOutput</span>$<span class='no'>globalClusterLabels</span>
+
+<span class='no'>cluster_labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
 <span class='st'>"cluster_labels.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute ARI</span>
-<span class='no'>ari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mclust</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex'>adjustedRandIndex</a></span>(<span class='no'>klic_labels</span>, <span class='no'>cluster_labels</span>)</div><div class='output co'>#&gt; <span class='error'>Error in as.vector(x): object 'klic_labels' not found</span></div></pre>
+<span class='no'>ari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mclust</span><span class='kw ns'>::</span><span class='fu'><a href='https://mclust-org.github.io/mclust/reference/adjustedRandIndex.html'>adjustedRandIndex</a></span>(<span class='no'>klic_labels</span>, <span class='no'>cluster_labels</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
+      <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -295,19 +317,23 @@ This too is chosen so as to maximise the silhouette index.</p>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by <a href='https://alessandracabassi.wordpress.com'>Alessandra Cabassi</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

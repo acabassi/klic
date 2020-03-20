@@ -5,7 +5,7 @@
 #' @param coeff Coefficient by which the minimum eigenvalue is multiplied when shifting the eigenvalues, in order to avoid numeric problems. Default is 1.2.
 #' @param shift Value of the constant added to the diagonal, if known a priori. Default is NULL.
 #' @param verbose Boolean flag: if TRUE, information about the shift is printed to screen. Default is FALSE.
-#' @author Alessandra Cabassi \email{ac2051@cam.ac.uk}
+#' @author Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 #' @examples
 #' # Load one dataset with 300 observations, 2 variables, 6 clusters
 #' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))

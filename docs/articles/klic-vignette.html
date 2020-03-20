@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to klic • klic</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to klic">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -36,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">klic</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -67,7 +68,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/acabassi/klic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -80,13 +81,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introduction to klic</h1>
                         <h4 class="author">Alessandra Cabassi</h4>
             
-            <h4 class="date">2019-04-17</h4>
+            <h4 class="date">2020-03-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/acabassi/klic/blob/master/vignettes/klic-vignette.Rmd"><code>vignettes/klic-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>klic-vignette.Rmd</code></div>
@@ -116,30 +118,30 @@
 <a href="#how-klic-works" class="anchor"></a>How KLIC works</h1>
 <p>First, we generate four datasets with the same clustering structure (6 clusters of equal size) and different levels of noise.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">## Load synthetic data</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">data1 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/matrix">as.matrix</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"dataset1.csv"</span>, <span class="dt">package =</span> <span class="st">"klic"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">data2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/matrix">as.matrix</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>,<span class="st">"dataset2.csv"</span>, <span class="dt">package =</span> <span class="st">"klic"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">data3 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/matrix">as.matrix</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"dataset3.csv"</span>, <span class="dt">package =</span> <span class="st">"klic"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">data &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(data1, data2, data3)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">data1 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"dataset1.csv"</span>, <span class="dt">package =</span> <span class="st">"klic"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">data2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>,<span class="st">"dataset2.csv"</span>, <span class="dt">package =</span> <span class="st">"klic"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">data3 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"dataset3.csv"</span>, <span class="dt">package =</span> <span class="st">"klic"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(data1, data2, data3)</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">n_datasets &lt;-<span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">N &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/dim">dim</a></span>(data[[<span class="dv">1</span>]])[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">trueLab &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/matrix">as.matrix</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"cluster_labels.csv"</span>, </a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">N &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(data[[<span class="dv">1</span>]])[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">trueLab &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"cluster_labels.csv"</span>, </a>
 <a class="sourceLine" id="cb1-9" data-line-number="9">                                                 <span class="dt">package =</span> <span class="st">"klic"</span>), <span class="dt">row.names =</span> <span class="dv">1</span>))</a></code></pre></div>
 <p>Now we can use the <code>consensusClustering</code> function to compute a consensus matrix for each dataset.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">## Compute co-clustering matrices for each dataset</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(klic)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">CM &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="ot">NA</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(N, N, n_datasets))</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(klic)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">CM &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="ot">NA</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(N, N, n_datasets))</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="st"> </span>n_datasets){</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">  <span class="co"># Scale the columns to have zero mean and unitary variance</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">  scaledData &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/scale">scale</a></span>(data[[i]]) </a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  scaledData &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/scale.html">scale</a></span>(data[[i]]) </a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="co"># Use consensus clustering to find the consensus matrix of each dataset</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">  CM[,,i] &lt;-<span class="st"> </span>coca<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/coca/topics/consensusCluster">consensusCluster</a></span>(scaledData, <span class="dt">K =</span> <span class="dv">6</span>, <span class="dt">B =</span> <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  CM[,,i] &lt;-<span class="st"> </span>coca<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/coca/man/consensusCluster.html">consensusCluster</a></span>(scaledData, <span class="dt">K =</span> <span class="dv">6</span>, <span class="dt">B =</span> <span class="dv">50</span>)</a>
 <a class="sourceLine" id="cb2-9" data-line-number="9">}</a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">## Plot consensus matrix of one of the datasets</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">trueLab &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">as.factor</a></span>(trueLab)</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(trueLab) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(<span class="dv">1</span><span class="op">:</span>N)</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">CM3 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/matrix">as.matrix</a></span>(CM[,,<span class="dv">3</span>])</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">rownames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(trueLab)</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw"><a href="../reference/plotSimilarityMatrix2.html">plotSimilarityMatrix2</a></span>(CM3, <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.data.frame">as.data.frame</a></span>(trueLab))</a></code></pre></div>
+<a class="sourceLine" id="cb2-11" data-line-number="11">trueLab &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(trueLab)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(trueLab) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="dv">1</span><span class="op">:</span>N)</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">CM3 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(CM[,,<span class="dv">3</span>])</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(trueLab)</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw"><a href="../reference/plotSimilarityMatrix2.html">plotSimilarityMatrix2</a></span>(CM3, <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(trueLab))</a></code></pre></div>
 <p><img src="klic-vignette_files/figure-html/consensus_cluster-1.png" width="700"></p>
 <p>Before using kernel methods, we need to make sure that all the consensus matrices are positive semi-definite.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">## Check if consensus matrices are PSD and shift eigenvalues if needed.</span></a>
@@ -147,34 +149,34 @@
 <a class="sourceLine" id="cb3-3" data-line-number="3">  CM[,,i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/spectrumShift.html">spectrumShift</a></span>(CM[,,i], <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">}</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">## Plot updated consensus matrix of one of the datasets</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">trueLab &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">as.factor</a></span>(trueLab)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(trueLab) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(<span class="dv">1</span><span class="op">:</span>N)</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">CM3 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/matrix">as.matrix</a></span>(CM[,,<span class="dv">3</span>])</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">rownames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(trueLab)</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="../reference/plotSimilarityMatrix2.html">plotSimilarityMatrix2</a></span>(CM3, <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.data.frame">as.data.frame</a></span>(trueLab))</a></code></pre></div>
+<a class="sourceLine" id="cb3-6" data-line-number="6">trueLab &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(trueLab)</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(trueLab) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="dv">1</span><span class="op">:</span>N)</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">CM3 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(CM[,,<span class="dv">3</span>])</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(trueLab)</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="../reference/plotSimilarityMatrix2.html">plotSimilarityMatrix2</a></span>(CM3, <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(trueLab))</a></code></pre></div>
 <p><img src="klic-vignette_files/figure-html/spectrum_shift-1.png" width="700"></p>
 <p>Now we can perform localised kernel k-kmeans on the set of consensus matrices using the function <code>lmkkmeans</code> to find a global clustering. This functions also need to be provided with a list of parameters containing the prespecified number of clusters and the maximum number of iterations for the k-means algorithm.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">## Perform localised kernel k-means on the consensus matrices</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(Matrix)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(Rmosek)</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">parameters &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>()</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(Matrix)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(Rmosek)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">parameters &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5">parameters<span class="op">$</span>cluster_count &lt;-<span class="st"> </span><span class="dv">6</span> <span class="co"># set the number of clusters K</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6">parameters<span class="op">$</span>iteration_count &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># set the maximum number of iterations</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">lmkkm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/lmkkmeans.html">lmkkmeans</a></span>(CM, parameters)</a></code></pre></div>
 <p>The output of <code>lmkkmeans</code> contains, among other things, the final cluster labels. To compare two clusterings, such as for example the true clustering (that is known in this case) and the clustering found with KLIC, we suggest to use the <code>adjustedRandIndex</code> function of the R package <code>mclust</code>. An ARI close to 1 indicates a high similarity between the two partitions of the data.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">## Compare clustering found with KLIC to the true one</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(mclust, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex">adjustedRandIndex</a></span>(trueLab, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.8342068</code></pre>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(mclust, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://mclust-org.github.io/mclust/reference/adjustedRandIndex.html">adjustedRandIndex</a></span>(trueLab, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
+<pre><code>## [1] 0.8202252</code></pre>
 <p>If the global number of clusters is not known, one can find the weights and clusters for different values of K and then find the one that maximises the silhouette.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">## Find the value of k that maximises the silhouette</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co"># Initialise array of kernel matrices </span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">maxK =<span class="st"> </span><span class="dv">6</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">KM &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="dv">0</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(N, N, maxK<span class="dv">-1</span>))</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">clLabels &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/array">array</a></span>(<span class="ot">NA</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(maxK<span class="dv">-1</span>, N))</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">KM &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="dv">0</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(N, N, maxK<span class="dv">-1</span>))</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">clLabels &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="ot">NA</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(maxK<span class="dv">-1</span>, N))</a>
 <a class="sourceLine" id="cb7-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">parameters &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>()</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">parameters &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()</a>
 <a class="sourceLine" id="cb7-9" data-line-number="9">parameters<span class="op">$</span>iteration_count &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># set the maximum number of iterations</span></a>
 <a class="sourceLine" id="cb7-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb7-11" data-line-number="11"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>maxK){</a>
@@ -184,8 +186,8 @@
 <a class="sourceLine" id="cb7-15" data-line-number="15">  lmkkm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/lmkkmeans.html">lmkkmeans</a></span>(CM, parameters)</a>
 <a class="sourceLine" id="cb7-16" data-line-number="16">  </a>
 <a class="sourceLine" id="cb7-17" data-line-number="17">  <span class="co"># Compute weighted matrix</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18">  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/dim">dim</a></span>(CM)[<span class="dv">3</span>]){</a>
-<a class="sourceLine" id="cb7-19" data-line-number="19">    KM[,,i<span class="dv">-1</span>] &lt;-<span class="st"> </span>KM[,,i<span class="dv">-1</span>] <span class="op">+</span><span class="st"> </span>(lmkkm<span class="op">$</span>Theta[,j]<span class="op">%*%</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/t">t</a></span>(lmkkm<span class="op">$</span>Theta[,j]))<span class="op">*</span>CM[,,j]</a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(CM)[<span class="dv">3</span>]){</a>
+<a class="sourceLine" id="cb7-19" data-line-number="19">    KM[,,i<span class="dv">-1</span>] &lt;-<span class="st"> </span>KM[,,i<span class="dv">-1</span>] <span class="op">+</span><span class="st"> </span>(lmkkm<span class="op">$</span>Theta[,j]<span class="op">%*%</span><span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(lmkkm<span class="op">$</span>Theta[,j]))<span class="op">*</span>CM[,,j]</a>
 <a class="sourceLine" id="cb7-20" data-line-number="20">  }</a>
 <a class="sourceLine" id="cb7-21" data-line-number="21">  </a>
 <a class="sourceLine" id="cb7-22" data-line-number="22">  <span class="co"># Save cluster labels</span></a>
@@ -193,37 +195,37 @@
 <a class="sourceLine" id="cb7-24" data-line-number="24">}</a>
 <a class="sourceLine" id="cb7-25" data-line-number="25"></a>
 <a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co"># Find value of K that maximises silhouette</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27">maxSil &lt;-<span class="st"> </span>coca<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/coca/topics/maximiseSilhouette">maximiseSilhouette</a></span>(KM, clLabels, <span class="dt">maxK =</span> <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb7-27" data-line-number="27">maxSil &lt;-<span class="st"> </span>coca<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/coca/man/maximiseSilhouette.html">maximiseSilhouette</a></span>(KM, clLabels, <span class="dt">maxK =</span> <span class="dv">6</span>)</a>
 <a class="sourceLine" id="cb7-28" data-line-number="28">maxSil<span class="op">$</span>k</a></code></pre></div>
 <pre><code>## NULL</code></pre>
 <p>The same can be done simply using the function <code>klic</code></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">klic &lt;-<span class="st"> </span><span class="kw"><a href="../reference/klic.html">klic</a></span>(data, <span class="dt">M =</span> n_datasets, <span class="dt">individualK =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">klic &lt;-<span class="st"> </span><span class="kw"><a href="../reference/klic.html">klic</a></span>(data, <span class="dt">M =</span> n_datasets, <span class="dt">individualK =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>))</a></code></pre></div>
 <pre><code>## [1] "All datasets contain the same number of observations, 300."
 ## [1] "We assume that the observations are the same in each dataset and that they are in the same order."
 ## [1] "*** Generating similarity matrices ***"
 ## 
-  |                                                                       
-  |                                                                 |   0%
-  |                                                                       
-  |======================                                           |  33%
-  |                                                                       
-  |===========================================                      |  67%
-  |                                                                       
-  |=================================================================| 100%
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |=======================                                               |  33%
+  |                                                                            
+  |===============================================                       |  67%
+  |                                                                            
+  |======================================================================| 100%
 ## [1] "*** Choosing the number of clusters for the global clustering ***"
 ## 
-  |                                                                       
-  |                                                                 |   0%
-  |                                                                       
-  |=============                                                    |  20%
-  |                                                                       
-  |==========================                                       |  40%
-  |                                                                       
-  |=======================================                          |  60%
-  |                                                                       
-  |====================================================             |  80%
-  |                                                                       
-  |=================================================================| 100%</code></pre>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |==============                                                        |  20%
+  |                                                                            
+  |============================                                          |  40%
+  |                                                                            
+  |==========================================                            |  60%
+  |                                                                            
+  |========================================================              |  80%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
 <pre><code>## [1] "Global K = 4"</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">klic<span class="op">$</span>globalK</a></code></pre></div>
 <pre><code>## [1] 4</code></pre>
@@ -233,23 +235,23 @@
 <a href="#other-useful-functions" class="anchor"></a>Other useful functions</h1>
 <p><code>kkmeans</code> is the analogous of <code>lmkkmeans</code>, for just one dataset at a time.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">## Set parameters of the kernel k-means algorithm</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">parameters &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>()</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">parameters &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3">parameters<span class="op">$</span>cluster_count &lt;-<span class="st"> </span><span class="dv">6</span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4">parameters<span class="op">$</span>iteration_count &lt;-<span class="st"> </span><span class="dv">100</span></a>
 <a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">## Run kernel k-means</span></a>
 <a class="sourceLine" id="cb14-6" data-line-number="6">kkm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/kkmeans.html">kkmeans</a></span>(CM[,,<span class="dv">3</span>], parameters)</a>
 <a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">## Compare clustering to the true labels</span></a>
 <a class="sourceLine" id="cb14-8" data-line-number="8">clusterLabels &lt;-<span class="st"> </span>kkm<span class="op">$</span>clustering</a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/mclust/topics/adjustedRandIndex">adjustedRandIndex</a></span>(trueLab, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.8342068</code></pre>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="kw"><a href="https://mclust-org.github.io/mclust/reference/adjustedRandIndex.html">adjustedRandIndex</a></span>(trueLab, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
+<pre><code>## [1] 0.8202252</code></pre>
 <p>We also included <code>copheneticCorrelation</code>, a function that calculates the cophenetic correlation coefficient of a similarity matrix:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co">## Compute cophenetic correlation coefficient for each consensus matrix</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2">ccc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="ot">NA</span>, n_datasets)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">ccc &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="ot">NA</span>, n_datasets)</a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_datasets){</a>
 <a class="sourceLine" id="cb16-4" data-line-number="4">  ccc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/copheneticCorrelation.html">copheneticCorrelation</a></span>(CM[,,i])</a>
 <a class="sourceLine" id="cb16-5" data-line-number="5">}</a>
 <a class="sourceLine" id="cb16-6" data-line-number="6">ccc</a></code></pre></div>
-<pre><code>## [1] 0.8696044 0.8746146 0.9372749</code></pre>
+<pre><code>## [1] 0.8830482 0.8816215 0.9085739</code></pre>
 <p>The cophenetic correlation coefficient is a measure of how faithfully hierarchical clustering would preserve the pairwise distances between the original data points.</p>
 <p>There is also a function that can be used to plot similarity matrices, ordered by cluster label, and with an additional side label for each row and to save the output in different formats. It is called <code>plotSimilarityMatrix</code>.</p>
 </div>
@@ -265,6 +267,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -279,17 +282,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by <a href="https://alessandracabassi.wordpress.com">Alessandra Cabassi</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

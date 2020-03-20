@@ -16,6 +16,7 @@
 #' @param clc Boolean. If TRUE, columns are ordered by hierarchical clustering. Default is FALSE.
 #' @param plotWidth Plot width. Default is 500.
 #' @param plotHeight Plot height. Default is 450.
+#' @author Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 #' @examples
 #' # Load one dataset with 300 observations, 2 variables, 6 clusters
 #' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",

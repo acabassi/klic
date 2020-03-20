@@ -46,7 +46,7 @@
 #' 2 and `maxIndividualK` for each data set. Similarly, if the final number of clusters is not
 #' provided, the best number of clusters for the final (global) clustering `globalK` is also returned.
 #' This too is chosen so as to maximise the silhouette index.
-#' @author Alessandra Cabassi \email{ac2051@cam.ac.uk}
+#' @author Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 #' @references Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning for
 #' integrative consensus clustering of genomic datasets. arXiv preprint. arXiv:1904.07701.
 #' @examples

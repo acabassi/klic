@@ -7,7 +7,7 @@
 #' (or =TRUE) if observation `i` is missing in dataset `j`, missing[i,j]=0 (or =FALSE).
 #' @param verbose Boolean flag. If TRUE, at each iteration the iteration number is printed.
 #' Defaults to FALSE.
-#' @author Mehmet Gonen, Alessandra Cabassi
+#' @author Mehmet Gonen, Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 #' @references Gonen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means
 #' clustering with application to cancer biology. In Advances in Neural Information Processing
 #' Systems (pp. 1305-1313).

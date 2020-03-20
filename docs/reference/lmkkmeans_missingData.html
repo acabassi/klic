@@ -8,21 +8,25 @@
 
 <title>Localised multiple kernel k-means — lmkkmeans_missingData • klic</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +34,11 @@
 
 
 
-<meta property="og:title" content="Localised multiple kernel k-means — lmkkmeans_missingData" />
 
+<meta property="og:title" content="Localised multiple kernel k-means — lmkkmeans_missingData" />
 <meta property="og:description" content="Perform the training step of the localised multiple kernel k-means" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -57,6 +62,7 @@
   gtag('config', 'UA-128138627-4');
 </script>
 
+
   </head>
 
   <body>
@@ -73,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">klic</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -101,11 +107,10 @@
   </a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/acabassi/klic">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -116,6 +121,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -127,13 +133,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Perform the training step of the localised multiple kernel k-means</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>lmkkmeans_missingData</span>(<span class='no'>Km</span>, <span class='no'>parameters</span>, <span class='kw'>missing</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -147,7 +151,8 @@
     </tr>
     <tr>
       <th>missing</th>
-      <td><p>Matrix of size N X M containing missingness indicators.</p></td>
+      <td><p>Matrix of size N X M containing missingness indicators, i.e. missing[i,j] = 1
+(or =TRUE) if observation `i` is missing in dataset `j`, missing[i,j]=0 (or =FALSE).</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -155,27 +160,366 @@
 Defaults to FALSE.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Gonen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means
 clustering with application to cancer biology. In Advances in Neural Information Processing
 Systems (pp. 1305-1313).</p>
-    
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Intialise 300 x 300 x 3 array containing M kernel matrices</span>
+<span class='co'># representing three different types of similarities</span>
+<span class='co'># between 300 data points</span>
+<span class='no'>km</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fl'>NA</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>300</span>, <span class='fl'>300</span>, <span class='fl'>3</span>))
+<span class='co'># Load kernel matrices</span>
+<span class='no'>km</span>[,,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
+                                         <span class='st'>"kernel-matrix1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+<span class='no'>km</span>[,,<span class='fl'>2</span>] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
+                                         <span class='st'>"kernel-matrix2.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+<span class='no'>km</span>[,,<span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
+                                         <span class='st'>"kernel-matrix3.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+<span class='co'># Introduce some missing data</span>
+<span class='no'>km</span>[<span class='fl'>76</span>:<span class='fl'>100</span>, , <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
+<span class='no'>km</span>[, <span class='fl'>76</span>:<span class='fl'>100</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
+
+<span class='co'># Define missingness indicators</span>
+<span class='no'>missing</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>FALSE</span>, <span class='fl'>300</span>, <span class='fl'>3</span>)
+<span class='no'>missing</span>[<span class='fl'>76</span>:<span class='fl'>100</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>TRUE</span>
+
+<span class='co'>#initalize the parameters of the algorithm</span>
+<span class='no'>parameters</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
+<span class='co'>#set the number of clusters</span>
+<span class='no'>parameters</span>$<span class='no'>cluster_count</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
+<span class='co'># set the number of iterations</span>
+<span class='no'>parameters</span>$<span class='no'>iteration_count</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>
+<span class='co'>#perform training</span>
+<span class='no'>state</span> <span class='kw'>&lt;-</span> <span class='fu'>lmkkmeans_missingData</span>(<span class='no'>km</span>, <span class='no'>parameters</span>, <span class='no'>missing</span>)
+<span class='co'>#display the clustering</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>clustering</span>)</div><div class='output co'>#&gt;   [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+#&gt;  [38] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+#&gt;  [75] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+#&gt; [112] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2
+#&gt; [149] 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+#&gt; [186] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+#&gt; [223] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+#&gt; [260] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+#&gt; [297] 1 1 1 1</div><div class='input'><span class='co'>#display the kernel weights</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>Theta</span>)</div><div class='output co'>#&gt;             [,1]      [,2]      [,3]
+#&gt;   [1,] 0.3306851 0.3373085 0.3320064
+#&gt;   [2,] 0.3303302 0.3370176 0.3326522
+#&gt;   [3,] 0.3286797 0.3319145 0.3394058
+#&gt;   [4,] 0.3180668 0.3234631 0.3584701
+#&gt;   [5,] 0.3245003 0.3343385 0.3411613
+#&gt;   [6,] 0.3246284 0.3488152 0.3265564
+#&gt;   [7,] 0.3319502 0.3353126 0.3327372
+#&gt;   [8,] 0.3315064 0.3341717 0.3343219
+#&gt;   [9,] 0.3310706 0.3379779 0.3309515
+#&gt;  [10,] 0.3308094 0.3371288 0.3320618
+#&gt;  [11,] 0.3116433 0.3208592 0.3674975
+#&gt;  [12,] 0.3313942 0.3337672 0.3348386
+#&gt;  [13,] 0.3308418 0.3386037 0.3305545
+#&gt;  [14,] 0.3302678 0.3373605 0.3323716
+#&gt;  [15,] 0.3320283 0.3345125 0.3334592
+#&gt;  [16,] 0.3331004 0.3349586 0.3319411
+#&gt;  [17,] 0.3284418 0.3369247 0.3346335
+#&gt;  [18,] 0.3285373 0.3398253 0.3316374
+#&gt;  [19,] 0.3313203 0.3372037 0.3314760
+#&gt;  [20,] 0.3316026 0.3354634 0.3329340
+#&gt;  [21,] 0.3293118 0.3405821 0.3301061
+#&gt;  [22,] 0.3305267 0.3347273 0.3347460
+#&gt;  [23,] 0.3320915 0.3343939 0.3335146
+#&gt;  [24,] 0.3310376 0.3371931 0.3317692
+#&gt;  [25,] 0.3309233 0.3374430 0.3316337
+#&gt;  [26,] 0.3312044 0.3361629 0.3326328
+#&gt;  [27,] 0.3319973 0.3365908 0.3314119
+#&gt;  [28,] 0.3236994 0.3517586 0.3245420
+#&gt;  [29,] 0.3309702 0.3377263 0.3313035
+#&gt;  [30,] 0.3319406 0.3355413 0.3325182
+#&gt;  [31,] 0.3295307 0.3407274 0.3297419
+#&gt;  [32,] 0.3308164 0.3378405 0.3313430
+#&gt;  [33,] 0.3128799 0.3209702 0.3661499
+#&gt;  [34,] 0.3312552 0.3373093 0.3314354
+#&gt;  [35,] 0.3296786 0.3402768 0.3300446
+#&gt;  [36,] 0.3304052 0.3382959 0.3312988
+#&gt;  [37,] 0.3308848 0.3374585 0.3316567
+#&gt;  [38,] 0.3309150 0.3378059 0.3312790
+#&gt;  [39,] 0.3295992 0.3365635 0.3338374
+#&gt;  [40,] 0.3300136 0.3387958 0.3311906
+#&gt;  [41,] 0.3311761 0.3376710 0.3311529
+#&gt;  [42,] 0.3323634 0.3347772 0.3328594
+#&gt;  [43,] 0.3295136 0.3393125 0.3311739
+#&gt;  [44,] 0.3296743 0.3393355 0.3309902
+#&gt;  [45,] 0.3131125 0.3229406 0.3639469
+#&gt;  [46,] 0.3305285 0.3362220 0.3332496
+#&gt;  [47,] 0.3301622 0.3361961 0.3336417
+#&gt;  [48,] 0.3307482 0.3372071 0.3320447
+#&gt;  [49,] 0.3309728 0.3375579 0.3314693
+#&gt;  [50,] 0.3296099 0.3371216 0.3332685
+#&gt;  [51,] 0.2526705 0.4057735 0.3415559
+#&gt;  [52,] 0.2518080 0.3880302 0.3601618
+#&gt;  [53,] 0.2331879 0.4109689 0.3558432
+#&gt;  [54,] 0.2618101 0.3989035 0.3392864
+#&gt;  [55,] 0.2870350 0.4232368 0.2897282
+#&gt;  [56,] 0.2551850 0.4046683 0.3401466
+#&gt;  [57,] 0.2493356 0.4126443 0.3380201
+#&gt;  [58,] 0.2379253 0.4028961 0.3591786
+#&gt;  [59,] 0.2553636 0.3983318 0.3463046
+#&gt;  [60,] 0.2841842 0.4173184 0.2984974
+#&gt;  [61,] 0.2365308 0.4063154 0.3571538
+#&gt;  [62,] 0.2345634 0.4047484 0.3606882
+#&gt;  [63,] 0.2646183 0.3649545 0.3704271
+#&gt;  [64,] 0.2999018 0.3390702 0.3610280
+#&gt;  [65,] 0.2602192 0.3756162 0.3641645
+#&gt;  [66,] 0.2608887 0.3699219 0.3691894
+#&gt;  [67,] 0.2742525 0.4168007 0.3089467
+#&gt;  [68,] 0.2535554 0.3947374 0.3517072
+#&gt;  [69,] 0.2484938 0.3838739 0.3676323
+#&gt;  [70,] 0.3000607 0.3157557 0.3841836
+#&gt;  [71,] 0.3019596 0.3144755 0.3835649
+#&gt;  [72,] 0.2505023 0.3947945 0.3547032
+#&gt;  [73,] 0.2378579 0.4040826 0.3580595
+#&gt;  [74,] 0.3002194 0.3197281 0.3800524
+#&gt;  [75,] 0.2613124 0.4004777 0.3382099
+#&gt;  [76,] 0.0000000 0.4657503 0.5342497
+#&gt;  [77,] 0.0000000 0.5604572 0.4395428
+#&gt;  [78,] 0.0000000 0.4647839 0.5352161
+#&gt;  [79,] 0.0000000 0.5053835 0.4946165
+#&gt;  [80,] 0.0000000 0.5281095 0.4718905
+#&gt;  [81,] 0.0000000 0.5349154 0.4650846
+#&gt;  [82,] 0.0000000 0.5419808 0.4580192
+#&gt;  [83,] 0.0000000 0.5350605 0.4649395
+#&gt;  [84,] 0.0000000 0.5201924 0.4798076
+#&gt;  [85,] 0.0000000 0.5289486 0.4710514
+#&gt;  [86,] 0.0000000 0.5260602 0.4739398
+#&gt;  [87,] 0.0000000 0.5355681 0.4644319
+#&gt;  [88,] 0.0000000 0.5272467 0.4727533
+#&gt;  [89,] 0.0000000 0.5292334 0.4707666
+#&gt;  [90,] 0.0000000 0.5068199 0.4931801
+#&gt;  [91,] 0.0000000 0.5546680 0.4453320
+#&gt;  [92,] 0.0000000 0.5310783 0.4689217
+#&gt;  [93,] 0.0000000 0.5145751 0.4854249
+#&gt;  [94,] 0.0000000 0.4789085 0.5210915
+#&gt;  [95,] 0.0000000 0.4599935 0.5400065
+#&gt;  [96,] 0.0000000 0.5238254 0.4761746
+#&gt;  [97,] 0.0000000 0.5053568 0.4946432
+#&gt;  [98,] 0.0000000 0.5284616 0.4715384
+#&gt;  [99,] 0.0000000 0.5352421 0.4647579
+#&gt; [100,] 0.0000000 0.5344341 0.4655659
+#&gt; [101,] 0.3266237 0.3285269 0.3448495
+#&gt; [102,] 0.2823775 0.3999131 0.3177093
+#&gt; [103,] 0.3167583 0.3326940 0.3505476
+#&gt; [104,] 0.3270791 0.3179553 0.3549657
+#&gt; [105,] 0.2921716 0.4085992 0.2992291
+#&gt; [106,] 0.2715493 0.4114976 0.3169530
+#&gt; [107,] 0.2949542 0.3821743 0.3228715
+#&gt; [108,] 0.3130611 0.3089247 0.3780143
+#&gt; [109,] 0.3237051 0.3283608 0.3479341
+#&gt; [110,] 0.2681172 0.3683882 0.3634946
+#&gt; [111,] 0.2788330 0.4141497 0.3070173
+#&gt; [112,] 0.3295996 0.3248205 0.3455799
+#&gt; [113,] 0.3279789 0.3218779 0.3501432
+#&gt; [114,] 0.3298416 0.3278317 0.3423268
+#&gt; [115,] 0.3217636 0.3265194 0.3517170
+#&gt; [116,] 0.2785316 0.4057773 0.3156911
+#&gt; [117,] 0.2894056 0.3910566 0.3195378
+#&gt; [118,] 0.2960445 0.3830312 0.3209243
+#&gt; [119,] 0.2840183 0.4007050 0.3152767
+#&gt; [120,] 0.2696158 0.3940728 0.3363114
+#&gt; [121,] 0.2879539 0.3981888 0.3138572
+#&gt; [122,] 0.2908413 0.3847133 0.3244454
+#&gt; [123,] 0.3242787 0.3331063 0.3426151
+#&gt; [124,] 0.3295566 0.3264074 0.3440360
+#&gt; [125,] 0.2941246 0.3839496 0.3219257
+#&gt; [126,] 0.2856397 0.3996945 0.3146658
+#&gt; [127,] 0.2791206 0.4085215 0.3123579
+#&gt; [128,] 0.2682121 0.3669517 0.3648361
+#&gt; [129,] 0.3230745 0.3305056 0.3464199
+#&gt; [130,] 0.2871951 0.3858013 0.3270035
+#&gt; [131,] 0.3292669 0.3254740 0.3452591
+#&gt; [132,] 0.3117394 0.3859593 0.3023013
+#&gt; [133,] 0.2928970 0.3929663 0.3141367
+#&gt; [134,] 0.2564190 0.4044776 0.3391034
+#&gt; [135,] 0.3295952 0.3329748 0.3374300
+#&gt; [136,] 0.3194668 0.3436131 0.3369201
+#&gt; [137,] 0.3155279 0.3042288 0.3802433
+#&gt; [138,] 0.3224066 0.3294156 0.3481778
+#&gt; [139,] 0.3262606 0.3324845 0.3412549
+#&gt; [140,] 0.3304041 0.3269966 0.3425994
+#&gt; [141,] 0.3194533 0.3275441 0.3530027
+#&gt; [142,] 0.3060955 0.4022994 0.2916052
+#&gt; [143,] 0.3198840 0.3333809 0.3467351
+#&gt; [144,] 0.3282604 0.3260002 0.3457394
+#&gt; [145,] 0.2958684 0.3830891 0.3210425
+#&gt; [146,] 0.2839365 0.3898194 0.3262442
+#&gt; [147,] 0.2745496 0.3788130 0.3466374
+#&gt; [148,] 0.3082697 0.3805545 0.3111757
+#&gt; [149,] 0.3289609 0.3249420 0.3460971
+#&gt; [150,] 0.2725852 0.4121630 0.3152518
+#&gt; [151,] 0.3341349 0.3316174 0.3342477
+#&gt; [152,] 0.3437093 0.3254787 0.3308119
+#&gt; [153,] 0.3196024 0.3335731 0.3468245
+#&gt; [154,] 0.3408444 0.3154742 0.3436814
+#&gt; [155,] 0.3413404 0.3153380 0.3433216
+#&gt; [156,] 0.3384867 0.3187657 0.3427475
+#&gt; [157,] 0.3411096 0.3178520 0.3410384
+#&gt; [158,] 0.3327697 0.3332752 0.3339550
+#&gt; [159,] 0.3399866 0.3425809 0.3174325
+#&gt; [160,] 0.3361372 0.3314772 0.3323855
+#&gt; [161,] 0.3416612 0.3399292 0.3184096
+#&gt; [162,] 0.3196840 0.3319961 0.3483199
+#&gt; [163,] 0.3236495 0.3320578 0.3442927
+#&gt; [164,] 0.3406113 0.3185960 0.3407927
+#&gt; [165,] 0.3406971 0.3157859 0.3435170
+#&gt; [166,] 0.3379108 0.3248035 0.3372857
+#&gt; [167,] 0.3413231 0.3151421 0.3435349
+#&gt; [168,] 0.3407120 0.3188166 0.3404714
+#&gt; [169,] 0.3370401 0.3299722 0.3329877
+#&gt; [170,] 0.3333508 0.3329457 0.3337034
+#&gt; [171,] 0.3411663 0.3382699 0.3205638
+#&gt; [172,] 0.3427603 0.3136726 0.3435671
+#&gt; [173,] 0.3344986 0.3339202 0.3315812
+#&gt; [174,] 0.3403675 0.3180267 0.3416058
+#&gt; [175,] 0.3412207 0.3156040 0.3431754
+#&gt; [176,] 0.3202985 0.3309575 0.3487440
+#&gt; [177,] 0.3435218 0.3140870 0.3423912
+#&gt; [178,] 0.3419478 0.3153144 0.3427378
+#&gt; [179,] 0.3362904 0.3298279 0.3338817
+#&gt; [180,] 0.3433610 0.3213123 0.3353267
+#&gt; [181,] 0.3263212 0.3384564 0.3352224
+#&gt; [182,] 0.3460883 0.3262560 0.3276557
+#&gt; [183,] 0.3418672 0.3210950 0.3370379
+#&gt; [184,] 0.3327538 0.3348954 0.3323508
+#&gt; [185,] 0.3446104 0.3218645 0.3335251
+#&gt; [186,] 0.3449399 0.3220176 0.3330425
+#&gt; [187,] 0.3409644 0.3174941 0.3415415
+#&gt; [188,] 0.3405551 0.3187363 0.3407086
+#&gt; [189,] 0.3351313 0.3297567 0.3351121
+#&gt; [190,] 0.3443216 0.3266790 0.3289994
+#&gt; [191,] 0.3402942 0.3164783 0.3432275
+#&gt; [192,] 0.3410139 0.3390396 0.3199465
+#&gt; [193,] 0.3379073 0.3261375 0.3359553
+#&gt; [194,] 0.3325593 0.3322538 0.3351869
+#&gt; [195,] 0.3414315 0.3171539 0.3414145
+#&gt; [196,] 0.3413173 0.3166343 0.3420484
+#&gt; [197,] 0.3423915 0.3140364 0.3435721
+#&gt; [198,] 0.3418386 0.3158526 0.3423088
+#&gt; [199,] 0.3425693 0.3142073 0.3432235
+#&gt; [200,] 0.3292643 0.3328275 0.3379082
+#&gt; [201,] 0.3369133 0.3345702 0.3285165
+#&gt; [202,] 0.3346523 0.3320938 0.3332538
+#&gt; [203,] 0.3363739 0.3265004 0.3371257
+#&gt; [204,] 0.3362055 0.3334689 0.3303256
+#&gt; [205,] 0.3318914 0.3332369 0.3348717
+#&gt; [206,] 0.3322254 0.3331209 0.3346537
+#&gt; [207,] 0.3321281 0.3296656 0.3382063
+#&gt; [208,] 0.3329304 0.3281730 0.3388966
+#&gt; [209,] 0.3314917 0.3300032 0.3385051
+#&gt; [210,] 0.3305089 0.3314446 0.3380464
+#&gt; [211,] 0.3335799 0.3208118 0.3456083
+#&gt; [212,] 0.3290023 0.3286355 0.3423621
+#&gt; [213,] 0.3315403 0.3326441 0.3358155
+#&gt; [214,] 0.3348951 0.3343970 0.3307078
+#&gt; [215,] 0.3414181 0.3282357 0.3303462
+#&gt; [216,] 0.3412673 0.3299739 0.3287589
+#&gt; [217,] 0.3400590 0.3300045 0.3299365
+#&gt; [218,] 0.3358554 0.3289018 0.3352428
+#&gt; [219,] 0.3346333 0.3290723 0.3362944
+#&gt; [220,] 0.3377897 0.3248002 0.3374101
+#&gt; [221,] 0.3384292 0.3260065 0.3355643
+#&gt; [222,] 0.3393723 0.3331782 0.3274495
+#&gt; [223,] 0.3347809 0.3311288 0.3340903
+#&gt; [224,] 0.3399228 0.3297283 0.3303489
+#&gt; [225,] 0.3333833 0.3260975 0.3405192
+#&gt; [226,] 0.3391272 0.3297426 0.3311302
+#&gt; [227,] 0.3278647 0.3282474 0.3438879
+#&gt; [228,] 0.3388697 0.3252683 0.3358621
+#&gt; [229,] 0.3357687 0.3358184 0.3284129
+#&gt; [230,] 0.3395525 0.3252370 0.3352105
+#&gt; [231,] 0.3377405 0.3305397 0.3317198
+#&gt; [232,] 0.3384254 0.3240470 0.3375276
+#&gt; [233,] 0.3366292 0.3345397 0.3288311
+#&gt; [234,] 0.3326135 0.3309483 0.3364382
+#&gt; [235,] 0.3370030 0.3281135 0.3348835
+#&gt; [236,] 0.3375681 0.3308992 0.3315327
+#&gt; [237,] 0.3375572 0.3336152 0.3288276
+#&gt; [238,] 0.3359018 0.3356248 0.3284734
+#&gt; [239,] 0.3390566 0.3296785 0.3312649
+#&gt; [240,] 0.3353960 0.3357186 0.3288854
+#&gt; [241,] 0.3375871 0.3302106 0.3322023
+#&gt; [242,] 0.3432632 0.3279170 0.3288198
+#&gt; [243,] 0.3379194 0.3271902 0.3348904
+#&gt; [244,] 0.3344724 0.3359846 0.3295430
+#&gt; [245,] 0.3383071 0.3320384 0.3296544
+#&gt; [246,] 0.3387268 0.3303110 0.3309621
+#&gt; [247,] 0.3393458 0.3349826 0.3256716
+#&gt; [248,] 0.3304151 0.3312529 0.3383320
+#&gt; [249,] 0.3341687 0.3299071 0.3359242
+#&gt; [250,] 0.3356050 0.3343573 0.3300377
+#&gt; [251,] 0.3358028 0.3230549 0.3411423
+#&gt; [252,] 0.3329514 0.3289770 0.3380716
+#&gt; [253,] 0.3329357 0.3263634 0.3407010
+#&gt; [254,] 0.3321243 0.3262872 0.3415885
+#&gt; [255,] 0.3342013 0.3255493 0.3402494
+#&gt; [256,] 0.3336176 0.3257635 0.3406189
+#&gt; [257,] 0.3332930 0.3255765 0.3411304
+#&gt; [258,] 0.3347918 0.3215707 0.3436375
+#&gt; [259,] 0.3303894 0.3251828 0.3444278
+#&gt; [260,] 0.3336981 0.3277812 0.3385207
+#&gt; [261,] 0.3341566 0.3271959 0.3386476
+#&gt; [262,] 0.3328821 0.3275716 0.3395463
+#&gt; [263,] 0.3315802 0.3269365 0.3414833
+#&gt; [264,] 0.3330251 0.3268296 0.3401452
+#&gt; [265,] 0.3355148 0.3260143 0.3384709
+#&gt; [266,] 0.3389349 0.3360842 0.3249809
+#&gt; [267,] 0.3306336 0.3274291 0.3419372
+#&gt; [268,] 0.3343451 0.3269266 0.3387283
+#&gt; [269,] 0.3346456 0.3270158 0.3383385
+#&gt; [270,] 0.3329111 0.3271262 0.3399627
+#&gt; [271,] 0.3353357 0.3202605 0.3444039
+#&gt; [272,] 0.3342615 0.3250916 0.3406469
+#&gt; [273,] 0.3289777 0.3282204 0.3428019
+#&gt; [274,] 0.3328555 0.3278388 0.3393057
+#&gt; [275,] 0.3334183 0.3283081 0.3382736
+#&gt; [276,] 0.3361069 0.3307105 0.3331826
+#&gt; [277,] 0.3312520 0.3288663 0.3398816
+#&gt; [278,] 0.3338832 0.3255688 0.3405480
+#&gt; [279,] 0.3342974 0.3236412 0.3420614
+#&gt; [280,] 0.3347087 0.3195555 0.3457358
+#&gt; [281,] 0.3318220 0.3270395 0.3411385
+#&gt; [282,] 0.3369771 0.3294963 0.3335265
+#&gt; [283,] 0.3303411 0.3257557 0.3439032
+#&gt; [284,] 0.3366579 0.3307011 0.3326410
+#&gt; [285,] 0.3330937 0.3249491 0.3419571
+#&gt; [286,] 0.3314260 0.3253210 0.3432530
+#&gt; [287,] 0.3339969 0.3212776 0.3447254
+#&gt; [288,] 0.3337871 0.3253788 0.3408340
+#&gt; [289,] 0.3313790 0.3276281 0.3409929
+#&gt; [290,] 0.3302151 0.3265190 0.3432658
+#&gt; [291,] 0.3337998 0.3203435 0.3458567
+#&gt; [292,] 0.3358948 0.3230213 0.3410839
+#&gt; [293,] 0.3310928 0.3276170 0.3412903
+#&gt; [294,] 0.3348586 0.3233385 0.3418029
+#&gt; [295,] 0.3325888 0.3264189 0.3409923
+#&gt; [296,] 0.3335125 0.3273819 0.3391056
+#&gt; [297,] 0.3304676 0.3281143 0.3414181
+#&gt; [298,] 0.3318819 0.3270352 0.3410829
+#&gt; [299,] 0.3324472 0.3267860 0.3407668
+#&gt; [300,] 0.3337623 0.3276081 0.3386296</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#references">References</a></li>
-          </ul>
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     <p>Mehmet Gonen, Alessandra Cabassi</p>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -183,13 +527,16 @@ Systems (pp. 1305-1313).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

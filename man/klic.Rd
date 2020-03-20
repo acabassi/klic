@@ -4,12 +4,27 @@
 \alias{klic}
 \title{Kernel learning integrative clustering}
 \usage{
-klic(data, M, individualK = NULL, individualMaxK = 6,
-  individualClAlgorithm = "kkmeans", globalK = NULL, globalMaxK = 6,
-  B = 1000, C = 100, scale = FALSE, savePlots = FALSE,
-  fileName = "klic", verbose = TRUE, annotations = NULL,
-  ccClMethods = "km", ccDistHCs = "euclidean", widestGap = FALSE,
-  dunns = FALSE, dunn2s = FALSE)
+klic(
+  data,
+  M,
+  individualK = NULL,
+  individualMaxK = 6,
+  individualClAlgorithm = "kkmeans",
+  globalK = NULL,
+  globalMaxK = 6,
+  B = 1000,
+  C = 100,
+  scale = FALSE,
+  savePlots = FALSE,
+  fileName = "klic",
+  verbose = TRUE,
+  annotations = NULL,
+  ccClMethods = "km",
+  ccDistHCs = "euclidean",
+  widestGap = FALSE,
+  dunns = FALSE,
+  dunn2s = FALSE
+)
 }
 \arguments{
 \item{data}{List of M datasets, each of size N X P_m, m = 1, ..., M.}

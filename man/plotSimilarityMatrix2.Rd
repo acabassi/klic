@@ -4,11 +4,23 @@
 \alias{plotSimilarityMatrix2}
 \title{Plot similarity matrix with pheatmap}
 \usage{
-plotSimilarityMatrix2(X, y = NULL, clusLabels = NULL, colX = NULL,
-  colY = NULL, myLegend = NULL,
-  fileName = "posteriorSimilarityMatrix.pdf", save = FALSE,
-  semiSupervised = FALSE, scale = "none", showObsNames = FALSE,
-  clr = FALSE, clc = FALSE, plotWidth = 500, plotHeight = 450)
+plotSimilarityMatrix2(
+  X,
+  y = NULL,
+  clusLabels = NULL,
+  colX = NULL,
+  colY = NULL,
+  myLegend = NULL,
+  fileName = "posteriorSimilarityMatrix.pdf",
+  save = FALSE,
+  semiSupervised = FALSE,
+  scale = "none",
+  showObsNames = FALSE,
+  clr = FALSE,
+  clc = FALSE,
+  plotWidth = 500,
+  plotHeight = 450
+)
 }
 \arguments{
 \item{X}{Similarity matrix.}
