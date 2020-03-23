@@ -147,24 +147,30 @@
     </tr>
     <tr>
       <th>coeff</th>
-      <td><p>Coefficient by which the minimum eigenvalue is multiplied when shifting the eigenvalues, in order to avoid numeric problems. Default is 1.2.</p></td>
+      <td><p>Coefficient by which the minimum eigenvalue is multiplied when
+shifting the eigenvalues, in order to avoid numeric problems. Default is 1.2.</p></td>
     </tr>
     <tr>
       <th>shift</th>
-      <td><p>Value of the constant added to the diagonal, if known a priori. Default is NULL.</p></td>
+      <td><p>Value of the constant added to the diagonal, if known a priori.
+Default is NULL.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>Boolean flag: if TRUE, information about the shift is printed to screen. Default is FALSE.</p></td>
+      <td><p>Boolean flag: if TRUE, information about the shift is printed
+to screen. Default is FALSE.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Load one dataset with 300 observations, 2 variables, 6 clusters</span>
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset1.csv"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+
 <span class='co'># Compute consensus clustering with K=6 clusters</span>
 <span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>coca</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/coca/man/consensusCluster.html'>consensusCluster</a></span>(<span class='no'>data</span>, <span class='fl'>6</span>)
+
 <span class='co'># Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)</span>
 <span class='no'>km</span> <span class='kw'>&lt;-</span> <span class='fu'>spectrumShift</span>(<span class='no'>cm</span>, <span class='kw'>coeff</span> <span class='kw'>=</span> <span class='fl'>1.05</span>)</div></pre>
   </div>
@@ -176,7 +182,7 @@
     </ul>
 
     <h2>Author</h2>
-    <p>Alessandra Cabassi <a href='mailto:ac2051@cam.ac.uk'>ac2051@cam.ac.uk</a></p>
+    <p>Alessandra Cabassi <a href='mailto:alessandra.cabassi@mrc-bsu.cam.ac.uk'>alessandra.cabassi@mrc-bsu.cam.ac.uk</a></p>
   </div>
 </div>
 

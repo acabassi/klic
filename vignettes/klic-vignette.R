@@ -1,15 +1,4 @@
-## ----generate data, fig.show='hold', warning=FALSE, cache=TRUE-----------
-## Load synthetic data
-data1 <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
-data2 <- as.matrix(read.csv(system.file("extdata","dataset2.csv", package = "klic"), row.names = 1))
-data3 <- as.matrix(read.csv(system.file("extdata", "dataset3.csv", package = "klic"), row.names = 1))
-data <- list(data1, data2, data3)
-n_datasets <- 3
-N <- dim(data[[1]])[1]
-trueLab <- as.matrix(read.csv(system.file("extdata", "cluster_labels.csv", 
-                                                 package = "klic"), row.names = 1))
-
-## ----consensus_cluster, fig.show='hold', warning=FALSE, cache=TRUE-------
+## ----consensus_cluster, fig.show='hold', warning=FALSE, cache=TRUE------------
 ## Compute co-clustering matrices for each dataset
 library(klic)
 CM <- array(NA, c(N, N, n_datasets))
@@ -17,42 +6,25 @@ for(i in 1: n_datasets){
   # Scale the columns to have zero mean and unitary variance
   scaledData <- scale(data[[i]]) 
   # Use consensus clustering to find the consensus matrix of each dataset
-  CM[,,i] <- coca::consensusCluster(scaledData, K = 6, B = 50)
+  CM[,,i] <- coca::consensusCluster(scaledData, K = 4, B = 50)
 }
 ## Plot consensus matrix of one of the datasets
 trueLab <- as.factor(trueLab)
 names(trueLab) <- as.character(1:N)
 CM3 <- as.matrix(CM[,,3])
 rownames(CM3) <- colnames(CM3) <- names(trueLab)
-plotSimilarityMatrix2(CM3, y = as.data.frame(trueLab))
+plotSimilarityMatrix(CM3, y = as.data.frame(trueLab))
 
-## ----spectrum_shift, fig.show='hold', warning=FALSE, cache=TRUE----------
-## Check if consensus matrices are PSD and shift eigenvalues if needed.
-for(i in 1: n_datasets){
-  CM[,,i] <- spectrumShift(CM[,,i], verbose = FALSE)
-}
-## Plot updated consensus matrix of one of the datasets
-trueLab <- as.factor(trueLab)
-names(trueLab) <- as.character(1:N)
-CM3 <- as.matrix(CM[,,3])
-rownames(CM3) <- colnames(CM3) <- names(trueLab)
-plotSimilarityMatrix2(CM3, y = as.data.frame(trueLab))
-
-## ----lmk_kmeans, fig.show='hold', warning=FALSE, cache=TRUE--------------
+## ----lmk_kmeans, fig.show='hold', warning=FALSE, cache=TRUE-------------------
 ## Perform localised kernel k-means on the consensus matrices
 library(Matrix)
 library(Rmosek)
 parameters <- list()
-parameters$cluster_count <- 6 # set the number of clusters K
+parameters$cluster_count <- 4 # set the number of clusters K
 parameters$iteration_count <- 100 # set the maximum number of iterations
 lmkkm <- lmkkmeans(CM, parameters)
 
-## ----ari, fig.show='hold', warning=FALSE, cache=TRUE---------------------
-## Compare clustering found with KLIC to the true one
-library(mclust, verbose = FALSE)
-adjustedRandIndex(trueLab, lmkkm$clustering) 
-
-## ----maximise_silhouette, fig.show='hold', warning=FALSE, cache=TRUE-----
+## ----maximise_silhouette, fig.show='hold', warning=FALSE, cache=TRUE----------
 ## Find the value of k that maximises the silhouette
 
 # Initialise array of kernel matrices 
@@ -79,17 +51,17 @@ for(i in 2:maxK){
 }
 
 # Find value of K that maximises silhouette
-maxSil <- coca::maximiseSilhouette(KM, clLabels, maxK = 6)
+maxSil <- coca::maximiseSilhouette(KM, clLabels, maxK = 4)
 maxSil$k
 
-## ----klic, fig.show='hold', warning=FALSE, cache=TRUE--------------------
-klic <- klic(data, M = n_datasets, individualK = c(6,6,6))
+## ----klic, fig.show='hold', warning=FALSE, cache=TRUE-------------------------
+klic <- klic(data, M = n_datasets, individualK = c(4, 4, 4))
 klic$globalK
 
-## ----k_kmeans, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE----
+## ----k_kmeans, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE------
 ## Set parameters of the kernel k-means algorithm
 parameters <- list()
-parameters$cluster_count <- 6
+parameters$cluster_count <- 4
 parameters$iteration_count <- 100
 ## Run kernel k-means
 kkm <- kkmeans(CM[,,3], parameters)

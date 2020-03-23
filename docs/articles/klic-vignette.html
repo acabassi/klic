@@ -88,7 +88,7 @@
       <h1>Introduction to klic</h1>
                         <h4 class="author">Alessandra Cabassi</h4>
             
-            <h4 class="date">2020-03-20</h4>
+            <h4 class="date">2020-03-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/acabassi/klic/blob/master/vignettes/klic-vignette.Rmd"><code>vignettes/klic-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>klic-vignette.Rmd</code></div>
@@ -106,8 +106,6 @@
 <p>The other function needed for this is <code>consensusCluster</code>. This function can be found in the R package <code>coca</code> and is used to perform consensus clustering on one dataset and obtain a co-clustering matrix (Monti et al. 2003).</p>
 <p>Other functions included in the package are:</p>
 <ul>
-<li>
-<code>plotSimilarityMatrix</code>, to plot a similarity matrix with the option to divide the rows of the matrix according to the clusters and to include a vector of labels for each row;</li>
 <li>
 <code>kkmeans</code>, another function implemented by Gonen and Margolin (2004) to perform kernel k-means with only one kernel matrix (Girolami, 2002);</li>
 <li>
@@ -134,14 +132,14 @@
 <a class="sourceLine" id="cb2-5" data-line-number="5">  <span class="co"># Scale the columns to have zero mean and unitary variance</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6">  scaledData &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/scale.html">scale</a></span>(data[[i]]) </a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="co"># Use consensus clustering to find the consensus matrix of each dataset</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">  CM[,,i] &lt;-<span class="st"> </span>coca<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/coca/man/consensusCluster.html">consensusCluster</a></span>(scaledData, <span class="dt">K =</span> <span class="dv">6</span>, <span class="dt">B =</span> <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  CM[,,i] &lt;-<span class="st"> </span>coca<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/coca/man/consensusCluster.html">consensusCluster</a></span>(scaledData, <span class="dt">K =</span> <span class="dv">4</span>, <span class="dt">B =</span> <span class="dv">50</span>)</a>
 <a class="sourceLine" id="cb2-9" data-line-number="9">}</a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">## Plot consensus matrix of one of the datasets</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11">trueLab &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(trueLab)</a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(trueLab) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="dv">1</span><span class="op">:</span>N)</a>
 <a class="sourceLine" id="cb2-13" data-line-number="13">CM3 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(CM[,,<span class="dv">3</span>])</a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(trueLab)</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw"><a href="../reference/plotSimilarityMatrix2.html">plotSimilarityMatrix2</a></span>(CM3, <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(trueLab))</a></code></pre></div>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw"><a href="../reference/plotSimilarityMatrix.html">plotSimilarityMatrix</a></span>(CM3, <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(trueLab))</a></code></pre></div>
 <p><img src="klic-vignette_files/figure-html/consensus_cluster-1.png" width="700"></p>
 <p>Before using kernel methods, we need to make sure that all the consensus matrices are positive semi-definite.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">## Check if consensus matrices are PSD and shift eigenvalues if needed.</span></a>
@@ -153,21 +151,21 @@
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(trueLab) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="dv">1</span><span class="op">:</span>N)</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">CM3 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(CM[,,<span class="dv">3</span>])</a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(CM3) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(trueLab)</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="../reference/plotSimilarityMatrix2.html">plotSimilarityMatrix2</a></span>(CM3, <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(trueLab))</a></code></pre></div>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="../reference/plotSimilarityMatrix.html">plotSimilarityMatrix</a></span>(CM3, <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(trueLab))</a></code></pre></div>
 <p><img src="klic-vignette_files/figure-html/spectrum_shift-1.png" width="700"></p>
 <p>Now we can perform localised kernel k-kmeans on the set of consensus matrices using the function <code>lmkkmeans</code> to find a global clustering. This functions also need to be provided with a list of parameters containing the prespecified number of clusters and the maximum number of iterations for the k-means algorithm.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">## Perform localised kernel k-means on the consensus matrices</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(Matrix)</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(Rmosek)</a>
 <a class="sourceLine" id="cb4-4" data-line-number="4">parameters &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">parameters<span class="op">$</span>cluster_count &lt;-<span class="st"> </span><span class="dv">6</span> <span class="co"># set the number of clusters K</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">parameters<span class="op">$</span>cluster_count &lt;-<span class="st"> </span><span class="dv">4</span> <span class="co"># set the number of clusters K</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6">parameters<span class="op">$</span>iteration_count &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># set the maximum number of iterations</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">lmkkm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/lmkkmeans.html">lmkkmeans</a></span>(CM, parameters)</a></code></pre></div>
 <p>The output of <code>lmkkmeans</code> contains, among other things, the final cluster labels. To compare two clusterings, such as for example the true clustering (that is known in this case) and the clustering found with KLIC, we suggest to use the <code>adjustedRandIndex</code> function of the R package <code>mclust</code>. An ARI close to 1 indicates a high similarity between the two partitions of the data.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">## Compare clustering found with KLIC to the true one</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(mclust, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://mclust-org.github.io/mclust/reference/adjustedRandIndex.html">adjustedRandIndex</a></span>(trueLab, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.8202252</code></pre>
+<pre><code>## [1] 1</code></pre>
 <p>If the global number of clusters is not known, one can find the weights and clusters for different values of K and then find the one that maximises the silhouette.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">## Find the value of k that maximises the silhouette</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
@@ -195,13 +193,13 @@
 <a class="sourceLine" id="cb7-24" data-line-number="24">}</a>
 <a class="sourceLine" id="cb7-25" data-line-number="25"></a>
 <a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co"># Find value of K that maximises silhouette</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27">maxSil &lt;-<span class="st"> </span>coca<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/coca/man/maximiseSilhouette.html">maximiseSilhouette</a></span>(KM, clLabels, <span class="dt">maxK =</span> <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb7-27" data-line-number="27">maxSil &lt;-<span class="st"> </span>coca<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/coca/man/maximiseSilhouette.html">maximiseSilhouette</a></span>(KM, clLabels, <span class="dt">maxK =</span> <span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb7-28" data-line-number="28">maxSil<span class="op">$</span>k</a></code></pre></div>
 <pre><code>## NULL</code></pre>
 <p>The same can be done simply using the function <code>klic</code></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">klic &lt;-<span class="st"> </span><span class="kw"><a href="../reference/klic.html">klic</a></span>(data, <span class="dt">M =</span> n_datasets, <span class="dt">individualK =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">6</span>))</a></code></pre></div>
-<pre><code>## [1] "All datasets contain the same number of observations, 300."
-## [1] "We assume that the observations are the same in each dataset and that they are in the same order."
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">klic &lt;-<span class="st"> </span><span class="kw"><a href="../reference/klic.html">klic</a></span>(data, <span class="dt">M =</span> n_datasets, <span class="dt">individualK =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>))</a></code></pre></div>
+<pre><code>## [1] "All datasets contain the same number of observations 100."
+## [1] "We assume that the observations are the same in each dataset\n                and that they are in the same order."
 ## [1] "*** Generating similarity matrices ***"
 ## 
   |                                                                            
@@ -225,35 +223,34 @@
   |                                                                            
   |========================================================              |  80%
   |                                                                            
-  |======================================================================| 100%</code></pre>
-<pre><code>## [1] "Global K = 4"</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">klic<span class="op">$</span>globalK</a></code></pre></div>
+  |======================================================================| 100%
+## [1] "Global K = 4"</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">klic<span class="op">$</span>globalK</a></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 </div>
 <div id="other-useful-functions" class="section level1">
 <h1 class="hasAnchor">
 <a href="#other-useful-functions" class="anchor"></a>Other useful functions</h1>
 <p><code>kkmeans</code> is the analogous of <code>lmkkmeans</code>, for just one dataset at a time.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">## Set parameters of the kernel k-means algorithm</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">parameters &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">parameters<span class="op">$</span>cluster_count &lt;-<span class="st"> </span><span class="dv">6</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4">parameters<span class="op">$</span>iteration_count &lt;-<span class="st"> </span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">## Run kernel k-means</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6">kkm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/kkmeans.html">kkmeans</a></span>(CM[,,<span class="dv">3</span>], parameters)</a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">## Compare clustering to the true labels</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8">clusterLabels &lt;-<span class="st"> </span>kkm<span class="op">$</span>clustering</a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="kw"><a href="https://mclust-org.github.io/mclust/reference/adjustedRandIndex.html">adjustedRandIndex</a></span>(trueLab, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.8202252</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">## Set parameters of the kernel k-means algorithm</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">parameters &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">parameters<span class="op">$</span>cluster_count &lt;-<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">parameters<span class="op">$</span>iteration_count &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">## Run kernel k-means</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">kkm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/kkmeans.html">kkmeans</a></span>(CM[,,<span class="dv">3</span>], parameters)</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">## Compare clustering to the true labels</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8">clusterLabels &lt;-<span class="st"> </span>kkm<span class="op">$</span>clustering</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="kw"><a href="https://mclust-org.github.io/mclust/reference/adjustedRandIndex.html">adjustedRandIndex</a></span>(trueLab, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
+<pre><code>## [1] 0.902838</code></pre>
 <p>We also included <code>copheneticCorrelation</code>, a function that calculates the cophenetic correlation coefficient of a similarity matrix:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co">## Compute cophenetic correlation coefficient for each consensus matrix</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2">ccc &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="ot">NA</span>, n_datasets)</a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_datasets){</a>
-<a class="sourceLine" id="cb16-4" data-line-number="4">  ccc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/copheneticCorrelation.html">copheneticCorrelation</a></span>(CM[,,i])</a>
-<a class="sourceLine" id="cb16-5" data-line-number="5">}</a>
-<a class="sourceLine" id="cb16-6" data-line-number="6">ccc</a></code></pre></div>
-<pre><code>## [1] 0.8830482 0.8816215 0.9085739</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co">## Compute cophenetic correlation coefficient for each consensus matrix</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">ccc &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="ot">NA</span>, n_datasets)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_datasets){</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">  ccc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/copheneticCorrelation.html">copheneticCorrelation</a></span>(CM[,,i])</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb15-6" data-line-number="6">ccc</a></code></pre></div>
+<pre><code>## [1] 0.9988435 0.9893780 0.9991220</code></pre>
 <p>The cophenetic correlation coefficient is a measure of how faithfully hierarchical clustering would preserve the pairwise distances between the original data points.</p>
-<p>There is also a function that can be used to plot similarity matrices, ordered by cluster label, and with an additional side label for each row and to save the output in different formats. It is called <code>plotSimilarityMatrix</code>.</p>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">

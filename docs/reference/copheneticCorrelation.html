@@ -153,15 +153,16 @@ pairwise distances between the original data points.</p>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Sokal, R.R. and Rohlf, F.J., 1962. The comparison of dendrograms by objective methods. Taxon, 11(2), pp.33-40.</p>
+    <p>Sokal, R.R. and Rohlf, F.J., 1962. The comparison of dendrograms
+by objective methods. Taxon, 11(2), pp.33-40.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Load kernel matrix</span>
-<span class='no'>km</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
-<span class='st'>"kernel-matrix1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+<span class='no'>consensus_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
+<span class='st'>'consensus_matrix1.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute cophenetic correlation</span>
-<span class='no'>ccc</span> <span class='kw'>&lt;-</span> <span class='fu'>copheneticCorrelation</span>(<span class='no'>km</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>ccc</span>)</div><div class='output co'>#&gt; [1] 0.9012553</div></pre>
+<span class='no'>coph_corr_coeff</span> <span class='kw'>&lt;-</span> <span class='fu'>copheneticCorrelation</span>(<span class='no'>consensus_matrix</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>coph_corr_coeff</span>)</div><div class='output co'>#&gt; [1] 0.9979256</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -172,7 +173,7 @@ pairwise distances between the original data points.</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Alessandra Cabassi <a href='mailto:ac2051@cam.ac.uk'>ac2051@cam.ac.uk</a></p>
+    <p>Alessandra Cabassi <a href='mailto:alessandra.cabassi@mrc-bsu.cam.ac.uk'>alessandra.cabassi@mrc-bsu.cam.ac.uk</a></p>
   </div>
 </div>
 

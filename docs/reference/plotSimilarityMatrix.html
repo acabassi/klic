@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot similarity matrix — plotSimilarityMatrix • klic</title>
+<title>Plot similarity matrix with pheatmap — plotSimilarityMatrix • klic</title>
 
 
 <!-- jquery -->
@@ -35,10 +35,8 @@
 
 
 
-<meta property="og:title" content="Plot similarity matrix — plotSimilarityMatrix" />
-<meta property="og:description" content="Plot similarity matrix. It is possible to plot a side vector that corresponds to a
-response variable Y and to order the rows (and columns) according to some clustering
-structure specified by the variable clusLabels." />
+<meta property="og:title" content="Plot similarity matrix with pheatmap — plotSimilarityMatrix" />
+<meta property="og:description" content="Plot similarity matrix with pheatmap" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -129,15 +127,13 @@ structure specified by the variable clusLabels." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot similarity matrix</h1>
+    <h1>Plot similarity matrix with pheatmap</h1>
     <small class="dont-index">Source: <a href='https://github.com/acabassi/klic/blob/master/R/plot-similarity-matrix.R'><code>R/plot-similarity-matrix.R</code></a></small>
     <div class="hidden name"><code>plotSimilarityMatrix.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Plot similarity matrix. It is possible to plot a side vector that corresponds to a
-response variable Y and to order the rows (and columns) according to some clustering
-structure specified by the variable clusLabels.</p>
+    <p>Plot similarity matrix with pheatmap</p>
     </div>
 
     <pre class="usage"><span class='fu'>plotSimilarityMatrix</span>(
@@ -147,15 +143,14 @@ structure specified by the variable clusLabels.</p>
   <span class='kw'>colX</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>colY</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>myLegend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>file_name</span> <span class='kw'>=</span> <span class='st'>"myheatmap.png"</span>,
+  <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"posteriorSimilarityMatrix"</span>,
   <span class='kw'>savePNG</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>saveTIKZ</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>saveEPS</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>semiSupervised</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
-  <span class='kw'>labRow</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>labCol</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>dendro</span> <span class='kw'>=</span> <span class='st'>"none"</span>
+  <span class='kw'>showObsNames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>clr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>clc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>plotWidth</span> <span class='kw'>=</span> <span class='fl'>500</span>,
+  <span class='kw'>plotHeight</span> <span class='kw'>=</span> <span class='fl'>450</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -167,73 +162,84 @@ structure specified by the variable clusLabels.</p>
     </tr>
     <tr>
       <th>y</th>
-      <td><p>Response variable.</p></td>
+      <td><p>Vector</p></td>
     </tr>
     <tr>
       <th>clusLabels</th>
-      <td><p>Cluster labels.</p></td>
+      <td><p>Cluster labels</p></td>
     </tr>
     <tr>
       <th>colX</th>
-      <td><p>Colours for the matrix.</p></td>
+      <td><p>Colours for the matrix</p></td>
     </tr>
     <tr>
       <th>colY</th>
-      <td><p>Colours for the response.</p></td>
+      <td><p>Colours for the response</p></td>
     </tr>
     <tr>
       <th>myLegend</th>
-      <td><p>Vector of strings with the names of the variables.</p></td>
+      <td><p>Vector of strings with the names of the variables</p></td>
     </tr>
     <tr>
-      <th>file_name</th>
-      <td><p>Name of the file.</p></td>
+      <th>fileName</th>
+      <td><p>If "savePNG" is TRUE, this is the string containing the name
+of the output file. Can be used to specify the folder path too. Default is
+"posteriorSimilarityMatrix". The extension ".png" is automatically added to
+this string.</p></td>
     </tr>
     <tr>
       <th>savePNG</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as a png file.</p></td>
-    </tr>
-    <tr>
-      <th>saveTIKZ</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as a tikz file.</p></td>
-    </tr>
-    <tr>
-      <th>saveEPS</th>
-      <td><p>Boolean flag: if TRUE, the plot is saved as an eps file.</p></td>
+      <td><p>Boolean: if TRUE, the plot is saved as a png file. Default is
+FALSE.</p></td>
     </tr>
     <tr>
       <th>semiSupervised</th>
-      <td><p>Boolean flag: if TRUE, the response is plotted next to the matrix.</p></td>
+      <td><p>Boolean flag: if TRUE, the response is plotted next to
+the matrix.</p></td>
     </tr>
     <tr>
-      <th>scale</th>
-      <td><p>Used as input for the parameter "scale" of the gplot::heatmap.2() function.
-Can be either "none" or "columns".</p></td>
+      <th>showObsNames</th>
+      <td><p>Boolean. If TRUE, observation names are shown in the
+plot. Default is FALSE.</p></td>
     </tr>
     <tr>
-      <th>labRow</th>
-      <td><p>Vector of row labels, default is NA.</p></td>
+      <th>clr</th>
+      <td><p>Boolean. If TRUE, rows are ordered by hierarchical clustering.
+Default is FALSE.</p></td>
     </tr>
     <tr>
-      <th>labCol</th>
-      <td><p>Vector of column labels, default is NA.</p></td>
+      <th>clc</th>
+      <td><p>Boolean. If TRUE, columns are ordered by hierarchical clustering.
+Default is FALSE.</p></td>
     </tr>
     <tr>
-      <th>dendro</th>
-      <td><p>If 'both', plot dendrogram on rows and columns; if 'none', no dendrograms are shown.
-Default is 'none'.</p></td>
+      <th>plotWidth</th>
+      <td><p>Plot width. Default is 500.</p></td>
+    </tr>
+    <tr>
+      <th>plotHeight</th>
+      <td><p>Plot height. Default is 450.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Load one dataset with 300 observations, 2 variables, 6 clusters</span>
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset1.csv"</span>,
-<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
-<span class='co'># Compute consensus clustering with K=6 clusters</span>
-<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>coca</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/coca/man/consensusCluster.html'>consensusCluster</a></span>(<span class='no'>data</span>, <span class='fl'>6</span>)
+    <pre class="examples"><div class='input'><span class='co'># Load one dataset with 100 observations, 2 variables, 4 clusters</span>
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>, <span class='st'>'dataset1.csv'</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+<span class='co'># Load cluster labels</span>
+<span class='no'>cluster_labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
+<span class='st'>'cluster_labels.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+
+<span class='co'># Compute consensus clustering with K=4 clusters</span>
+<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>coca</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/coca/man/consensusCluster.html'>consensusCluster</a></span>(<span class='no'>data</span>, <span class='fl'>4</span>)
+
 <span class='co'># Plot consensus (similarity) matrix</span>
-<span class='fu'>plotSimilarityMatrix</span>(<span class='no'>cm</span>)</div><div class='img'><img src='plotSimilarityMatrix-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotSimilarityMatrix</span>(<span class='no'>cm</span>)</div><div class='img'><img src='plotSimilarityMatrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Plot consensus (similarity) matrix with response</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>cluster_labels</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='fl'>1</span>:<span class='fl'>100</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>cm</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>cluster_labels</span>)
+<span class='fu'>plotSimilarityMatrix</span>(<span class='no'>cm</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>cluster_labels</span>)</div><div class='img'><img src='plotSimilarityMatrix-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -242,6 +248,8 @@ Default is 'none'.</p></td>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Alessandra Cabassi <a href='mailto:alessandra.cabassi@mrc-bsu.cam.ac.uk'>alessandra.cabassi@mrc-bsu.cam.ac.uk</a></p>
   </div>
 </div>
 

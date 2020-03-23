@@ -16,15 +16,16 @@ pairwise distances between the original data points.
 }
 \examples{
 # Load kernel matrix
-km <- as.matrix(read.csv(system.file("extdata",
-"kernel-matrix1.csv", package = "klic"), row.names = 1))
+consensus_matrix <- as.matrix(read.csv(system.file('extdata',
+'consensus_matrix1.csv', package = 'klic'), row.names = 1))
 # Compute cophenetic correlation
-ccc <- copheneticCorrelation(km)
-print(ccc)
+coph_corr_coeff <- copheneticCorrelation(consensus_matrix)
+print(coph_corr_coeff)
 }
 \references{
-Sokal, R.R. and Rohlf, F.J., 1962. The comparison of dendrograms by objective methods. Taxon, 11(2), pp.33-40.
+Sokal, R.R. and Rohlf, F.J., 1962. The comparison of dendrograms
+by objective methods. Taxon, 11(2), pp.33-40.
 }
 \author{
-Alessandra Cabassi \email{ac2051@cam.ac.uk}
+Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 }

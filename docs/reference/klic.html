@@ -36,12 +36,13 @@
 
 
 <meta property="og:title" content="Kernel learning integrative clustering — klic" />
-<meta property="og:description" content="This function allows to perform Kernel Learning Integrative Clustering on `M` data sets relative
-to the same observations. The similarities between the observations in each data set
-are summarised into `M` different kernels, that are then fed into a kernel k-means clustering
-algorithm. The output is a clustering of the observations that takes into account all the
-available data types and a set of weights that sum up to one, indicating how much each data set
-contributed to the kernel k-means clustering." />
+<meta property="og:description" content="This function allows to perform Kernel Learning Integrative Clustering on M
+data sets relative to the same observations. The similarities between the
+observations in each data set are summarised into M different kernels, that
+are then fed into a kernel k-means clustering algorithm. The output is a
+clustering of the observations that takes into account all the available data
+types and a set of weights that sum up to one, indicating how much each data
+set contributed to the kernel k-means clustering." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -138,12 +139,13 @@ contributed to the kernel k-means clustering." />
     </div>
 
     <div class="ref-description">
-    <p>This function allows to perform Kernel Learning Integrative Clustering on `M` data sets relative
-to the same observations. The similarities between the observations in each data set
-are summarised into `M` different kernels, that are then fed into a kernel k-means clustering
-algorithm. The output is a clustering of the observations that takes into account all the
-available data types and a set of weights that sum up to one, indicating how much each data set
-contributed to the kernel k-means clustering.</p>
+    <p>This function allows to perform Kernel Learning Integrative Clustering on M
+data sets relative to the same observations. The similarities between the
+observations in each data set are summarised into M different kernels, that
+are then fed into a kernel k-means clustering algorithm. The output is a
+clustering of the observations that takes into account all the available data
+types and a set of weights that sum up to one, indicating how much each data
+set contributed to the kernel k-means clustering.</p>
     </div>
 
     <pre class="usage"><span class='fu'>klic</span>(
@@ -157,7 +159,7 @@ contributed to the kernel k-means clustering.</p>
   <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
   <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>100</span>,
   <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>savePlots</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>savePNG</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>fileName</span> <span class='kw'>=</span> <span class='st'>"klic"</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>annotations</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -181,28 +183,32 @@ contributed to the kernel k-means clustering.</p>
     </tr>
     <tr>
       <th>individualK</th>
-      <td><p>Vector containing the number of clusters in each dataset. Default is NULL.
-If the number of clusters is not provided, then all the possible values between 2 and individualMaxK
-are considered and the best value is chosen for each dataset by maximising the silhouette.</p></td>
+      <td><p>Vector containing the number of clusters in each dataset.
+Default is NULL. If the number of clusters is not provided, then all the
+possible values between 2 and individualMaxK are considered and the best
+value is chosen for each dataset by maximising the silhouette.</p></td>
     </tr>
     <tr>
       <th>individualMaxK</th>
-      <td><p>Maximum number of clusters considered for the individual data. Default is 6.</p></td>
+      <td><p>Maximum number of clusters considered for the
+individual data. Default is 6.</p></td>
     </tr>
     <tr>
       <th>individualClAlgorithm</th>
-      <td><p>Clustering algorithm used for clustering of each dataset individually
-if is required to find the best number of clusters.</p></td>
+      <td><p>Clustering algorithm used for clustering of each
+dataset individually if is required to find the best number of clusters.</p></td>
     </tr>
     <tr>
       <th>globalK</th>
-      <td><p>Number of global clusters. Default is NULL. If the number of clusters is not provided,
-then all the possible values between 2 and globalMaxK are considered and the best value is chosen by
-maximising the silhouette.</p></td>
+      <td><p>Number of global clusters. Default is NULL. If the number of
+clusters is not provided, then all the possible values between 2 and
+globalMaxK are considered and the best value is chosen by maximising the
+silhouette.</p></td>
     </tr>
     <tr>
       <th>globalMaxK</th>
-      <td><p>Maximum number of clusters considered for the final clustering. Default is 6.</p></td>
+      <td><p>Maximum number of clusters considered for the final
+clustering. Default is 6.</p></td>
     </tr>
     <tr>
       <th>B</th>
@@ -210,21 +216,23 @@ maximising the silhouette.</p></td>
     </tr>
     <tr>
       <th>C</th>
-      <td><p>Maximum number of iterations for localised kernel k-means. Default is 100.</p></td>
+      <td><p>Maximum number of iterations for localised kernel k-means. Default
+is 100.</p></td>
     </tr>
     <tr>
       <th>scale</th>
-      <td><p>Boolean. If TRUE, each dataset is scaled such that each column has zero mean and
-unitary variance.</p></td>
+      <td><p>Boolean. If TRUE, each dataset is scaled such that each column
+has zero mean and unitary variance.</p></td>
     </tr>
     <tr>
-      <th>savePlots</th>
-      <td><p>Boolean. If TRUE, a plot of the silhouette is saved in the working folder.
-Default is FALSE.</p></td>
+      <th>savePNG</th>
+      <td><p>Boolean. If TRUE, a plot of the silhouette is saved in the
+working folder. Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>fileName</th>
-      <td><p>If savePlots is TRUE, this is the name of the png file.</p></td>
+      <td><p>If "savePNG" is TRUE, this is the name of the png file. Can
+be used to specify the folder path too. Default is "klic".</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -236,70 +244,76 @@ Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>ccClMethods</th>
-      <td><p>The i-th element of this vector goes into the `clMethod`` argument of consensusCluster()
-for the i-th dataset.</p></td>
+      <td><p>The i-th element of this vector goes into the "clMethod"
+argument of consensusCluster() for the i-th dataset.</p></td>
     </tr>
     <tr>
       <th>ccDistHCs</th>
-      <td><p>The i-th element of this vector goes into the `dist` argument of consensusCluster()
-for the i-th dataset.</p></td>
+      <td><p>The i-th element of this vector goes into the "dist"
+argument of consensusCluster() for the i-th dataset.</p></td>
     </tr>
     <tr>
       <th>widestGap</th>
-      <td><p>Boolean. If TRUE, compute also widest gap index to choose best number
-of clusters. Default is FALSE.</p></td>
+      <td><p>Boolean. If TRUE, compute also widest gap index to choose
+best number of clusters. Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>dunns</th>
-      <td><p>Boolean. If TRUE, compute also Dunn's index to choose best number
-of clusters. Default is FALSE.</p></td>
+      <td><p>Boolean. If TRUE, compute also Dunn's index to choose best
+number of clusters. Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>dunn2s</th>
-      <td><p>Boolean. If TRUE, compute also alternative Dunn's index to choose best number
-of clusters. Default is FALSE.</p></td>
+      <td><p>Boolean. If TRUE, compute also alternative Dunn's index to
+choose best number of clusters. Default is FALSE.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The function returns `consensusMatrices`, which is an array containing one consensus matrix
-per data set, `weights`, that is a vector containing the weights assigned by the kernel k-means
-algorithm to each consensu matrix, `globalClusterLabels`, a vector containing the cluster labels
-of the observations, according to kernel k-means clustering done on the kernel matrices. If the number
-of clusters is not provided, the function also returns `bestK`, the best number of clusters between
-2 and `maxIndividualK` for each data set. Similarly, if the final number of clusters is not
-provided, the best number of clusters for the final (global) clustering `globalK` is also returned.
-This too is chosen so as to maximise the silhouette index.</p>
+    <p>The function returns a list contatining:</p>
+<p>- `consensusMatrices`, which is an array containing one consensus
+matrix per data set,</p>
+<p>- `weights`, that is a vector containing the weights assigned by the
+kernel k-means algorithm to each consensu matrix,</p>
+<p>- `globalClusterLabels`, a vector containing the cluster labels
+of the observations, according to kernel k-means clustering done on the
+kernel matrices.</p>
+<p>If the number of clusters is not provided, the function also returns
+`bestK`, the best number of clusters between 2 and "maxIndividualK" for each
+data set. Similarly, if the final number of clusters is not provided, the
+best number of clusters for the final (global) clustering "globalK" is also
+returned. This too is chosen so as to maximise the silhouette index.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning for
-integrative consensus clustering of genomic datasets. arXiv preprint. arXiv:1904.07701.</p>
+    <p>Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning
+for integrative consensus clustering of genomic datasets. arXiv preprint.
+arXiv:1904.07701.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Load synthetic data</span>
-<span class='no'>data1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
-<span class='st'>"dataset1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
-<span class='no'>data2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
-<span class='st'>"dataset2.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
-<span class='no'>data3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
-<span class='st'>"dataset3.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+<span class='no'>data1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
+<span class='st'>'dataset1.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+<span class='no'>data2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
+<span class='st'>'dataset2.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+<span class='no'>data3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
+<span class='st'>'dataset3.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>data1</span>, <span class='no'>data2</span>, <span class='no'>data3</span>)
 
 <span class='co'># Perform clustering with KLIC assuming to know the</span>
 <span class='co'># number of clusters in each individual dataset and in</span>
 <span class='co'># the final clustering</span>
-<span class='no'>klicOutput</span> <span class='kw'>&lt;-</span> <span class='fu'>klic</span>(<span class='no'>data</span>, <span class='fl'>3</span>, <span class='kw'>individualK</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>6</span>,<span class='fl'>6</span>),
-<span class='kw'>globalK</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] "All datasets contain the same number of observations, 300."
-#&gt; [1] "We assume that the observations are the same in each dataset and that they are in the same order."
+<span class='no'>klicOutput</span> <span class='kw'>&lt;-</span> <span class='fu'>klic</span>(<span class='no'>data</span>, <span class='fl'>3</span>, <span class='kw'>individualK</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>),
+<span class='kw'>globalK</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] "All datasets contain the same number of observations 100."
+#&gt; [1] "We assume that the observations are the same in each dataset\n                and that they are in the same order."
 #&gt; [1] "*** Generating similarity matrices ***"
 #&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%
 #&gt; [1] "*** Finding the global clustering ***"</div><div class='input'>
 <span class='co'># Extract cluster labels</span>
 <span class='no'>klic_labels</span> <span class='kw'>&lt;-</span> <span class='no'>klicOutput</span>$<span class='no'>globalClusterLabels</span>
 
-<span class='no'>cluster_labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
-<span class='st'>"cluster_labels.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+<span class='no'>cluster_labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
+<span class='st'>'cluster_labels.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute ARI</span>
 <span class='no'>ari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mclust</span><span class='kw ns'>::</span><span class='fu'><a href='https://mclust-org.github.io/mclust/reference/adjustedRandIndex.html'>adjustedRandIndex</a></span>(<span class='no'>klic_labels</span>, <span class='no'>cluster_labels</span>)</div></pre>
   </div>
@@ -313,7 +327,7 @@ integrative consensus clustering of genomic datasets. arXiv preprint. arXiv:1904
     </ul>
 
     <h2>Author</h2>
-    <p>Alessandra Cabassi <a href='mailto:ac2051@cam.ac.uk'>ac2051@cam.ac.uk</a></p>
+    <p>Alessandra Cabassi <a href='mailto:alessandra.cabassi@mrc-bsu.cam.ac.uk'>alessandra.cabassi@mrc-bsu.cam.ac.uk</a></p>
   </div>
 </div>
 

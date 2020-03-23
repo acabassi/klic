@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot-similarity-matrix.R
 \name{plotSimilarityMatrix}
 \alias{plotSimilarityMatrix}
-\title{Plot similarity matrix}
+\title{Plot similarity matrix with pheatmap}
 \usage{
 plotSimilarityMatrix(
   X,
@@ -11,61 +11,75 @@ plotSimilarityMatrix(
   colX = NULL,
   colY = NULL,
   myLegend = NULL,
-  file_name = "myheatmap.png",
+  fileName = "posteriorSimilarityMatrix",
   savePNG = FALSE,
-  saveTIKZ = FALSE,
-  saveEPS = FALSE,
   semiSupervised = FALSE,
-  scale = "none",
-  labRow = NA,
-  labCol = NA,
-  dendro = "none"
+  showObsNames = FALSE,
+  clr = FALSE,
+  clc = FALSE,
+  plotWidth = 500,
+  plotHeight = 450
 )
 }
 \arguments{
 \item{X}{Similarity matrix.}
 
-\item{y}{Response variable.}
+\item{y}{Vector}
 
-\item{clusLabels}{Cluster labels.}
+\item{clusLabels}{Cluster labels}
 
-\item{colX}{Colours for the matrix.}
+\item{colX}{Colours for the matrix}
 
-\item{colY}{Colours for the response.}
+\item{colY}{Colours for the response}
 
-\item{myLegend}{Vector of strings with the names of the variables.}
+\item{myLegend}{Vector of strings with the names of the variables}
 
-\item{file_name}{Name of the file.}
+\item{fileName}{If "savePNG" is TRUE, this is the string containing the name
+of the output file. Can be used to specify the folder path too. Default is
+"posteriorSimilarityMatrix". The extension ".png" is automatically added to
+this string.}
 
-\item{savePNG}{Boolean flag: if TRUE, the plot is saved as a png file.}
+\item{savePNG}{Boolean: if TRUE, the plot is saved as a png file. Default is
+FALSE.}
 
-\item{saveTIKZ}{Boolean flag: if TRUE, the plot is saved as a tikz file.}
+\item{semiSupervised}{Boolean flag: if TRUE, the response is plotted next to
+the matrix.}
 
-\item{saveEPS}{Boolean flag: if TRUE, the plot is saved as an eps file.}
+\item{showObsNames}{Boolean. If TRUE, observation names are shown in the
+plot. Default is FALSE.}
 
-\item{semiSupervised}{Boolean flag: if TRUE, the response is plotted next to the matrix.}
+\item{clr}{Boolean. If TRUE, rows are ordered by hierarchical clustering.
+Default is FALSE.}
 
-\item{scale}{Used as input for the parameter "scale" of the gplot::heatmap.2() function.
-Can be either "none" or "columns".}
+\item{clc}{Boolean. If TRUE, columns are ordered by hierarchical clustering.
+Default is FALSE.}
 
-\item{labRow}{Vector of row labels, default is NA.}
+\item{plotWidth}{Plot width. Default is 500.}
 
-\item{labCol}{Vector of column labels, default is NA.}
-
-\item{dendro}{If 'both', plot dendrogram on rows and columns; if 'none', no dendrograms are shown.
-Default is 'none'.}
+\item{plotHeight}{Plot height. Default is 450.}
 }
 \description{
-Plot similarity matrix. It is possible to plot a side vector that corresponds to a
-response variable Y and to order the rows (and columns) according to some clustering
-structure specified by the variable clusLabels.
+Plot similarity matrix with pheatmap
 }
 \examples{
-# Load one dataset with 300 observations, 2 variables, 6 clusters
-data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
-package = "klic"), row.names = 1))
-# Compute consensus clustering with K=6 clusters
-cm <- coca::consensusCluster(data, 6)
+# Load one dataset with 100 observations, 2 variables, 4 clusters
+data <- as.matrix(read.csv(system.file('extdata', 'dataset1.csv',
+package = 'klic'), row.names = 1))
+# Load cluster labels
+cluster_labels <- as.matrix(read.csv(system.file('extdata',
+'cluster_labels.csv', package = 'klic'), row.names = 1))
+
+# Compute consensus clustering with K=4 clusters
+cm <- coca::consensusCluster(data, 4)
+
 # Plot consensus (similarity) matrix
 plotSimilarityMatrix(cm)
+
+# Plot consensus (similarity) matrix with response
+names(cluster_labels) <- as.character(1:100)
+rownames(cm) <- names(cluster_labels)
+plotSimilarityMatrix(cm, y = cluster_labels)
+}
+\author{
+Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 }

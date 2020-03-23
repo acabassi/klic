@@ -15,8 +15,9 @@ kkmeans(K, parameters)
 Perform the training step of kernel k-means
 }
 \examples{
-# Load one dataset with 300 observations, 2 variables, 6 clusters
-data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+# Load one dataset with 100 observations, 2 variables, 4 clusters
+data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
+package = "klic"), row.names = 1))
 # Compute consensus clustering with K=6 clusters
 cm <- coca::consensusCluster(data, 6)
 # Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)
@@ -25,14 +26,16 @@ km <- spectrumShift(cm, coeff = 1.05)
 parameters <- list()
 # Set the number of clusters
 parameters$cluster_count <- 6
-#perform training
+# Perform training
 state <- kkmeans(km, parameters)
 # Display the clustering
 print(state$clustering)
 }
 \references{
-Gönen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means clustering with application to cancer biology. In Advances in Neural Information Processing Systems (pp. 1305-1313).
+Gönen, M. and Margolin, A.A., 2014. Localized data fusion for
+kernel k-means clustering with application to cancer biology. In Advances in
+Neural Information Processing Systems (pp. 1305-1313).
 }
 \author{
-Mehmet Gonen
+Mehmet Gönen
 }

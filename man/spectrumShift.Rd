@@ -9,23 +9,29 @@ spectrumShift(kernelMatrix, coeff = 1.2, shift = NULL, verbose = FALSE)
 \arguments{
 \item{kernelMatrix}{symmetric matrix}
 
-\item{coeff}{Coefficient by which the minimum eigenvalue is multiplied when shifting the eigenvalues, in order to avoid numeric problems. Default is 1.2.}
+\item{coeff}{Coefficient by which the minimum eigenvalue is multiplied when
+shifting the eigenvalues, in order to avoid numeric problems. Default is 1.2.}
 
-\item{shift}{Value of the constant added to the diagonal, if known a priori. Default is NULL.}
+\item{shift}{Value of the constant added to the diagonal, if known a priori.
+Default is NULL.}
 
-\item{verbose}{Boolean flag: if TRUE, information about the shift is printed to screen. Default is FALSE.}
+\item{verbose}{Boolean flag: if TRUE, information about the shift is printed
+to screen. Default is FALSE.}
 }
 \description{
 Make a symmetric matrix positive semi-definite
 }
 \examples{
 # Load one dataset with 300 observations, 2 variables, 6 clusters
-data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
+package = "klic"), row.names = 1))
+
 # Compute consensus clustering with K=6 clusters
 cm <- coca::consensusCluster(data, 6)
+
 # Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)
 km <- spectrumShift(cm, coeff = 1.05)
 }
 \author{
-Alessandra Cabassi \email{ac2051@cam.ac.uk}
+Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 }

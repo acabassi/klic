@@ -1,2 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
+^docs$
+^_pkgdown\.yaml$
+^_config\.yml$
+^vignettes/.*_cache

@@ -153,11 +153,14 @@
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Gönen, M. and Margolin, A.A., 2014. Localized data fusion for kernel k-means clustering with application to cancer biology. In Advances in Neural Information Processing Systems (pp. 1305-1313).</p>
+    <p>Gönen, M. and Margolin, A.A., 2014. Localized data fusion for
+kernel k-means clustering with application to cancer biology. In Advances in
+Neural Information Processing Systems (pp. 1305-1313).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Load one dataset with 300 observations, 2 variables, 6 clusters</span>
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset1.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
+    <pre class="examples"><div class='input'><span class='co'># Load one dataset with 100 observations, 2 variables, 4 clusters</span>
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset1.csv"</span>,
+<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"klic"</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute consensus clustering with K=6 clusters</span>
 <span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>coca</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/coca/man/consensusCluster.html'>consensusCluster</a></span>(<span class='no'>data</span>, <span class='fl'>6</span>)
 <span class='co'># Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)</span>
@@ -166,18 +169,12 @@
 <span class='no'>parameters</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
 <span class='co'># Set the number of clusters</span>
 <span class='no'>parameters</span>$<span class='no'>cluster_count</span> <span class='kw'>&lt;-</span> <span class='fl'>6</span>
-<span class='co'>#perform training</span>
+<span class='co'># Perform training</span>
 <span class='no'>state</span> <span class='kw'>&lt;-</span> <span class='fu'>kkmeans</span>(<span class='no'>km</span>, <span class='no'>parameters</span>)
 <span class='co'># Display the clustering</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>clustering</span>)</div><div class='output co'>#&gt;   [1] 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 4 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
-#&gt;  [38] 6 6 6 6 6 6 6 6 6 4 6 6 6 4 4 4 4 4 4 6 4 4 4 4 4 4 4 4 4 4 4 6 4 6 3 4 4
-#&gt;  [75] 4 4 4 3 4 4 4 4 4 3 4 4 6 4 4 4 4 4 4 4 4 4 4 4 4 6 3 3 4 3 4 3 3 4 4 3 3
-#&gt; [112] 3 3 3 4 3 4 3 3 3 3 3 3 3 3 3 3 4 3 4 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3 3 3 3
-#&gt; [149] 3 2 2 2 3 2 2 2 2 2 2 2 2 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 2 2 5 2
-#&gt; [186] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 5 5 5 2 5 2 5 2 2 5 5 2 5 5 5 5 1 5 2 5 5 5
-#&gt; [223] 5 1 5 5 5 5 2 5 5 5 5 5 1 5 5 5 2 5 5 1 2 5 5 2 5 5 5 5 1 1 1 1 1 1 1 1 1
-#&gt; [260] 1 1 1 1 1 1 5 1 1 1 1 1 1 5 1 1 1 1 1 1 5 1 1 5 1 1 1 5 1 1 1 1 1 1 1 1 1
-#&gt; [297] 5 1 1 1</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>clustering</span>)</div><div class='output co'>#&gt;   [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3
+#&gt;  [38] 3 3 3 3 3 3 3 3 3 3 3 3 3 6 6 6 6 4 4 6 6 4 5 4 6 6 6 6 5 6 4 6 4 5 6 6 6
+#&gt;  [75] 6 1 1 1 1 1 1 1 1 5 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -188,7 +185,7 @@
     </ul>
 
     <h2>Author</h2>
-    <p>Mehmet Gonen</p>
+    <p>Mehmet Gönen</p>
   </div>
 </div>
 

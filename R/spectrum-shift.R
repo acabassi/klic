@@ -2,52 +2,68 @@
 #'
 #' Make a symmetric matrix positive semi-definite
 #' @param kernelMatrix symmetric matrix
-#' @param coeff Coefficient by which the minimum eigenvalue is multiplied when shifting the eigenvalues, in order to avoid numeric problems. Default is 1.2.
-#' @param shift Value of the constant added to the diagonal, if known a priori. Default is NULL.
-#' @param verbose Boolean flag: if TRUE, information about the shift is printed to screen. Default is FALSE.
+#' @param coeff Coefficient by which the minimum eigenvalue is multiplied when
+#' shifting the eigenvalues, in order to avoid numeric problems. Default is 1.2.
+#' @param shift Value of the constant added to the diagonal, if known a priori.
+#' Default is NULL.
+#' @param verbose Boolean flag: if TRUE, information about the shift is printed
+#' to screen. Default is FALSE.
 #' @author Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 #' @examples
 #' # Load one dataset with 300 observations, 2 variables, 6 clusters
-#' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+#' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
+#' package = "klic"), row.names = 1))
+#'
 #' # Compute consensus clustering with K=6 clusters
 #' cm <- coca::consensusCluster(data, 6)
+#'
 #' # Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)
 #' km <- spectrumShift(cm, coeff = 1.05)
 #' @export
 
-spectrumShift = function(kernelMatrix, coeff = 1.2, shift = NULL, verbose = FALSE){
+spectrumShift = function(kernelMatrix,
+                         coeff = 1.2,
+                         shift = NULL,
+                         verbose = FALSE) {
 
-    if(!isSymmetric(kernelMatrix))
+
+    if (!isSymmetric(kernelMatrix))
         stop("The kernel matrix must be symmetric!")
 
     N <- dim(kernelMatrix)[1]
 
-    if(is.null(shift)){
+    if (is.null(shift)) {
         # Get smallest eigenvalue
         min_eig <- eigen(kernelMatrix, symmetric = TRUE)$values[N]
 
-        if(min_eig < 0){
+        if (min_eig < 0) {
 
-            if(verbose) cat("The smallest eigenvalue is negative:", min_eig,"\n")
+            if (verbose)
+                cat("The smallest eigenvalue is negative:", min_eig, "\n")
 
-            kernelMatrix <- kernelMatrix + diag(dim(kernelMatrix)[1])*abs(min_eig*coeff)
-            kernelMatrix <- kernelMatrix/kernelMatrix[1,1] # rescales
+            kernelMatrix <- kernelMatrix + diag(dim(kernelMatrix)[1]) *
+                abs(min_eig * coeff)
+            kernelMatrix <- kernelMatrix/kernelMatrix[1, 1]  # Rescale
 
-            if(verbose) cat("Shifting by a coefficient:  ", abs(min_eig*coeff), "\n")
+            if (verbose)
+                cat("Shifting by a coefficient:  ", abs(min_eig * coeff), "\n")
 
             new_min_eig <- eigen(kernelMatrix)$values[N]
 
-            if(verbose) cat("The smallest eigenvalue is now: ", new_min_eig, "\n")
+            if (verbose)
+                cat("The smallest eigenvalue is now: ", new_min_eig, "\n")
         }
-    }else{
-        kernelMatrix <- kernelMatrix + diag(dim(kernelMatrix)[1])*shift
-        kernelMatrix <- kernelMatrix/kernelMatrix[1,1] # rescales
+    } else {
+        kernelMatrix <- kernelMatrix + diag(dim(kernelMatrix)[1]) * shift
+        kernelMatrix <- kernelMatrix/kernelMatrix[1, 1]  # Rescale
 
-        if(verbose) cat("Shifting by a coefficient:  ", shift, "\n")
+        if (verbose)
+            cat("Shifting by a coefficient:  ", shift, "\n")
 
         new_min_eig <- eigen(kernelMatrix)$values[N]
 
-        if(verbose) cat("The smallest eigenvalue is now: ", new_min_eig, "\n")
+        if (verbose)
+            cat("The smallest eigenvalue is now: ", new_min_eig, "\n")
     }
 
     kernelMatrix
