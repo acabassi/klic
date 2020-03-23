@@ -25,11 +25,11 @@
 #' @author Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 #' @examples
 #' # Load one dataset with 100 observations, 2 variables, 4 clusters
-#' data <- as.matrix(read.csv(system.file('extdata', 'dataset1.csv',
-#' package = 'klic'), row.names = 1))
+#' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
+#' package = "klic"), row.names = 1))
 #' # Load cluster labels
-#' cluster_labels <- as.matrix(read.csv(system.file('extdata',
-#' 'cluster_labels.csv', package = 'klic'), row.names = 1))
+#' cluster_labels <- as.matrix(read.csv(system.file("extdata",
+#' "cluster_labels.csv", package = "klic"), row.names = 1))
 #'
 #' # Compute consensus clustering with K=4 clusters
 #' cm <- coca::consensusCluster(data, 4)

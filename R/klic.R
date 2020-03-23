@@ -46,15 +46,15 @@
 #' @param dunn2s Boolean. If TRUE, compute also alternative Dunn's index to
 #' choose best number of clusters. Default is FALSE.
 #' @return The function returns a list contatining:
-#' @return - `consensusMatrices`, which is an array containing one consensus
+#' @return - "consensusMatrices", which is an array containing one consensus
 #' matrix per data set,
-#' @return - `weights`, that is a vector containing the weights assigned by the
+#' @return - "weights", that is a vector containing the weights assigned by the
 #' kernel k-means algorithm to each consensu matrix,
-#' @return - `globalClusterLabels`, a vector containing the cluster labels
+#' @return - "globalClusterLabels", a vector containing the cluster labels
 #' of the observations, according to kernel k-means clustering done on the
 #' kernel matrices.
 #' @return If the number of clusters is not provided, the function also returns
-#' `bestK`, the best number of clusters between 2 and "maxIndividualK" for each
+#' "bestK", the best number of clusters between 2 and "maxIndividualK" for each
 #' data set. Similarly, if the final number of clusters is not provided, the
 #' best number of clusters for the final (global) clustering "globalK" is also
 #' returned. This too is chosen so as to maximise the silhouette index.
@@ -75,7 +75,7 @@
 #' # Perform clustering with KLIC assuming to know the
 #' # number of clusters in each individual dataset and in
 #' # the final clustering
-#' klicOutput <- klic(data, 3, individualK = c(4,4,4),
+#' klicOutput <- klic(data, 3, individualK = c(4, 4, 4),
 #' globalK = 4, B = 30, C = 5)
 #'
 #' # Extract cluster labels

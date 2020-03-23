@@ -11,8 +11,7 @@
 #' Neural Information Processing Systems (pp. 1305-1313).
 #' @examples
 #' # Initialise 100 x 100 x 3 array containing M kernel matrices
-#' # representing three different types of similarities
-#' # between 100 data points
+#' # representing three different types of similarities between 100 data points
 #' km <- array(NA, c(100, 100, 3))
 #' # Load kernel matrices
 #' km[,,1] <- as.matrix(read.csv(system.file('extdata',
@@ -21,17 +20,20 @@
 #' 'kernel_matrix2.csv', package = 'klic'), row.names = 1))
 #' km[,,3] <- as.matrix(read.csv(system.file('extdata',
 #' 'kernel_matrix3.csv', package = 'klic'), row.names = 1))
-#' #initalize the parameters of the algorithm
+#'
+#' # Initalize the parameters of the algorithm
 #' parameters <- list()
-#' #set the number of clusters
-#' parameters$cluster_count <- 2
-#' # set the number of iterations
+#' # Set the number of clusters
+#' parameters$cluster_count <- 4
+#' # Set the number of iterations
 #' parameters$iteration_count <- 10
-#' #perform training
+#'
+#' # Perform training
 #' state <- lmkkmeans(km, parameters)
-#' #display the clustering
+#'
+#' # Display the clustering
 #' print(state$clustering)
-#' #display the kernel weights
+#' # Display the kernel weights
 #' print(state$Theta)
 #' @export
 

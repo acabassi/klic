@@ -15,8 +15,7 @@
 #' Neural Information Processing Systems (pp. 1305-1313).
 #' @examples
 #' # Intialise 100 x 100 x 3 array containing M kernel matrices
-#' # representing three different types of similarities
-#' # between 100 data points
+#' # representing three different types of similarities between 100 data points
 #' km <- array(NA, c(100, 100, 3))
 #' # Load kernel matrices
 #' km[,,1] <- as.matrix(read.csv(system.file('extdata',
@@ -36,7 +35,7 @@
 #' # Initalize the parameters of the algorithm
 #' parameters <- list()
 #' # Set the number of clusters
-#' parameters$cluster_count <- 2
+#' parameters$cluster_count <- 4
 #' # Set the number of iterations
 #' parameters$iteration_count <- 10
 #'

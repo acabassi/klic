@@ -14,8 +14,8 @@
 #' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
 #' package = "klic"), row.names = 1))
 #'
-#' # Compute consensus clustering with K=6 clusters
-#' cm <- coca::consensusCluster(data, 6)
+#' # Compute consensus clustering with K=4 clusters
+#' cm <- coca::consensusCluster(data, 4)
 #'
 #' # Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)
 #' km <- spectrumShift(cm, coeff = 1.05)

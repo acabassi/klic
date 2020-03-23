@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">klic</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -200,9 +200,9 @@ Neural Information Processing Systems (pp. 1305-1313).</p>
 <span class='no'>state</span> <span class='kw'>&lt;-</span> <span class='fu'>lmkkmeans_missingData</span>(<span class='no'>km</span>, <span class='no'>parameters</span>, <span class='no'>missing</span>)
 
 <span class='co'># Display the clustering</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>clustering</span>)</div><div class='output co'>#&gt;   [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-#&gt;  [38] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2
-#&gt;  [75] 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</div><div class='input'><span class='co'># Display the kernel weights</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>clustering</span>)</div><div class='output co'>#&gt;   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+#&gt;  [38] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1
+#&gt;  [75] 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2</div><div class='input'><span class='co'># Display the kernel weights</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>Theta</span>)</div><div class='output co'>#&gt;             [,1]      [,2]      [,3]
 #&gt;   [1,] 0.3345422 0.3309156 0.3345422
 #&gt;   [2,] 0.3346034 0.3307932 0.3346034

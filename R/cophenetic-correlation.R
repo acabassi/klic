@@ -1,7 +1,7 @@
 #' Cophenetic correlation coefficient
 #'
 #' Compute the cophenetic correlation coefficient of a kernel matrix, which is
-#' a measure of howfaithfully hierarchical clustering would preserve the
+#' a measure of how faithfully hierarchical clustering would preserve the
 #' pairwise distances between the original data points.
 #' @param kernelMatrix kernel matrix.
 #' @author Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}

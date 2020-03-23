@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">klic</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -241,7 +241,7 @@
 <a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">## Compare clustering to the true labels</span></a>
 <a class="sourceLine" id="cb13-8" data-line-number="8">clusterLabels &lt;-<span class="st"> </span>kkm<span class="op">$</span>clustering</a>
 <a class="sourceLine" id="cb13-9" data-line-number="9"><span class="kw"><a href="https://mclust-org.github.io/mclust/reference/adjustedRandIndex.html">adjustedRandIndex</a></span>(trueLab, lmkkm<span class="op">$</span>clustering) </a></code></pre></div>
-<pre><code>## [1] 0.902838</code></pre>
+<pre><code>## [1] 0.8923951</code></pre>
 <p>We also included <code>copheneticCorrelation</code>, a function that calculates the cophenetic correlation coefficient of a similarity matrix:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co">## Compute cophenetic correlation coefficient for each consensus matrix</span></a>
 <a class="sourceLine" id="cb15-2" data-line-number="2">ccc &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="ot">NA</span>, n_datasets)</a>
@@ -249,7 +249,7 @@
 <a class="sourceLine" id="cb15-4" data-line-number="4">  ccc[i] &lt;-<span class="st"> </span><span class="kw"><a href="../reference/copheneticCorrelation.html">copheneticCorrelation</a></span>(CM[,,i])</a>
 <a class="sourceLine" id="cb15-5" data-line-number="5">}</a>
 <a class="sourceLine" id="cb15-6" data-line-number="6">ccc</a></code></pre></div>
-<pre><code>## [1] 0.9988435 0.9893780 0.9991220</code></pre>
+<pre><code>## [1] 0.9990744 0.9949261 0.9959670</code></pre>
 <p>The cophenetic correlation coefficient is a measure of how faithfully hierarchical clustering would preserve the pairwise distances between the original data points.</p>
 </div>
 <div id="references" class="section level1">
