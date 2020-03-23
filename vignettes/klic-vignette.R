@@ -1,3 +1,14 @@
+## ----generate data, fig.show='hold', warning=FALSE, cache=TRUE----------------
+## Load synthetic data
+data1 <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
+data2 <- as.matrix(read.csv(system.file("extdata","dataset2.csv", package = "klic"), row.names = 1))
+data3 <- as.matrix(read.csv(system.file("extdata", "dataset3.csv", package = "klic"), row.names = 1))
+data <- list(data1, data2, data3)
+n_datasets <- 3
+N <- dim(data[[1]])[1]
+trueLab <- as.matrix(read.csv(system.file("extdata", "cluster_labels.csv", 
+                                                 package = "klic"), row.names = 1))
+
 ## ----consensus_cluster, fig.show='hold', warning=FALSE, cache=TRUE------------
 ## Compute co-clustering matrices for each dataset
 library(klic)
@@ -15,6 +26,18 @@ CM3 <- as.matrix(CM[,,3])
 rownames(CM3) <- colnames(CM3) <- names(trueLab)
 plotSimilarityMatrix(CM3, y = as.data.frame(trueLab))
 
+## ----spectrum_shift, fig.show='hold', warning=FALSE, cache=TRUE---------------
+## Check if consensus matrices are PSD and shift eigenvalues if needed.
+for(i in 1: n_datasets){
+  CM[,,i] <- spectrumShift(CM[,,i], verbose = FALSE)
+}
+## Plot updated consensus matrix of one of the datasets
+trueLab <- as.factor(trueLab)
+names(trueLab) <- as.character(1:N)
+CM3 <- as.matrix(CM[,,3])
+rownames(CM3) <- colnames(CM3) <- names(trueLab)
+plotSimilarityMatrix(CM3, y = as.data.frame(trueLab))
+
 ## ----lmk_kmeans, fig.show='hold', warning=FALSE, cache=TRUE-------------------
 ## Perform localised kernel k-means on the consensus matrices
 library(Matrix)
@@ -23,6 +46,11 @@ parameters <- list()
 parameters$cluster_count <- 4 # set the number of clusters K
 parameters$iteration_count <- 100 # set the maximum number of iterations
 lmkkm <- lmkkmeans(CM, parameters)
+
+## ----ari, fig.show='hold', warning=FALSE, cache=TRUE--------------------------
+## Compare clustering found with KLIC to the true one
+library(mclust, verbose = FALSE)
+adjustedRandIndex(trueLab, lmkkm$clustering) 
 
 ## ----maximise_silhouette, fig.show='hold', warning=FALSE, cache=TRUE----------
 ## Find the value of k that maximises the silhouette

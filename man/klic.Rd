@@ -19,7 +19,7 @@ klic(
   fileName = "klic",
   verbose = TRUE,
   annotations = NULL,
-  ccClMethods = "km",
+  ccClMethods = "kmeans",
   ccDistHCs = "euclidean",
   widestGap = FALSE,
   dunns = FALSE,
