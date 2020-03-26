@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Localised multiple kernel k-means — lmkkmeans" />
-<meta property="og:description" content="Perform the training step of the localised multiple kernel k-means" />
+<meta property="og:description" content="Perform the training step of the localised multiple kernel k-means." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -133,7 +133,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Perform the training step of the localised multiple kernel k-means</p>
+    <p>Perform the training step of the localised multiple kernel k-means.</p>
     </div>
 
     <pre class="usage"><span class='fu'>lmkkmeans</span>(<span class='no'>Km</span>, <span class='no'>parameters</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -143,11 +143,14 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>Km</th>
-      <td><p>kernel matrices</p></td>
+      <td><p>An array of size N x N x M containing M different N x N kernel
+matrices.</p></td>
     </tr>
     <tr>
       <th>parameters</th>
-      <td><p>list of parameters</p></td>
+      <td><p>A list of parameters containing the desired number of
+clusters, <code>cluster_count</code>, and the number of iterations of the
+algorithm to be run, <code>iteration_count</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -156,6 +159,17 @@ is printed. Default is FALSE.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>This function returns a list containing:</p>
+<dt>clustering</dt><dd><p>the cluster labels for each element (i.e. row/column) of
+the kernel matrix.</p></dd>
+<dt>objective</dt><dd><p>the value of the objective function for the given
+clustering.</p></dd>
+<dt>parameters</dt><dd><p>same parameters as in the input.</p></dd>
+<dt>Theta</dt><dd><p>N x M matrix of weights, each row corresponds to an observation
+and each column to one of the kernels.</p></dd>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Gönen, M. and Margolin, A.A., 2014. Localized data fusion for
@@ -163,9 +177,9 @@ kernel k-means clustering with application to cancer biology. In Advances in
 Neural Information Processing Systems (pp. 1305-1313).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Initialise 100 x 100 x 3 array containing M kernel matrices</span>
-<span class='co'># representing three different types of similarities</span>
-<span class='co'># between 100 data points</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># Initialise 100 x 100 x 3 array containing M kernel matrices</span>
+<span class='co'># representing three different types of similarities between 100 data points</span>
 <span class='no'>km</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fl'>NA</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>100</span>, <span class='fl'>3</span>))
 <span class='co'># Load kernel matrices</span>
 <span class='no'>km</span>[,,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
@@ -174,124 +188,28 @@ Neural Information Processing Systems (pp. 1305-1313).</p>
 <span class='st'>'kernel_matrix2.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='no'>km</span>[,,<span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
 <span class='st'>'kernel_matrix3.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
-<span class='co'>#initalize the parameters of the algorithm</span>
+
+<span class='co'># Initalize the parameters of the algorithm</span>
 <span class='no'>parameters</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
-<span class='co'>#set the number of clusters</span>
-<span class='no'>parameters</span>$<span class='no'>cluster_count</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
-<span class='co'># set the number of iterations</span>
+<span class='co'># Set the number of clusters</span>
+<span class='no'>parameters</span>$<span class='no'>cluster_count</span> <span class='kw'>&lt;-</span> <span class='fl'>4</span>
+<span class='co'># Set the number of iterations</span>
 <span class='no'>parameters</span>$<span class='no'>iteration_count</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>
-<span class='co'>#perform training</span>
+
+<span class='co'># Perform training</span>
 <span class='no'>state</span> <span class='kw'>&lt;-</span> <span class='fu'>lmkkmeans</span>(<span class='no'>km</span>, <span class='no'>parameters</span>)
-<span class='co'>#display the clustering</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>clustering</span>)</div><div class='output co'>#&gt;   [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-#&gt;  [38] 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-#&gt;  [75] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</div><div class='input'><span class='co'>#display the kernel weights</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>Theta</span>)</div><div class='output co'>#&gt;             [,1]      [,2]      [,3]
-#&gt;   [1,] 0.3346087 0.3307825 0.3346087
-#&gt;   [2,] 0.3346710 0.3306580 0.3346710
-#&gt;   [3,] 0.3333024 0.3333951 0.3333024
-#&gt;   [4,] 0.3343984 0.3312032 0.3343984
-#&gt;   [5,] 0.3342298 0.3315404 0.3342298
-#&gt;   [6,] 0.3341172 0.3317657 0.3341172
-#&gt;   [7,] 0.3338299 0.3323403 0.3338299
-#&gt;   [8,] 0.3340767 0.3318466 0.3340767
-#&gt;   [9,] 0.3332093 0.3335813 0.3332093
-#&gt;  [10,] 0.3341911 0.3316178 0.3341911
-#&gt;  [11,] 0.3343757 0.3312487 0.3343757
-#&gt;  [12,] 0.3341314 0.3317372 0.3341314
-#&gt;  [13,] 0.3341724 0.3316553 0.3341724
-#&gt;  [14,] 0.3344422 0.3311155 0.3344422
-#&gt;  [15,] 0.3263675 0.3472651 0.3263675
-#&gt;  [16,] 0.3342485 0.3315030 0.3342485
-#&gt;  [17,] 0.3332488 0.3335023 0.3332488
-#&gt;  [18,] 0.3344242 0.3311516 0.3344242
-#&gt;  [19,] 0.3344929 0.3310142 0.3344929
-#&gt;  [20,] 0.3345346 0.3309309 0.3345346
-#&gt;  [21,] 0.2862857 0.4274286 0.2862857
-#&gt;  [22,] 0.3341861 0.3316278 0.3341861
-#&gt;  [23,] 0.2880555 0.4238890 0.2880555
-#&gt;  [24,] 0.3336395 0.3327211 0.3336395
-#&gt;  [25,] 0.3342705 0.3314590 0.3342705
-#&gt;  [26,] 0.3050784 0.3799726 0.3149490
-#&gt;  [27,] 0.3035242 0.3831145 0.3133613
-#&gt;  [28,] 0.3036296 0.3832827 0.3130877
-#&gt;  [29,] 0.3025953 0.3849131 0.3124917
-#&gt;  [30,] 0.3033815 0.3832968 0.3133217
-#&gt;  [31,] 0.3047563 0.3808083 0.3144354
-#&gt;  [32,] 0.3034524 0.3836614 0.3128862
-#&gt;  [33,] 0.3029436 0.3840974 0.3129589
-#&gt;  [34,] 0.3036887 0.3831395 0.3131718
-#&gt;  [35,] 0.3034048 0.3835057 0.3130895
-#&gt;  [36,] 0.3027097 0.3845836 0.3127067
-#&gt;  [37,] 0.3040297 0.3823205 0.3136497
-#&gt;  [38,] 0.3039653 0.3827957 0.3132390
-#&gt;  [39,] 0.3035782 0.3830235 0.3133983
-#&gt;  [40,] 0.3027081 0.3845570 0.3127349
-#&gt;  [41,] 0.3028365 0.3843065 0.3128570
-#&gt;  [42,] 0.3053511 0.3800074 0.3146415
-#&gt;  [43,] 0.3034776 0.3834709 0.3130515
-#&gt;  [44,] 0.3135599 0.3635897 0.3228504
-#&gt;  [45,] 0.3035905 0.3830657 0.3133438
-#&gt;  [46,] 0.3096053 0.3715675 0.3188272
-#&gt;  [47,] 0.2830834 0.3931296 0.3237870
-#&gt;  [48,] 0.3041353 0.3820879 0.3137767
-#&gt;  [49,] 0.3028206 0.3844560 0.3127234
-#&gt;  [50,] 0.3043331 0.3818838 0.3137830
-#&gt;  [51,] 0.3358407 0.3320560 0.3321033
-#&gt;  [52,] 0.3359117 0.3319975 0.3320907
-#&gt;  [53,] 0.3357570 0.3321992 0.3320438
-#&gt;  [54,] 0.3361421 0.3316934 0.3321644
-#&gt;  [55,] 0.3357170 0.3320883 0.3321946
-#&gt;  [56,] 0.2900307 0.4236407 0.2863285
-#&gt;  [57,] 0.3358590 0.3321058 0.3320352
-#&gt;  [58,] 0.3357929 0.3320386 0.3321684
-#&gt;  [59,] 0.3357154 0.3319763 0.3323083
-#&gt;  [60,] 0.3351695 0.3335421 0.3312885
-#&gt;  [61,] 0.3389047 0.3304758 0.3306195
-#&gt;  [62,] 0.3352661 0.3315875 0.3331464
-#&gt;  [63,] 0.3365629 0.3314529 0.3319842
-#&gt;  [64,] 0.3361800 0.3318317 0.3319883
-#&gt;  [65,] 0.3124411 0.3072474 0.3803115
-#&gt;  [66,] 0.3369500 0.3313953 0.3316546
-#&gt;  [67,] 0.3358684 0.3319756 0.3321560
-#&gt;  [68,] 0.3255671 0.3526430 0.3217898
-#&gt;  [69,] 0.3358306 0.3321966 0.3319728
-#&gt;  [70,] 0.3374643 0.3312320 0.3313037
-#&gt;  [71,] 0.3368702 0.3314736 0.3316562
-#&gt;  [72,] 0.3358586 0.3320195 0.3321219
-#&gt;  [73,] 0.3359982 0.3319366 0.3320652
-#&gt;  [74,] 0.3359307 0.3318089 0.3322604
-#&gt;  [75,] 0.3358110 0.3318997 0.3322893
-#&gt;  [76,] 0.2996259 0.3335545 0.3668196
-#&gt;  [77,] 0.2995983 0.3342398 0.3661619
-#&gt;  [78,] 0.2998078 0.3337832 0.3664089
-#&gt;  [79,] 0.3012157 0.3349932 0.3637912
-#&gt;  [80,] 0.3022633 0.3297295 0.3680072
-#&gt;  [81,] 0.2982095 0.3347233 0.3670672
-#&gt;  [82,] 0.3013253 0.3309562 0.3677184
-#&gt;  [83,] 0.2998786 0.3336325 0.3664889
-#&gt;  [84,] 0.2353924 0.3668283 0.3977793
-#&gt;  [85,] 0.2996961 0.3340922 0.3662117
-#&gt;  [86,] 0.2994409 0.3341822 0.3663769
-#&gt;  [87,] 0.2999251 0.3334214 0.3666535
-#&gt;  [88,] 0.2992739 0.3340155 0.3667106
-#&gt;  [89,] 0.2993295 0.3342045 0.3664660
-#&gt;  [90,] 0.2989822 0.3342607 0.3667571
-#&gt;  [91,] 0.3000172 0.3351521 0.3648307
-#&gt;  [92,] 0.2990488 0.3338075 0.3671438
-#&gt;  [93,] 0.3006016 0.3316912 0.3677073
-#&gt;  [94,] 0.3000564 0.3332614 0.3666823
-#&gt;  [95,] 0.3001560 0.3335775 0.3662665
-#&gt;  [96,] 0.2996068 0.3340868 0.3663064
-#&gt;  [97,] 0.2997226 0.3342723 0.3660051
-#&gt;  [98,] 0.2998354 0.3339305 0.3662340
-#&gt;  [99,] 0.2995881 0.3341504 0.3662615
-#&gt; [100,] 0.2994883 0.3339121 0.3665995</div></pre>
+
+<span class='co'># Display the clustering</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>clustering</span>)
+<span class='co'># Display the kernel weights</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>Theta</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

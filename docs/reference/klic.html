@@ -231,8 +231,8 @@ working folder. Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>fileName</th>
-      <td><p>If "savePNG" is TRUE, this is the name of the png file. Can
-be used to specify the folder path too. Default is "klic".</p></td>
+      <td><p>If <code>savePNG</code> is TRUE, this is the name of the png file.
+Can be used to specify the folder path too. Default is "klic".</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -244,13 +244,13 @@ be used to specify the folder path too. Default is "klic".</p></td>
     </tr>
     <tr>
       <th>ccClMethods</th>
-      <td><p>The i-th element of this vector goes into the "clMethod"
-argument of consensusCluster() for the i-th dataset.</p></td>
+      <td><p>The i-th element of this vector goes into the
+<code>clMethod</code> argument of consensusCluster() for the i-th dataset.</p></td>
     </tr>
     <tr>
       <th>ccDistHCs</th>
-      <td><p>The i-th element of this vector goes into the "dist"
-argument of consensusCluster() for the i-th dataset.</p></td>
+      <td><p>The i-th element of this vector goes into the <code>dist</code>
+argument of <code>consensusCluster()</code> for the i-th dataset.</p></td>
     </tr>
     <tr>
       <th>widestGap</th>
@@ -272,18 +272,25 @@ choose best number of clusters. Default is FALSE.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The function returns a list contatining:</p>
-<p>- `consensusMatrices`, which is an array containing one consensus
-matrix per data set,</p>
-<p>- `weights`, that is a vector containing the weights assigned by the
-kernel k-means algorithm to each consensu matrix,</p>
-<p>- `globalClusterLabels`, a vector containing the cluster labels
+<dt>consensusMatrices</dt><dd><p>an array containing one consensus matrix per data
+set.</p></dd>
+<dt>weights</dt><dd><p>a vector containing the weights assigned by the
+kernel k-means algorithm to each consensus matrix.</p></dd>
+<dt>weightedKM</dt><dd><p>the weighted kernel matrix obtained by taking a weighted
+sum of all kernels, where the weights are those specified in the
+<code>weights</code> matrix.</p></dd>
+<dt>globalClusterLabels</dt><dd><p>a vector containing the cluster labels
 of the observations, according to kernel k-means clustering done on the
-kernel matrices.</p>
-<p>If the number of clusters is not provided, the function also returns
-`bestK`, the best number of clusters between 2 and "maxIndividualK" for each
-data set. Similarly, if the final number of clusters is not provided, the
-best number of clusters for the final (global) clustering "globalK" is also
-returned. This too is chosen so as to maximise the silhouette index.</p>
+kernel matrices.</p></dd>
+<dt>bestK</dt><dd><p>a vector containing the best number of clusters between 2 and
+<code>maxIndividualK</code> for each kernel. These are chosen so as to maximise the
+silhouette and only returned if the number of clusters <code>individualK</code>
+is not provided.</p></dd>
+<dt>globalK</dt><dd><p>the
+best number of clusters for the final (global) clustering. This is chosen so
+as to maximise the silhouette and only returned if the final number of
+clusters <code>globalK</code> is not provided.</p></dd>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning
@@ -291,7 +298,8 @@ for integrative consensus clustering of genomic datasets. arXiv preprint.
 arXiv:1904.07701.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Load synthetic data</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'># Load synthetic data</span>
 <span class='no'>data1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
 <span class='st'>'dataset1.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='no'>data2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
@@ -303,19 +311,17 @@ arXiv:1904.07701.</p>
 <span class='co'># Perform clustering with KLIC assuming to know the</span>
 <span class='co'># number of clusters in each individual dataset and in</span>
 <span class='co'># the final clustering</span>
-<span class='no'>klicOutput</span> <span class='kw'>&lt;-</span> <span class='fu'>klic</span>(<span class='no'>data</span>, <span class='fl'>3</span>, <span class='kw'>individualK</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>),
-<span class='kw'>globalK</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] "All datasets contain the same number of observations 100."
-#&gt; [1] "We assume that the observations are the same in each dataset\n                and that they are in the same order."
-#&gt; [1] "*** Generating similarity matrices ***"
-#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%
-#&gt; [1] "*** Finding the global clustering ***"</div><div class='input'>
+<span class='no'>klicOutput</span> <span class='kw'>&lt;-</span> <span class='fu'>klic</span>(<span class='no'>data</span>, <span class='fl'>3</span>, <span class='kw'>individualK</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>4</span>),
+<span class='kw'>globalK</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+
 <span class='co'># Extract cluster labels</span>
 <span class='no'>klic_labels</span> <span class='kw'>&lt;-</span> <span class='no'>klicOutput</span>$<span class='no'>globalClusterLabels</span>
 
 <span class='no'>cluster_labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
 <span class='st'>'cluster_labels.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute ARI</span>
-<span class='no'>ari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mclust</span><span class='kw ns'>::</span><span class='fu'><a href='https://mclust-org.github.io/mclust/reference/adjustedRandIndex.html'>adjustedRandIndex</a></span>(<span class='no'>klic_labels</span>, <span class='no'>cluster_labels</span>)</div></pre>
+<span class='no'>ari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mclust</span><span class='kw ns'>::</span><span class='fu'><a href='https://mclust-org.github.io/mclust/reference/adjustedRandIndex.html'>adjustedRandIndex</a></span>(<span class='no'>klic_labels</span>, <span class='no'>cluster_labels</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
