@@ -9,20 +9,29 @@ copheneticCorrelation(kernelMatrix)
 \arguments{
 \item{kernelMatrix}{kernel matrix.}
 }
+\value{
+This functions returns the cophenetic correlation coefficient of the
+kernel matrix provided as input.
+}
 \description{
 Compute the cophenetic correlation coefficient of a kernel matrix, which is
-a measure of howfaithfully hierarchical clustering would preserve the
+a measure of how faithfully hierarchical clustering would preserve the
 pairwise distances between the original data points.
 }
 \examples{
 # Load kernel matrix
 consensus_matrix <- as.matrix(read.csv(system.file('extdata',
 'consensus_matrix1.csv', package = 'klic'), row.names = 1))
+
 # Compute cophenetic correlation
 coph_corr_coeff <- copheneticCorrelation(consensus_matrix)
-print(coph_corr_coeff)
+cat(coph_corr_coeff)
 }
 \references{
+Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning
+for integrative consensus clustering of genomic datasets. arXiv preprint.
+arXiv:1904.07701.
+
 Sokal, R.R. and Rohlf, F.J., 1962. The comparison of dendrograms
 by objective methods. Taxon, 11(2), pp.33-40.
 }

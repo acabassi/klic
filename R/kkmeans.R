@@ -1,13 +1,21 @@
 #' Kernel k-means
 #'
-#' Perform the training step of kernel k-means
-#' @param K kernel matrix
-#' @param parameters list of parameters
+#' Perform the training step of kernel k-means.
+#' @param K Kernel matrix.
+#' @param parameters A list containing the number of clusters
+#' \code{number_count}.
+#' @return This function returns a list containing:
+#' \item{clustering}{the cluster labels for each element (i.e. row/column) of
+#' the kernel matrix.}
+#' \item{objective}{the value of the objective function for the given
+#' clustering.}
+#' \item{parameters}{same parameters as in the input.}
 #' @author Mehmet Gönen
 #' @references Gönen, M. and Margolin, A.A., 2014. Localized data fusion for
 #' kernel k-means clustering with application to cancer biology. In Advances in
 #' Neural Information Processing Systems (pp. 1305-1313).
 #' @examples
+#' \dontrun{clustering}
 #' # Load one dataset with 100 observations, 2 variables, 4 clusters
 #' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
 #' package = "klic"), row.names = 1))
@@ -23,6 +31,7 @@
 #' state <- kkmeans(km, parameters)
 #' # Display the clustering
 #' print(state$clustering)
+#' }
 #' @export
 #'
 kkmeans <- function(K, parameters) {

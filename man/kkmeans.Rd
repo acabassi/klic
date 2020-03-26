@@ -7,29 +7,21 @@
 kkmeans(K, parameters)
 }
 \arguments{
-\item{K}{kernel matrix}
+\item{K}{Kernel matrix.}
 
-\item{parameters}{list of parameters}
+\item{parameters}{A list containing the number of clusters
+\code{number_count}.}
+}
+\value{
+This function returns a list containing:
+\item{clustering}{the cluster labels for each element (i.e. row/column) of
+the kernel matrix.}
+\item{objective}{the value of the objective function for the given
+clustering.}
+\item{parameters}{same parameters as in the input.}
 }
 \description{
-Perform the training step of kernel k-means
-}
-\examples{
-# Load one dataset with 100 observations, 2 variables, 4 clusters
-data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
-package = "klic"), row.names = 1))
-# Compute consensus clustering with K=6 clusters
-cm <- coca::consensusCluster(data, 6)
-# Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)
-km <- spectrumShift(cm, coeff = 1.05)
-# Initalize the parameters of the algorithm
-parameters <- list()
-# Set the number of clusters
-parameters$cluster_count <- 6
-# Perform training
-state <- kkmeans(km, parameters)
-# Display the clustering
-print(state$clustering)
+Perform the training step of kernel k-means.
 }
 \references{
 Gönen, M. and Margolin, A.A., 2014. Localized data fusion for

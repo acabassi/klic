@@ -18,16 +18,20 @@ Default is NULL.}
 \item{verbose}{Boolean flag: if TRUE, information about the shift is printed
 to screen. Default is FALSE.}
 }
+\value{
+This function returns the matrix \code{kernelMatrix} after applying
+the required spectrum shift.
+}
 \description{
-Make a symmetric matrix positive semi-definite
+Make a symmetric matrix positive semi-definite.
 }
 \examples{
 # Load one dataset with 300 observations, 2 variables, 6 clusters
 data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
 package = "klic"), row.names = 1))
 
-# Compute consensus clustering with K=6 clusters
-cm <- coca::consensusCluster(data, 6)
+# Compute consensus clustering with K=4 clusters
+cm <- coca::consensusCluster(data, 4)
 
 # Shift eigenvalues of the matrix by a constant: (min eigenvalue) * (coeff)
 km <- spectrumShift(cm, coeff = 1.05)

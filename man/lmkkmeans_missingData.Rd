@@ -7,25 +7,27 @@
 lmkkmeans_missingData(Km, parameters, missing = NULL, verbose = FALSE)
 }
 \arguments{
-\item{Km}{Array of size N X N X M containing M kernel matrices.}
+\item{Km}{Array of size N X N X M containing M  different N x N kernel
+matrices.}
 
-\item{parameters}{List of parameters, containing "iteration_count",
-"cluster_count".}
+\item{parameters}{A list of parameters containing the desired number of
+clusters, \code{cluster_count}, and the number of iterations of the
+algorithm to be run, \code{iteration_count}.}
 
 \item{missing}{Matrix of size N X M containing missingness indicators, i.e.
-missing[i,j] = 1 (or = TRUE) if observation "i" is missing in dataset "j",
-missing[i,j] = 0 (or = FALSE).}
+missing[i,j] = 1 (or = TRUE) if observation \code{i} is missing in dataset
+\code{j}, missing[i,j] = 0 (or = FALSE).}
 
 \item{verbose}{Boolean flag. If TRUE, at each iteration the iteration number
 is printed. Defaults to FALSE.}
 }
 \description{
-Perform the training step of the localised multiple kernel k-means
+Perform the training step of the localised multiple kernel k-means.
 }
 \examples{
+\dontrun{
 # Intialise 100 x 100 x 3 array containing M kernel matrices
-# representing three different types of similarities
-# between 100 data points
+# representing three different types of similarities between 100 data points
 km <- array(NA, c(100, 100, 3))
 # Load kernel matrices
 km[,,1] <- as.matrix(read.csv(system.file('extdata',
@@ -45,7 +47,7 @@ missing[76:80,1] <- TRUE
 # Initalize the parameters of the algorithm
 parameters <- list()
 # Set the number of clusters
-parameters$cluster_count <- 2
+parameters$cluster_count <- 4
 # Set the number of iterations
 parameters$iteration_count <- 10
 
@@ -57,11 +59,12 @@ print(state$clustering)
 # Display the kernel weights
 print(state$Theta)
 }
+}
 \references{
-Gonen, M. and Margolin, A.A., 2014. Localized data fusion for
+Gönen, M. and Margolin, A.A., 2014. Localized data fusion for
 kernel k-means clustering with application to cancer biology. In Advances in
 Neural Information Processing Systems (pp. 1305-1313).
 }
 \author{
-Mehmet Gonen, Alessandra Cabassi
+Mehmet Gönen, Alessandra Cabassi
 }

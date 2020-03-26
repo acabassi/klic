@@ -7,20 +7,33 @@
 lmkkmeans(Km, parameters, verbose = FALSE)
 }
 \arguments{
-\item{Km}{kernel matrices}
+\item{Km}{An array of size N x N x M containing M different N x N kernel
+matrices.}
 
-\item{parameters}{list of parameters}
+\item{parameters}{A list of parameters containing the desired number of
+clusters, \code{cluster_count}, and the number of iterations of the
+algorithm to be run, \code{iteration_count}.}
 
 \item{verbose}{Boolean flag. If TRUE, at each iteration the iteration number
 is printed. Default is FALSE.}
 }
+\value{
+This function returns a list containing:
+\item{clustering}{the cluster labels for each element (i.e. row/column) of
+the kernel matrix.}
+\item{objective}{the value of the objective function for the given
+clustering.}
+\item{parameters}{same parameters as in the input.}
+\item{Theta}{N x M matrix of weights, each row corresponds to an observation
+and each column to one of the kernels.}
+}
 \description{
-Perform the training step of the localised multiple kernel k-means
+Perform the training step of the localised multiple kernel k-means.
 }
 \examples{
+\dontrun{
 # Initialise 100 x 100 x 3 array containing M kernel matrices
-# representing three different types of similarities
-# between 100 data points
+# representing three different types of similarities between 100 data points
 km <- array(NA, c(100, 100, 3))
 # Load kernel matrices
 km[,,1] <- as.matrix(read.csv(system.file('extdata',
@@ -29,18 +42,22 @@ km[,,2] <- as.matrix(read.csv(system.file('extdata',
 'kernel_matrix2.csv', package = 'klic'), row.names = 1))
 km[,,3] <- as.matrix(read.csv(system.file('extdata',
 'kernel_matrix3.csv', package = 'klic'), row.names = 1))
-#initalize the parameters of the algorithm
+
+# Initalize the parameters of the algorithm
 parameters <- list()
-#set the number of clusters
-parameters$cluster_count <- 2
-# set the number of iterations
+# Set the number of clusters
+parameters$cluster_count <- 4
+# Set the number of iterations
 parameters$iteration_count <- 10
-#perform training
+
+# Perform training
 state <- lmkkmeans(km, parameters)
-#display the clustering
+
+# Display the clustering
 print(state$clustering)
-#display the kernel weights
+# Display the kernel weights
 print(state$Theta)
+}
 }
 \references{
 Gönen, M. and Margolin, A.A., 2014. Localized data fusion for

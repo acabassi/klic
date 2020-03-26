@@ -6,3 +6,4 @@
 ^_config\.yml$
 ^vignettes/.*_cache
 ^\.travis\.yml$
+^vignettes$

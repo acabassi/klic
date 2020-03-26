@@ -1,19 +1,22 @@
 #' Localised multiple kernel k-means
 #'
-#' Perform the training step of the localised multiple kernel k-means
-#' @param Km Array of size N X N X M containing M kernel matrices.
-#' @param parameters List of parameters, containing "iteration_count",
-#' "cluster_count".
+#' Perform the training step of the localised multiple kernel k-means.
+#' @param Km Array of size N X N X M containing M  different N x N kernel
+#' matrices.
+#' @param parameters A list of parameters containing the desired number of
+#' clusters, \code{cluster_count}, and the number of iterations of the
+#' algorithm to be run, \code{iteration_count}.
 #' @param missing Matrix of size N X M containing missingness indicators, i.e.
-#' missing[i,j] = 1 (or = TRUE) if observation "i" is missing in dataset "j",
-#' missing[i,j] = 0 (or = FALSE).
+#' missing[i,j] = 1 (or = TRUE) if observation \code{i} is missing in dataset
+#' \code{j}, missing[i,j] = 0 (or = FALSE).
 #' @param verbose Boolean flag. If TRUE, at each iteration the iteration number
 #' is printed. Defaults to FALSE.
-#' @author Mehmet Gonen, Alessandra Cabassi
-#' @references Gonen, M. and Margolin, A.A., 2014. Localized data fusion for
+#' @author Mehmet Gönen, Alessandra Cabassi
+#' @references Gönen, M. and Margolin, A.A., 2014. Localized data fusion for
 #' kernel k-means clustering with application to cancer biology. In Advances in
 #' Neural Information Processing Systems (pp. 1305-1313).
 #' @examples
+#' \dontrun{
 #' # Intialise 100 x 100 x 3 array containing M kernel matrices
 #' # representing three different types of similarities between 100 data points
 #' km <- array(NA, c(100, 100, 3))
@@ -46,6 +49,7 @@
 #' print(state$clustering)
 #' # Display the kernel weights
 #' print(state$Theta)
+#' }
 #' @export
 
 lmkkmeans_missingData <-

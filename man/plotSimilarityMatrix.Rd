@@ -34,10 +34,10 @@ plotSimilarityMatrix(
 
 \item{myLegend}{Vector of strings with the names of the variables}
 
-\item{fileName}{If "savePNG" is TRUE, this is the string containing the name
-of the output file. Can be used to specify the folder path too. Default is
-"posteriorSimilarityMatrix". The extension ".png" is automatically added to
-this string.}
+\item{fileName}{If \code{savePNG} is TRUE, this is the string containing the
+name of the output file. Can be used to specify the folder path too. Default
+is "posteriorSimilarityMatrix". The extension ".png" is automatically added
+to this string.}
 
 \item{savePNG}{Boolean: if TRUE, the plot is saved as a png file. Default is
 FALSE.}
@@ -63,11 +63,11 @@ Plot similarity matrix with pheatmap
 }
 \examples{
 # Load one dataset with 100 observations, 2 variables, 4 clusters
-data <- as.matrix(read.csv(system.file('extdata', 'dataset1.csv',
-package = 'klic'), row.names = 1))
+data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
+package = "klic"), row.names = 1))
 # Load cluster labels
-cluster_labels <- as.matrix(read.csv(system.file('extdata',
-'cluster_labels.csv', package = 'klic'), row.names = 1))
+cluster_labels <- as.matrix(read.csv(system.file("extdata",
+"cluster_labels.csv", package = "klic"), row.names = 1))
 
 # Compute consensus clustering with K=4 clusters
 cm <- coca::consensusCluster(data, 4)

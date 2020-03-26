@@ -8,10 +8,10 @@
 #' @param myLegend Vector of strings with the names of the variables
 #' @param savePNG Boolean: if TRUE, the plot is saved as a png file. Default is
 #' FALSE.
-#' @param fileName If "savePNG" is TRUE, this is the string containing the name
-#' of the output file. Can be used to specify the folder path too. Default is
-#' "posteriorSimilarityMatrix". The extension ".png" is automatically added to
-#' this string.
+#' @param fileName If \code{savePNG} is TRUE, this is the string containing the
+#' name of the output file. Can be used to specify the folder path too. Default
+#' is "posteriorSimilarityMatrix". The extension ".png" is automatically added
+#' to this string.
 #' @param semiSupervised Boolean flag: if TRUE, the response is plotted next to
 #' the matrix.
 #' @param showObsNames Boolean. If TRUE, observation names are shown in the

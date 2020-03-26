@@ -31,14 +31,14 @@
 #' has zero mean and unitary variance.
 #' @param savePNG Boolean. If TRUE, a plot of the silhouette is saved in the
 #' working folder. Default is FALSE.
-#' @param fileName If "savePNG" is TRUE, this is the name of the png file. Can
-#' be used to specify the folder path too. Default is "klic".
+#' @param fileName If \code{savePNG} is TRUE, this is the name of the png file.
+#' Can be used to specify the folder path too. Default is "klic".
 #' @param verbose Boolean. Default is TRUE.
 #' @param annotations Data frame containing annotations for final plot.
-#' @param ccClMethods The i-th element of this vector goes into the "clMethod"
-#' argument of consensusCluster() for the i-th dataset.
-#' @param ccDistHCs The i-th element of this vector goes into the "dist"
-#' argument of consensusCluster() for the i-th dataset.
+#' @param ccClMethods The i-th element of this vector goes into the
+#' \code{clMethod} argument of consensusCluster() for the i-th dataset.
+#' @param ccDistHCs The i-th element of this vector goes into the \code{dist}
+#' argument of \code{consensusCluster()} for the i-th dataset.
 #' @param widestGap Boolean. If TRUE, compute also widest gap index to choose
 #' best number of clusters. Default is FALSE.
 #' @param dunns Boolean. If TRUE, compute also Dunn's index to choose best
@@ -46,23 +46,30 @@
 #' @param dunn2s Boolean. If TRUE, compute also alternative Dunn's index to
 #' choose best number of clusters. Default is FALSE.
 #' @return The function returns a list contatining:
-#' @return - "consensusMatrices", which is an array containing one consensus
-#' matrix per data set,
-#' @return - "weights", that is a vector containing the weights assigned by the
-#' kernel k-means algorithm to each consensu matrix,
-#' @return - "globalClusterLabels", a vector containing the cluster labels
+#' \item{consensusMatrices}{an array containing one consensus matrix per data
+#' set.}
+#' \item{weights}{a vector containing the weights assigned by the
+#' kernel k-means algorithm to each consensus matrix.}
+#' \item{weightedKM}{the weighted kernel matrix obtained by taking a weighted
+#' sum of all kernels, where the weights are those specified in the
+#' \code{weights} matrix.}
+#' \item{globalClusterLabels}{a vector containing the cluster labels
 #' of the observations, according to kernel k-means clustering done on the
-#' kernel matrices.
-#' @return If the number of clusters is not provided, the function also returns
-#' "bestK", the best number of clusters between 2 and "maxIndividualK" for each
-#' data set. Similarly, if the final number of clusters is not provided, the
-#' best number of clusters for the final (global) clustering "globalK" is also
-#' returned. This too is chosen so as to maximise the silhouette index.
+#' kernel matrices.}
+#' \item{bestK}{a vector containing the best number of clusters between 2 and
+#' \code{maxIndividualK} for each kernel. These are chosen so as to maximise the
+#' silhouette and only returned if the number of clusters \code{individualK}
+#' is not provided.}
+#' \item{globalK}{the
+#' best number of clusters for the final (global) clustering. This is chosen so
+#' as to maximise the silhouette and only returned if the final number of
+#' clusters \code{globalK} is not provided.}
 #' @author Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 #' @references Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning
 #' for integrative consensus clustering of genomic datasets. arXiv preprint.
 #' arXiv:1904.07701.
 #' @examples
+#' \dontrun{
 #' # Load synthetic data
 #' data1 <- as.matrix(read.csv(system.file('extdata',
 #' 'dataset1.csv', package = 'klic'), row.names = 1))
@@ -85,6 +92,7 @@
 #' 'cluster_labels.csv', package = 'klic'), row.names = 1))
 #' # Compute ARI
 #' ari <- mclust::adjustedRandIndex(klic_labels, cluster_labels)
+#' }
 #' @export
 #'
 klic = function(data,
@@ -115,9 +123,7 @@ klic = function(data,
     }
     if (verbose)
         print(paste("All datasets contain the same number of observations ",
-                    N,
-                    ".",
-                    sep = ""))
+                    N, ".", sep = ""))
     print(paste("We assume that the observations are the same in each dataset
                 and that they are in the same order."))
 

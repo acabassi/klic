@@ -1,6 +1,6 @@
 #' Spectrum shift
 #'
-#' Make a symmetric matrix positive semi-definite
+#' Make a symmetric matrix positive semi-definite.
 #' @param kernelMatrix symmetric matrix
 #' @param coeff Coefficient by which the minimum eigenvalue is multiplied when
 #' shifting the eigenvalues, in order to avoid numeric problems. Default is 1.2.
@@ -8,6 +8,8 @@
 #' Default is NULL.
 #' @param verbose Boolean flag: if TRUE, information about the shift is printed
 #' to screen. Default is FALSE.
+#' @return This function returns the matrix \code{kernelMatrix} after applying
+#' the required spectrum shift.
 #' @author Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 #' @examples
 #' # Load one dataset with 300 observations, 2 variables, 6 clusters
