@@ -10,8 +10,8 @@ URL: http://github.com/acabassi/klic
 BugReports: http://github.com/acabassi/klic/issues
 Encoding: UTF-8
 LazyData: true
-Imports: Rmosek, Matrix, cluster, gplots, wesanderson, coca, RColorBrewer, pheatmap, utils
-Suggests: tikzDevice, mclust, grDevices, graphics, knitr
-Remotes: acabassi/coca
+Imports: Matrix, cluster, gplots, wesanderson, coca, RColorBrewer, pheatmap, utils
+Suggests: Rmosek, tikzDevice, mclust, grDevices, graphics, knitr
+SystemRequirements: MOSEK (http://www.mosek.com) and MOSEK license.
 RoxygenNote: 7.1.0
 VignetteBuilder: knitr
