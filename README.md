@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/134583683.svg)](https://zenodo.org/badge/latestdoi/134583683)
+[![Build Status](https://travis-ci.org/acabassi/klic.svg?branch=master)](https://travis-ci.org/acabassi/klic) [![DOI](https://zenodo.org/badge/134583683.svg)](https://zenodo.org/badge/latestdoi/134583683)
 
 # KLIC - Kernel Learning Integrative Clustering
 
