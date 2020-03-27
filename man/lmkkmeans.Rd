@@ -60,10 +60,10 @@ print(state$Theta)
 }
 }
 \references{
-Gönen, M. and Margolin, A.A., 2014. Localized data fusion for
+Gonen, M. and Margolin, A.A., 2014. Localized data fusion for
 kernel k-means clustering with application to cancer biology. In Advances in
 Neural Information Processing Systems (pp. 1305-1313).
 }
 \author{
-Mehmet Gönen
+Mehmet Gonen
 }

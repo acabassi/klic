@@ -1,9 +1,13 @@
 Package: klic
 Title: Kernel Learning Integrative Clustering
 Version: 1.0.2
-Authors@R: c(person(given = "Alessandra", family = "Cabassi", email = "alessandra.cabassi@mrc-bsu.cam.ac.uk", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1605-652X")), person(given = "Paul DW", family = "Kirk", role = c("ths"), comment = c(ORCID = "0000-0002-5931-7489")), person(given = "Mehmet", family = "Gönen", role = c("ctb"), comment = c(ORCID = "0000-0002-2483-075X")))
-Author: Alessandra Cabassi [aut, cre] (<https://orcid.org/0000-0003-1605-652X>), Paul DW Kirk [ths] (<https://orcid.org/0000-0002-5931-7489>), Mehmet Gönen [ctb] (<https://orcid.org/0000-0002-2483-075X>)
-Description: Unsupervised clustering based on multiple kernel learning algorithms.
+Authors@R: c(person(given = "Alessandra", family = "Cabassi", email = "alessandra.cabassi@mrc-bsu.cam.ac.uk", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1605-652X")),
+             person(given = "Paul DW", family = "Kirk", role = c("ths"), comment = c(ORCID = "0000-0002-5931-7489")),
+             person(given = "Mehmet", family = "Gonen", role = c("ctb"), comment = c(ORCID = "0000-0002-2483-075X")))
+Author: Alessandra Cabassi [aut, cre] (<https://orcid.org/0000-0003-1605-652X>),
+        Paul DW Kirk [ths] (<https://orcid.org/0000-0002-5931-7489>),
+        Mehmet Gonen [ctb] (<https://orcid.org/0000-0002-2483-075X>)
+Description: Contains the R functions needed to perform Kernel Learning Integrative Clustering (KLIC). For further details please see Cabassi and Kirk (2019) <arXiv:1904.07701>.
 Depends: R (>= 3.5.0)
 License: MIT + file LICENSE
 URL: http://github.com/acabassi/klic

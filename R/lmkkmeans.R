@@ -16,8 +16,8 @@
 #' \item{parameters}{same parameters as in the input.}
 #' \item{Theta}{N x M matrix of weights, each row corresponds to an observation
 #' and each column to one of the kernels.}
-#' @author Mehmet Gönen
-#' @references Gönen, M. and Margolin, A.A., 2014. Localized data fusion for
+#' @author Mehmet Gonen
+#' @references Gonen, M. and Margolin, A.A., 2014. Localized data fusion for
 #' kernel k-means clustering with application to cancer biology. In Advances in
 #' Neural Information Processing Systems (pp. 1305-1313).
 #' @examples

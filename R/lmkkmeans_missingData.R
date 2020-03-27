@@ -11,8 +11,8 @@
 #' \code{j}, missing[i,j] = 0 (or = FALSE).
 #' @param verbose Boolean flag. If TRUE, at each iteration the iteration number
 #' is printed. Defaults to FALSE.
-#' @author Mehmet Gönen, Alessandra Cabassi
-#' @references Gönen, M. and Margolin, A.A., 2014. Localized data fusion for
+#' @author Mehmet Gonen, Alessandra Cabassi
+#' @references Gonen, M. and Margolin, A.A., 2014. Localized data fusion for
 #' kernel k-means clustering with application to cancer biology. In Advances in
 #' Neural Information Processing Systems (pp. 1305-1313).
 #' @examples

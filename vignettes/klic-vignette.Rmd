@@ -34,12 +34,12 @@ First, we generate four datasets with the same clustering structure (6 clusters 
 ```{r generate data, fig.show='hold', warning=FALSE, cache=TRUE}
 ## Load synthetic data
 data1 <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
-data2 <- as.matrix(read.csv(system.file("extdata","dataset2.csv", package = "klic"), row.names = 1))
+data2 <- as.matrix(read.csv(system.file("extdata", "dataset2.csv", package = "klic"), row.names = 1))
 data3 <- as.matrix(read.csv(system.file("extdata", "dataset3.csv", package = "klic"), row.names = 1))
 data <- list(data1, data2, data3)
 n_datasets <- 3
 N <- dim(data[[1]])[1]
-trueLab <- as.matrix(read.csv(system.file("extdata", "cluster_labels.csv", 
+true_labels <- as.matrix(read.csv(system.file("extdata", "cluster_labels.csv", 
                                                  package = "klic"), row.names = 1))
 ```
 
@@ -47,7 +47,6 @@ Now we can use the `consensusClustering` function to compute a consensus matrix 
 
 ```{r consensus_cluster, fig.show='hold', warning=FALSE, cache=TRUE}
 ## Compute co-clustering matrices for each dataset
-library(klic)
 CM <- array(NA, c(N, N, n_datasets))
 for(i in 1: n_datasets){
   # Scale the columns to have zero mean and unitary variance
@@ -56,11 +55,11 @@ for(i in 1: n_datasets){
   CM[,,i] <- coca::consensusCluster(scaledData, K = 4, B = 50)
 }
 ## Plot consensus matrix of one of the datasets
-trueLab <- as.factor(trueLab)
-names(trueLab) <- as.character(1:N)
+true_labels <- as.factor(true_labels)
+names(true_labels) <- as.character(1:N)
 CM3 <- as.matrix(CM[,,3])
-rownames(CM3) <- colnames(CM3) <- names(trueLab)
-plotSimilarityMatrix(CM3, y = as.data.frame(trueLab))
+rownames(CM3) <- colnames(CM3) <- names(true_labels)
+klic::plotSimilarityMatrix(CM3, y = as.data.frame(true_labels))
 ```
 
 Before using kernel methods, we need to make sure that all the consensus matrices are positive semi-definite.
@@ -68,39 +67,36 @@ Before using kernel methods, we need to make sure that all the consensus matrice
 ```{r spectrum_shift, fig.show='hold', warning=FALSE, cache=TRUE}
 ## Check if consensus matrices are PSD and shift eigenvalues if needed.
 for(i in 1: n_datasets){
-  CM[,,i] <- spectrumShift(CM[,,i], verbose = FALSE)
+  CM[,,i] <- klic::spectrumShift(CM[,,i], verbose = FALSE)
 }
 ## Plot updated consensus matrix of one of the datasets
-trueLab <- as.factor(trueLab)
-names(trueLab) <- as.character(1:N)
+true_labels <- as.factor(true_labels)
+names(true_labels) <- as.character(1:N)
 CM3 <- as.matrix(CM[,,3])
-rownames(CM3) <- colnames(CM3) <- names(trueLab)
-plotSimilarityMatrix(CM3, y = as.data.frame(trueLab))
+rownames(CM3) <- colnames(CM3) <- names(true_labels)
+klic::plotSimilarityMatrix(CM3, y = as.data.frame(true_labels))
 ```
 
 Now we can perform localised kernel k-kmeans on the set of consensus matrices using the function `lmkkmeans` to find a global clustering. This functions also need to be provided with a list of parameters containing the prespecified number of clusters and the maximum number of iterations for the k-means algorithm.
 
-```{r lmk_kmeans, fig.show='hold', warning=FALSE, cache=TRUE}
-## Perform localised kernel k-means on the consensus matrices
-library(Matrix)
-library(Rmosek)
+```{r lmk_kmeans, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE}
+## Perform localised kernel k-means on the consensus matricess
 parameters <- list()
 parameters$cluster_count <- 4 # set the number of clusters K
 parameters$iteration_count <- 100 # set the maximum number of iterations
-lmkkm <- lmkkmeans(CM, parameters)
+lmkkm <- klic::lmkkmeans(CM, parameters)
 ```
 
 The output of `lmkkmeans` contains, among other things, the final cluster labels. To compare two clusterings, such as for example the true clustering (that is known in this case) and the clustering found with KLIC, we suggest to use the `adjustedRandIndex` function of the R package `mclust`. An ARI close to 1 indicates a high similarity between the two partitions of the data.
 
-```{r ari, fig.show='hold', warning=FALSE, cache=TRUE}
+```{r ari, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE}
 ## Compare clustering found with KLIC to the true one
-library(mclust, verbose = FALSE)
-adjustedRandIndex(trueLab, lmkkm$clustering) 
+mclust::adjustedRandIndex(true_labels, lmkkm$clustering) 
 ```
 
 If the global number of clusters is not known, one can find the weights and clusters for different values of K and then find the one that maximises the silhouette.
 
-```{r maximise_silhouette, fig.show='hold', warning=FALSE, cache=TRUE}
+```{r maximise_silhouette, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE}
 ## Find the value of k that maximises the silhouette
 
 # Initialise array of kernel matrices 
@@ -115,7 +111,7 @@ for(i in 2:maxK){
   
   # Use kernel k-means with K=i to find weights and cluster labels
   parameters$cluster_count <- i # set the number of clusters K
-  lmkkm <- lmkkmeans(CM, parameters)
+  lmkkm <- klic::lmkkmeans(CM, parameters)
   
   # Compute weighted matrix
   for(j in 1:dim(CM)[3]){
@@ -133,8 +129,8 @@ maxSil$k
 
 The same can be done simply using the function `klic`
 
-```{r klic, fig.show='hold', warning=FALSE, cache=TRUE}
-klic <- klic(data, M = n_datasets, individualK = c(4, 4, 4))
+```{r klic, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE}
+klic <- klic::klic(data, M = n_datasets, individualK = c(4, 4, 4))
 klic$globalK
 ```
 
@@ -142,16 +138,16 @@ klic$globalK
 
 `kkmeans` is the analogous of `lmkkmeans`, for just one dataset at a time.
 
-```{r k_kmeans, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE}
+```{r k_kmeans, eval = FALSE, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE}
 ## Set parameters of the kernel k-means algorithm
 parameters <- list()
 parameters$cluster_count <- 4
 parameters$iteration_count <- 100
 ## Run kernel k-means
-kkm <- kkmeans(CM[,,3], parameters)
+kkm <- klic::kkmeans(CM[,,3], parameters)
 ## Compare clustering to the true labels
 clusterLabels <- kkm$clustering
-adjustedRandIndex(trueLab, lmkkm$clustering) 
+mclust::adjustedRandIndex(true_labels, lmkkm$clustering) 
 ```
 
 We also included `copheneticCorrelation`, a function that calculates the cophenetic correlation coefficient of a similarity matrix:
@@ -160,7 +156,7 @@ We also included `copheneticCorrelation`, a function that calculates the cophene
 ## Compute cophenetic correlation coefficient for each consensus matrix
 ccc <- rep(NA, n_datasets)
 for(i in 1:n_datasets){
-  ccc[i] <- copheneticCorrelation(CM[,,i])
+  ccc[i] <- klic::copheneticCorrelation(CM[,,i])
 }
 ccc
 ```
@@ -169,7 +165,7 @@ The cophenetic correlation coefficient is a measure of how faithfully hierarchic
 # References 
 
 Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning for integrative
-consensus clustering of genomic datasets. arXiv preprint. arXiv:1904.07701.
+consensus clustering of 'omic datasets. arXiv preprint. arXiv:1904.07701.
 
 Girolami, M. (2002). Mercer kernel-based clustering in feature space. IEEE
 Transactions on Neural Networks, 13(3), pp.780-784.
