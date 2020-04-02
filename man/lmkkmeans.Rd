@@ -31,7 +31,7 @@ and each column to one of the kernels.}
 Perform the training step of the localised multiple kernel k-means.
 }
 \examples{
-\dontrun{
+if(requireNamespace("Rmosek")){
 # Initialise 100 x 100 x 3 array containing M kernel matrices
 # representing three different types of similarities between 100 data points
 km <- array(NA, c(100, 100, 3))
