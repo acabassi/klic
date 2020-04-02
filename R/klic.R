@@ -69,7 +69,9 @@
 #' for integrative consensus clustering of genomic datasets. arXiv preprint.
 #' arXiv:1904.07701.
 #' @examples
-#' \dontrun{
+#' if(requireNamespace("Rmosek", quietly = TRUE) &&
+#' (!is.null(utils::packageDescription("Rmosek")$Configured.MSK_VERSION))){
+#'
 #' # Load synthetic data
 #' data1 <- as.matrix(read.csv(system.file('extdata',
 #' 'dataset1.csv', package = 'klic'), row.names = 1))

@@ -114,7 +114,9 @@ types and a set of weights that sum up to one, indicating how much each data
 set contributed to the kernel k-means clustering.
 }
 \examples{
-\dontrun{
+if(requireNamespace("Rmosek", quietly = TRUE) &&
+(!is.null(utils::packageDescription("Rmosek")$Configured.MSK_VERSION))){
+
 # Load synthetic data
 data1 <- as.matrix(read.csv(system.file('extdata',
 'dataset1.csv', package = 'klic'), row.names = 1))

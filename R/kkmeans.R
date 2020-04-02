@@ -15,7 +15,6 @@
 #' kernel k-means clustering with application to cancer biology. In Advances in
 #' Neural Information Processing Systems (pp. 1305-1313).
 #' @examples
-#' \dontrun{clustering}
 #' # Load one dataset with 100 observations, 2 variables, 4 clusters
 #' data <- as.matrix(read.csv(system.file("extdata", "dataset1.csv",
 #' package = "klic"), row.names = 1))
@@ -31,7 +30,6 @@
 #' state <- kkmeans(km, parameters)
 #' # Display the clustering
 #' print(state$clustering)
-#' }
 #' @export
 #'
 kkmeans <- function(K, parameters) {
