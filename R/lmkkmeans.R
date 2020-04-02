@@ -22,6 +22,9 @@
 #' Neural Information Processing Systems (pp. 1305-1313).
 #' @examples
 #' if(requireNamespace("Rmosek")){
+#' Rmosek::mosek_attachbuilder()
+#' install.rmosek()
+#'
 #' # Initialise 100 x 100 x 3 array containing M kernel matrices
 #' # representing three different types of similarities between 100 data points
 #' km <- array(NA, c(100, 100, 3))
