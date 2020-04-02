@@ -21,9 +21,8 @@
 #' kernel k-means clustering with application to cancer biology. In Advances in
 #' Neural Information Processing Systems (pp. 1305-1313).
 #' @examples
-#' if(requireNamespace("Rmosek")){
-#' Rmosek::mosek_attachbuilder()
-#' install.rmosek()
+#' if(requireNamespace("Rmosek", quietly = TRUE) &&
+#' (!is.null(utils::packageDescription("Rmosek")$Configured.MSK_VERSION))){
 #'
 #' # Initialise 100 x 100 x 3 array containing M kernel matrices
 #' # representing three different types of similarities between 100 data points
