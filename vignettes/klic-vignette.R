@@ -1,3 +1,12 @@
+## ---- setup, include=FALSE----------------------------------------------------
+if(requireNamespace("Rmosek", quietly = TRUE) &&
+  (!is.null(utils::packageDescription("Rmosek")$Configured.MSK_VERSION))){
+
+  knitr::opts_chunk$set(eval = TRUE)
+}else{
+  knitr::opts_chunk$set(eval = FALSE)
+}
+
 ## ----generate data, fig.show='hold', warning=FALSE, cache=TRUE----------------
 ## Load synthetic data
 data1 <- as.matrix(read.csv(system.file("extdata", "dataset1.csv", package = "klic"), row.names = 1))
@@ -37,61 +46,61 @@ CM3 <- as.matrix(CM[,,3])
 rownames(CM3) <- colnames(CM3) <- names(true_labels)
 klic::plotSimilarityMatrix(CM3, y = as.data.frame(true_labels))
 
-## ----lmk_kmeans, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE-----
-#  ## Perform localised kernel k-means on the consensus matricess
-#  parameters <- list()
-#  parameters$cluster_count <- 4 # set the number of clusters K
-#  parameters$iteration_count <- 100 # set the maximum number of iterations
-#  lmkkm <- klic::lmkkmeans(CM, parameters)
+## ----lmk_kmeans, fig.show='hold', warning=FALSE, cache=TRUE-------------------
+## Perform localised kernel k-means on the consensus matricess
+parameters <- list()
+parameters$cluster_count <- 4 # set the number of clusters K
+parameters$iteration_count <- 100 # set the maximum number of iterations
+lmkkm <- klic::lmkkmeans(CM, parameters)
 
-## ----ari, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE------------
-#  ## Compare clustering found with KLIC to the true one
-#  mclust::adjustedRandIndex(true_labels, lmkkm$clustering)
+## ----ari, fig.show='hold', warning=FALSE, cache=TRUE--------------------------
+## Compare clustering found with KLIC to the true one
+mclust::adjustedRandIndex(true_labels, lmkkm$clustering) 
 
-## ----maximise_silhouette, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE----
-#  ## Find the value of k that maximises the silhouette
-#  
-#  # Initialise array of kernel matrices
-#  maxK = 6
-#  KM <- array(0, c(N, N, maxK-1))
-#  clLabels <- array(NA, c(maxK-1, N))
-#  
-#  parameters <- list()
-#  parameters$iteration_count <- 100 # set the maximum number of iterations
-#  
-#  for(i in 2:maxK){
-#  
-#    # Use kernel k-means with K=i to find weights and cluster labels
-#    parameters$cluster_count <- i # set the number of clusters K
-#    lmkkm <- klic::lmkkmeans(CM, parameters)
-#  
-#    # Compute weighted matrix
-#    for(j in 1:dim(CM)[3]){
-#      KM[,,i-1] <- KM[,,i-1] + (lmkkm$Theta[,j]%*%t(lmkkm$Theta[,j]))*CM[,,j]
-#    }
-#  
-#    # Save cluster labels
-#    clLabels[i-1,] <- lmkkm$clustering
-#  }
-#  
-#  # Find value of K that maximises silhouette
-#  maxSil <- coca::maximiseSilhouette(KM, clLabels, maxK = 4)
-#  maxSil$k
+## ----maximise_silhouette, fig.show='hold', warning=FALSE, cache=TRUE----------
+## Find the value of k that maximises the silhouette
 
-## ----klic, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE-----------
-#  klic <- klic::klic(data, M = n_datasets, individualK = c(4, 4, 4))
-#  klic$globalK
+# Initialise array of kernel matrices 
+maxK = 6
+KM <- array(0, c(N, N, maxK-1))
+clLabels <- array(NA, c(maxK-1, N))
 
-## ----k_kmeans, eval = FALSE, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE----
-#  ## Set parameters of the kernel k-means algorithm
-#  parameters <- list()
-#  parameters$cluster_count <- 4
-#  parameters$iteration_count <- 100
-#  ## Run kernel k-means
-#  kkm <- klic::kkmeans(CM[,,3], parameters)
-#  ## Compare clustering to the true labels
-#  clusterLabels <- kkm$clustering
-#  mclust::adjustedRandIndex(true_labels, lmkkm$clustering)
+parameters <- list()
+parameters$iteration_count <- 100 # set the maximum number of iterations
+
+for(i in 2:maxK){
+  
+  # Use kernel k-means with K=i to find weights and cluster labels
+  parameters$cluster_count <- i # set the number of clusters K
+  lmkkm <- klic::lmkkmeans(CM, parameters)
+  
+  # Compute weighted matrix
+  for(j in 1:dim(CM)[3]){
+    KM[,,i-1] <- KM[,,i-1] + (lmkkm$Theta[,j]%*%t(lmkkm$Theta[,j]))*CM[,,j]
+  }
+  
+  # Save cluster labels
+  clLabels[i-1,] <- lmkkm$clustering 
+}
+
+# Find value of K that maximises silhouette
+maxSil <- coca::maximiseSilhouette(KM, clLabels, maxK = 4)
+maxSil$k
+
+## ----klic, fig.show='hold', warning=FALSE, cache=TRUE-------------------------
+klic <- klic::klic(data, M = n_datasets, individualK = c(4, 4, 4))
+klic$globalK
+
+## ----k_kmeans, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE------
+## Set parameters of the kernel k-means algorithm
+parameters <- list()
+parameters$cluster_count <- 4
+parameters$iteration_count <- 100
+## Run kernel k-means
+kkm <- klic::kkmeans(CM[,,3], parameters)
+## Compare clustering to the true labels
+clusterLabels <- kkm$clustering
+mclust::adjustedRandIndex(true_labels, lmkkm$clustering) 
 
 ## ----cophenetic_correlation, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE----
 ## Compute cophenetic correlation coefficient for each consensus matrix
