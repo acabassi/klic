@@ -58,6 +58,10 @@ Default is FALSE.}
 
 \item{plotHeight}{Plot height. Default is 450.}
 }
+\value{
+No return value. This function plots the similarity matrix either
+to screen or to a png file.
+}
 \description{
 Plot similarity matrix with pheatmap
 }

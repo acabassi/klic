@@ -11,12 +11,22 @@
 #' \code{j}, missing[i,j] = 0 (or = FALSE).
 #' @param verbose Boolean flag. If TRUE, at each iteration the iteration number
 #' is printed. Defaults to FALSE.
+#' @return This function returns a list containing:
+#' \item{clustering}{the cluster labels for each element (i.e. row/column) of
+#' the kernel matrix.}
+#' \item{objective}{the value of the objective function for the given
+#' clustering.}
+#' \item{parameters}{same parameters as in the input.}
+#' \item{Theta}{N x M matrix of weights, each row corresponds to an observation
+#' and each column to one of the kernels.}
 #' @author Mehmet Gonen, Alessandra Cabassi
 #' @references Gonen, M. and Margolin, A.A., 2014. Localized data fusion for
 #' kernel k-means clustering with application to cancer biology. In Advances in
 #' Neural Information Processing Systems (pp. 1305-1313).
 #' @examples
-#' \dontrun{
+#' if(requireNamespace("Rmosek", quietly = TRUE) &&
+#' (!is.null(utils::packageDescription("Rmosek")$Configured.MSK_VERSION))){
+#'
 #' # Intialise 100 x 100 x 3 array containing M kernel matrices
 #' # representing three different types of similarities between 100 data points
 #' km <- array(NA, c(100, 100, 3))

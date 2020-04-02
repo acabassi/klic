@@ -21,11 +21,23 @@ missing[i,j] = 1 (or = TRUE) if observation \code{i} is missing in dataset
 \item{verbose}{Boolean flag. If TRUE, at each iteration the iteration number
 is printed. Defaults to FALSE.}
 }
+\value{
+This function returns a list containing:
+\item{clustering}{the cluster labels for each element (i.e. row/column) of
+the kernel matrix.}
+\item{objective}{the value of the objective function for the given
+clustering.}
+\item{parameters}{same parameters as in the input.}
+\item{Theta}{N x M matrix of weights, each row corresponds to an observation
+and each column to one of the kernels.}
+}
 \description{
 Perform the training step of the localised multiple kernel k-means.
 }
 \examples{
-\dontrun{
+if(requireNamespace("Rmosek", quietly = TRUE) &&
+(!is.null(utils::packageDescription("Rmosek")$Configured.MSK_VERSION))){
+
 # Intialise 100 x 100 x 3 array containing M kernel matrices
 # representing three different types of similarities between 100 data points
 km <- array(NA, c(100, 100, 3))

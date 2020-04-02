@@ -22,6 +22,8 @@
 #' Default is FALSE.
 #' @param plotWidth Plot width. Default is 500.
 #' @param plotHeight Plot height. Default is 450.
+#' @return No return value. This function plots the similarity matrix either
+#' to screen or to a png file.
 #' @author Alessandra Cabassi \email{alessandra.cabassi@mrc-bsu.cam.ac.uk}
 #' @examples
 #' # Load one dataset with 100 observations, 2 variables, 4 clusters
