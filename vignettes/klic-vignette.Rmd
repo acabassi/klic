@@ -12,6 +12,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, setup, include=FALSE}
+if(requireNamespace("Rmosek", quietly = TRUE) &&
+  (!is.null(utils::packageDescription("Rmosek")$Configured.MSK_VERSION))){
+
+  knitr::opts_chunk$set(eval = TRUE)
+}else{
+  knitr::opts_chunk$set(eval = FALSE)
+}
+```
+
 The R package **klic** (**K**ernel **L**earning **I**ntegrative **C**lustering) contains a collection of tools for integrative clustering of multiple data types. 
 
 The main function in this package is `klic`. It takes as input a list of datasets and builds one kernel per dataset, using consensus clustering. The kernels are then combined through localised kernel k-means to obtain the final clustering. The function also gives the user the option to try several different values for the number of clusters both at the level of the individual datasets and for the final clustering. This is the simplest way to perform Kernel Learning Integrative Clustering. However, users may want to include other types of kernels (instead of using only those derived from consensus clustering) or try different parameters for consensus clustering and include all the corresponding kernels in the analysis. Therefore, we also make available some of the functions needed to build a customised KLIC pipeline, that are:
@@ -79,7 +89,7 @@ klic::plotSimilarityMatrix(CM3, y = as.data.frame(true_labels))
 
 Now we can perform localised kernel k-kmeans on the set of consensus matrices using the function `lmkkmeans` to find a global clustering. This functions also need to be provided with a list of parameters containing the prespecified number of clusters and the maximum number of iterations for the k-means algorithm.
 
-```{r lmk_kmeans, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE}
+```{r lmk_kmeans, fig.show='hold', warning=FALSE, cache=TRUE}
 ## Perform localised kernel k-means on the consensus matricess
 parameters <- list()
 parameters$cluster_count <- 4 # set the number of clusters K
@@ -89,14 +99,14 @@ lmkkm <- klic::lmkkmeans(CM, parameters)
 
 The output of `lmkkmeans` contains, among other things, the final cluster labels. To compare two clusterings, such as for example the true clustering (that is known in this case) and the clustering found with KLIC, we suggest to use the `adjustedRandIndex` function of the R package `mclust`. An ARI close to 1 indicates a high similarity between the two partitions of the data.
 
-```{r ari, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE}
+```{r ari, fig.show='hold', warning=FALSE, cache=TRUE}
 ## Compare clustering found with KLIC to the true one
 mclust::adjustedRandIndex(true_labels, lmkkm$clustering) 
 ```
 
 If the global number of clusters is not known, one can find the weights and clusters for different values of K and then find the one that maximises the silhouette.
 
-```{r maximise_silhouette, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE}
+```{r maximise_silhouette, fig.show='hold', warning=FALSE, cache=TRUE}
 ## Find the value of k that maximises the silhouette
 
 # Initialise array of kernel matrices 
@@ -129,7 +139,7 @@ maxSil$k
 
 The same can be done simply using the function `klic`
 
-```{r klic, eval = FALSE, fig.show='hold', warning=FALSE, cache=TRUE}
+```{r klic, fig.show='hold', warning=FALSE, cache=TRUE}
 klic <- klic::klic(data, M = n_datasets, individualK = c(4, 4, 4))
 klic$globalK
 ```
@@ -138,7 +148,7 @@ klic$globalK
 
 `kkmeans` is the analogous of `lmkkmeans`, for just one dataset at a time.
 
-```{r k_kmeans, eval = FALSE, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE}
+```{r k_kmeans, fig.show='hold', message=FALSE, warning=FALSE, cache=TRUE}
 ## Set parameters of the kernel k-means algorithm
 parameters <- list()
 parameters$cluster_count <- 4
