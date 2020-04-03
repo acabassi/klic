@@ -298,7 +298,9 @@ for integrative consensus clustering of genomic datasets. arXiv preprint.
 arXiv:1904.07701.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"Rmosek"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>&amp;&amp;</span>
+(!<span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span>(<span class='kw pkg'>utils</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/utils/packageDescription.html'>packageDescription</a></span>(<span class='st'>"Rmosek"</span>)$<span class='no'>Configured.MSK_VERSION</span>))){
+
 <span class='co'># Load synthetic data</span>
 <span class='no'>data1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>,
 <span class='st'>'dataset1.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
@@ -321,7 +323,11 @@ arXiv:1904.07701.</p>
 <span class='st'>'cluster_labels.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'klic'</span>), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>1</span>))
 <span class='co'># Compute ARI</span>
 <span class='no'>ari</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mclust</span><span class='kw ns'>::</span><span class='fu'><a href='https://mclust-org.github.io/mclust/reference/adjustedRandIndex.html'>adjustedRandIndex</a></span>(<span class='no'>klic_labels</span>, <span class='no'>cluster_labels</span>)
-}</div></pre>
+}</div><div class='output co'>#&gt; [1] "All datasets contain the same number of observations 100."
+#&gt; [1] "We assume that the observations are the same in each dataset\n                and that they are in the same order."
+#&gt; [1] "*** Generating similarity matrices ***"
+#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%
+#&gt; [1] "*** Finding the global clustering ***"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

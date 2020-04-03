@@ -165,14 +165,27 @@ is printed. Defaults to FALSE.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>This function returns a list containing:</p>
+<dt>clustering</dt><dd><p>the cluster labels for each element (i.e. row/column) of
+the kernel matrix.</p></dd>
+<dt>objective</dt><dd><p>the value of the objective function for the given
+clustering.</p></dd>
+<dt>parameters</dt><dd><p>same parameters as in the input.</p></dd>
+<dt>Theta</dt><dd><p>N x M matrix of weights, each row corresponds to an observation
+and each column to one of the kernels.</p></dd>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Gönen, M. and Margolin, A.A., 2014. Localized data fusion for
+    <p>Gonen, M. and Margolin, A.A., 2014. Localized data fusion for
 kernel k-means clustering with application to cancer biology. In Advances in
 Neural Information Processing Systems (pp. 1305-1313).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"Rmosek"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>&amp;&amp;</span>
+(!<span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span>(<span class='kw pkg'>utils</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/utils/packageDescription.html'>packageDescription</a></span>(<span class='st'>"Rmosek"</span>)$<span class='no'>Configured.MSK_VERSION</span>))){
+
 <span class='co'># Intialise 100 x 100 x 3 array containing M kernel matrices</span>
 <span class='co'># representing three different types of similarities between 100 data points</span>
 <span class='no'>km</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fl'>NA</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>100</span>, <span class='fl'>3</span>))
@@ -205,18 +218,122 @@ Neural Information Processing Systems (pp. 1305-1313).</p>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>clustering</span>)
 <span class='co'># Display the kernel weights</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>Theta</span>)
-}</div></pre>
+}</div><div class='output co'>#&gt;   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2
+#&gt;  [38] 2 2 2 2 2 2 2 2 2 2 2 2 2 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+#&gt;  [75] 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+#&gt;              [,1]      [,2]      [,3]
+#&gt;   [1,] 0.40672275 0.1865545 0.4067227
+#&gt;   [2,] 0.40666028 0.1866794 0.4066603
+#&gt;   [3,] 0.40695669 0.1860866 0.4069567
+#&gt;   [4,] 0.40660061 0.1867988 0.4066006
+#&gt;   [5,] 0.40649808 0.1870038 0.4064981
+#&gt;   [6,] 0.40670968 0.1865806 0.4067097
+#&gt;   [7,] 0.40648906 0.1870219 0.4064891
+#&gt;   [8,] 0.40702505 0.1859499 0.4070250
+#&gt;   [9,] 0.40697294 0.1860541 0.4069729
+#&gt;  [10,] 0.40662856 0.1867429 0.4066286
+#&gt;  [11,] 0.40659128 0.1868174 0.4065913
+#&gt;  [12,] 0.40669909 0.1866018 0.4066991
+#&gt;  [13,] 0.40646423 0.1870715 0.4064642
+#&gt;  [14,] 0.40656469 0.1868706 0.4065647
+#&gt;  [15,] 0.41512584 0.1697483 0.4151258
+#&gt;  [16,] 0.40662235 0.1867553 0.4066223
+#&gt;  [17,] 0.40772361 0.1845528 0.4077236
+#&gt;  [18,] 0.40647364 0.1870527 0.4064736
+#&gt;  [19,] 0.40623828 0.1875234 0.4062383
+#&gt;  [20,] 0.40638003 0.1872399 0.4063800
+#&gt;  [21,] 0.44384103 0.1123179 0.4438410
+#&gt;  [22,] 0.40645954 0.1870809 0.4064595
+#&gt;  [23,] 0.44392508 0.1121498 0.4439251
+#&gt;  [24,] 0.40649913 0.1870017 0.4064991
+#&gt;  [25,] 0.40629904 0.1874019 0.4062990
+#&gt;  [26,] 0.33597988 0.2823297 0.3816904
+#&gt;  [27,] 0.33606356 0.2822568 0.3816796
+#&gt;  [28,] 0.33470201 0.2853028 0.3799952
+#&gt;  [29,] 0.33511353 0.2840370 0.3808495
+#&gt;  [30,] 0.33557284 0.2830752 0.3813519
+#&gt;  [31,] 0.33570767 0.2830492 0.3812431
+#&gt;  [32,] 0.33478880 0.2851379 0.3800733
+#&gt;  [33,] 0.33442529 0.2851717 0.3804030
+#&gt;  [34,] 0.33637741 0.2820708 0.3815518
+#&gt;  [35,] 0.33456387 0.2853118 0.3801243
+#&gt;  [36,] 0.33409531 0.2858317 0.3800730
+#&gt;  [37,] 0.33484952 0.2847761 0.3803744
+#&gt;  [38,] 0.33500073 0.2848965 0.3801028
+#&gt;  [39,] 0.33461109 0.2850556 0.3803333
+#&gt;  [40,] 0.33503618 0.2840236 0.3809402
+#&gt;  [41,] 0.33516537 0.2837793 0.3810554
+#&gt;  [42,] 0.33628993 0.2823677 0.3813424
+#&gt;  [43,] 0.33595344 0.2827744 0.3812722
+#&gt;  [44,] 0.34417225 0.2670324 0.3887953
+#&gt;  [45,] 0.33462735 0.2850593 0.3803134
+#&gt;  [46,] 0.34066339 0.2739647 0.3853719
+#&gt;  [47,] 0.29911401 0.3066074 0.3942785
+#&gt;  [48,] 0.33510738 0.2842602 0.3806325
+#&gt;  [49,] 0.33527472 0.2837491 0.3809761
+#&gt;  [50,] 0.33696613 0.2809975 0.3820364
+#&gt;  [51,] 0.40017926 0.2511098 0.3487110
+#&gt;  [52,] 0.39983296 0.2515151 0.3486519
+#&gt;  [53,] 0.39926834 0.2522220 0.3485097
+#&gt;  [54,] 0.40174457 0.2502892 0.3479662
+#&gt;  [55,] 0.39930014 0.2520298 0.3486701
+#&gt;  [56,] 0.45379996 0.1420377 0.4041623
+#&gt;  [57,] 0.40069282 0.2511160 0.3481911
+#&gt;  [58,] 0.39969985 0.2514075 0.3488927
+#&gt;  [59,] 0.39923190 0.2517919 0.3489762
+#&gt;  [60,] 0.40322722 0.2462954 0.3504774
+#&gt;  [61,] 0.37777090 0.2649744 0.3572547
+#&gt;  [62,] 0.40011483 0.2528958 0.3469894
+#&gt;  [63,] 0.39911760 0.2516675 0.3492149
+#&gt;  [64,] 0.39817772 0.2523312 0.3494911
+#&gt;  [65,] 0.42235882 0.3024376 0.2752036
+#&gt;  [66,] 0.39528993 0.2540063 0.3507037
+#&gt;  [67,] 0.39678192 0.2534449 0.3497732
+#&gt;  [68,] 0.42384482 0.2027065 0.3734487
+#&gt;  [69,] 0.39995334 0.2520894 0.3479572
+#&gt;  [70,] 0.39499630 0.2548522 0.3501515
+#&gt;  [71,] 0.39644258 0.2537548 0.3498026
+#&gt;  [72,] 0.40007657 0.2515158 0.3484076
+#&gt;  [73,] 0.40092179 0.2509848 0.3480935
+#&gt;  [74,] 0.39992877 0.2515546 0.3485166
+#&gt;  [75,] 0.40012708 0.2513228 0.3485501
+#&gt;  [76,] 0.00000000 0.4737076 0.5262924
+#&gt;  [77,] 0.00000000 0.4747041 0.5252959
+#&gt;  [78,] 0.00000000 0.4743787 0.5256213
+#&gt;  [79,] 0.00000000 0.4791501 0.5208499
+#&gt;  [80,] 0.00000000 0.4662747 0.5337253
+#&gt;  [81,] 0.11267146 0.4204069 0.4669217
+#&gt;  [82,] 0.12191505 0.4107110 0.4673739
+#&gt;  [83,] 0.11427966 0.4192859 0.4664344
+#&gt;  [84,] 0.09726776 0.4258822 0.4768500
+#&gt;  [85,] 0.11402477 0.4199445 0.4660307
+#&gt;  [86,] 0.11362549 0.4202083 0.4661662
+#&gt;  [87,] 0.11466709 0.4190349 0.4662981
+#&gt;  [88,] 0.11365349 0.4198557 0.4664908
+#&gt;  [89,] 0.11361817 0.4201960 0.4661859
+#&gt;  [90,] 0.11350702 0.4199459 0.4665471
+#&gt;  [91,] 0.11683701 0.4210964 0.4620666
+#&gt;  [92,] 0.11324444 0.4197055 0.4670500
+#&gt;  [93,] 0.12036851 0.4123777 0.4672538
+#&gt;  [94,] 0.11442195 0.4190429 0.4665352
+#&gt;  [95,] 0.11447061 0.4194038 0.4661256
+#&gt;  [96,] 0.11388355 0.4199394 0.4661770
+#&gt;  [97,] 0.11368076 0.4203100 0.4660093
+#&gt;  [98,] 0.11384421 0.4200016 0.4661542
+#&gt;  [99,] 0.11354357 0.4203640 0.4660924
+#&gt; [100,] 0.11398819 0.4197987 0.4662131</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
-    <p>Mehmet Gönen, Alessandra Cabassi</p>
+    <p>Mehmet Gonen, Alessandra Cabassi</p>
   </div>
 </div>
 
