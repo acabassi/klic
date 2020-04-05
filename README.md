@@ -1,5 +1,5 @@
 [![CRAN
-status](https://www.r-pkg.org/badges/version/klic)](https://CRAN.R-project.org/package=klic)[![Build Status](https://travis-ci.org/acabassi/klic.svg?branch=master)](https://travis-ci.org/acabassi/klic) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3739391.svg)](https://doi.org/10.5281/zenodo.3739391)
+status](https://www.r-pkg.org/badges/version/klic)](https://CRAN.R-project.org/package=klic) [![Build Status](https://travis-ci.org/acabassi/klic.svg?branch=master)](https://travis-ci.org/acabassi/klic) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3739391.svg)](https://doi.org/10.5281/zenodo.3739391)
 
 # KLIC - Kernel Learning Integrative Clustering
 
@@ -37,7 +37,11 @@ install.packages("Rmosek", type="source", INSTALL_opts="--no-multiarch",
 
 ### Installing klic
 
-In R, type
+You can install the latest released version of `klic` from [CRAN](https://cran.r-project.org/) with
+```R
+install.packages("klic")
+```
+or the development version from [GitHub](https://github.com/) with
 ```R
 library(devtools)
 install_github("acabassi/klic")
