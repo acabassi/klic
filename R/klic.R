@@ -36,7 +36,8 @@
 #' @param verbose Boolean. Default is TRUE.
 #' @param annotations Data frame containing annotations for final plot.
 #' @param ccClMethods The i-th element of this vector goes into the
-#' \code{clMethod} argument of consensusCluster() for the i-th dataset.
+#' \code{clMethod} argument of consensusCluster() for the i-th dataset. If only
+#' one string is provided, then the same method is used for all datasets.
 #' @param ccDistHCs The i-th element of this vector goes into the \code{dist}
 #' argument of \code{consensusCluster()} for the i-th dataset.
 #' @param widestGap Boolean. If TRUE, compute also widest gap index to choose
@@ -310,8 +311,13 @@ klic = function(data,
                 dataset_i = data[[i]]
             }
 
+            ccClMethod_i = ccClMethods[i]
+            ccDistHC_i = ccDistHCs[i]
+
             # Compute consensus matrix
-            CM[, , i] <- coca::consensusCluster(dataset_i, individualK[i], B)
+            CM[, , i] <- coca::consensusCluster(dataset_i, individualK[i], B,
+                                                clMethod = ccClMethod_i,
+                                                dist = ccDistHC_i)
 
             # Make consensus matrix positive definite
             CM[, , i] <- spectrumShift(CM[, , i])
