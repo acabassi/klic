@@ -125,16 +125,13 @@ klic = function(data,
             stop("All datasets must have the same number of rows.")
     }
     if (verbose)
-        print(paste("All datasets contain the same number of observations ",
-                    N, ".", sep = ""))
-    print(paste("We assume that the observations are the same in each dataset
-                and that they are in the same order."))
+        cat("All datasets contain the same number of observations ", N, ".\n")
+    cat("We assume that the observations are the same in each dataset and that they are in the same order.\n")
 
     # Check values of K
     if (individualMaxK == 2) {
         individualK = 2
-        warning("Since individualMaxK = 2, individualK is automatically set to
-                2.")
+        warning("Since individualMaxK = 2, individualK is automatically set to 2.")
     }
 
     if (globalMaxK == 2) {
@@ -146,10 +143,12 @@ klic = function(data,
         ccClMethods = rep(ccClMethods, M)
     }
 
-    if(length(ccDistHCs) == 1 & unique(ccClMethods) == "hclust"){
-        ccDistHCs = rep(ccDistHCs, M)
-    }else{
-        stop("Please specify a distance for each instance of hclust.")
+    if("hclust" %in% ccClMethods){
+        if(length(ccDistHCs) == 1 & unique(ccClMethods) == "hclust"){
+            ccDistHCs = rep(ccDistHCs, M)
+        }else if(unique(ccClMethods) != "hclust" & length(ccDistHCs)!=M)  {
+            stop("Please specify a distance for each instance of hclust by passing a vector of length", M, "to ccDistHCs.")
+        }
     }
 
     # Initialise empty list for output
