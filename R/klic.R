@@ -146,6 +146,12 @@ klic = function(data,
         ccClMethods = rep(ccClMethods, M)
     }
 
+    if(length(ccDistHCs) == 1 & unique(ccClMethods) == "hclust"){
+        ccDistHCs = rep(ccDistHCs, M)
+    }else{
+        stop("Please specify a distance for each instance of hclust.")
+    }
+
     # Initialise empty list for output
     output = list()
 
