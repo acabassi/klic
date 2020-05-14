@@ -24,7 +24,7 @@
 #' @export
 
 spectrumShift = function(kernelMatrix,
-                         coeff = 1.2,
+                         coeff = 1.05,
                          shift = NULL,
                          verbose = FALSE) {
 
