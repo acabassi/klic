@@ -69,8 +69,7 @@ Can be used to specify the folder path too. Default is "klic".}
 \item{annotations}{Data frame containing annotations for final plot.}
 
 \item{ccClMethods}{The i-th element of this vector goes into the
-\code{clMethod} argument of consensusCluster() for the i-th dataset. If only
-one string is provided, then the same method is used for all datasets.}
+\code{clMethod} argument of consensusCluster() for the i-th dataset.}
 
 \item{ccDistHCs}{The i-th element of this vector goes into the \code{dist}
 argument of \code{consensusCluster()} for the i-th dataset.}

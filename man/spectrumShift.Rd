@@ -4,7 +4,7 @@
 \alias{spectrumShift}
 \title{Spectrum shift}
 \usage{
-spectrumShift(kernelMatrix, coeff = 1.05, shift = NULL, verbose = FALSE)
+spectrumShift(kernelMatrix, coeff = 1.2, shift = NULL, verbose = FALSE)
 }
 \arguments{
 \item{kernelMatrix}{symmetric matrix}
