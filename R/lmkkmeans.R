@@ -131,7 +131,7 @@ lmkkmeans <- function(Km, parameters, verbose = FALSE) {
                 diag(t(H) %*% K_Theta %*% H)) - sum(diag(K_Theta))
 
             diff <- objective[iter]-objective[iter-1]
-            if(iter > 2 && abs(diff) < abs(1e-07*objective[iter-1])) break
+            if(iter > 2 && abs(diff) < abs(1e-04*objective[iter-1])) break
         }
         H_normalized <- H/matrix(sqrt(rowSums(H^2, 2)),
                                  nrow(H),
