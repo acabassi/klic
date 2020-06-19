@@ -130,8 +130,13 @@ lmkkmeans <- function(Km, parameters, verbose = FALSE) {
             objective[iter] <- sum(
                 diag(t(H) %*% K_Theta %*% H)) - sum(diag(K_Theta))
 
-            diff <- objective[iter]-objective[iter-1]
-            if(iter > 2 && abs(diff) < abs(1e-07*objective[iter-1])) break
+            # Early stopping condition
+            if(iter > 2){
+                diff <- objective[iter]-objective[iter-1]
+                if(abs(diff) < abs(1e-05*objective[iter-1]))
+                    break
+            }
+
         }
         H_normalized <- H/matrix(sqrt(rowSums(H^2, 2)),
                                  nrow(H),

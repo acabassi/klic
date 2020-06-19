@@ -1,6 +1,6 @@
 Package: klic
 Title: Kernel Learning Integrative Clustering
-Version: 1.0.3
+Version: 1.0.4
 Authors@R: c(person(given = "Alessandra", family = "Cabassi", email = "alessandra.cabassi@mrc-bsu.cam.ac.uk", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1605-652X")),
              person(given = "Paul DW", family = "Kirk", role = c("ths"), comment = c(ORCID = "0000-0002-5931-7489")),
              person(given = "Mehmet", family = "Gonen", role = c("ctb"), comment = c(ORCID = "0000-0002-2483-075X")))
