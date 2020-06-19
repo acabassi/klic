@@ -129,6 +129,9 @@ lmkkmeans <- function(Km, parameters, verbose = FALSE) {
             # Update objective function
             objective[iter] <- sum(
                 diag(t(H) %*% K_Theta %*% H)) - sum(diag(K_Theta))
+
+            diff <- objective[iter]-objective[iter-1]
+            if(iter > 2 && abs(diff) < abs(1e-07*objective[iter-1])) break
         }
         H_normalized <- H/matrix(sqrt(rowSums(H^2, 2)),
                                  nrow(H),
@@ -138,7 +141,7 @@ lmkkmeans <- function(Km, parameters, verbose = FALSE) {
         state$clustering <- stats::kmeans(H_normalized,
                                           centers = parameters$cluster_count,
                                           iter.max = 1000, nstart = 10)$cluster
-        state$objective <- objective
+        state$objective <- objective[1:iter]
         state$parameters <- parameters
         state$Theta <- Theta
     })
