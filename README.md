@@ -1,5 +1,5 @@
 [![CRAN
-status](https://www.r-pkg.org/badges/version/klic)](https://CRAN.R-project.org/package=klic) [![Build Status](https://travis-ci.org/acabassi/klic.svg?branch=master)](https://travis-ci.org/acabassi/klic) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3739391.svg)](https://doi.org/10.5281/zenodo.3739391)
+status](https://www.r-pkg.org/badges/version/klic)](https://CRAN.R-project.org/package=klic) [![Build Status](https://travis-ci.org/acabassi/klic.svg?branch=master)](https://travis-ci.org/acabassi/klic) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3932890.svg)](https://doi.org/10.5281/zenodo.3932890)
 
 # KLIC - Kernel Learning Integrative Clustering
 
