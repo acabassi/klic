@@ -174,8 +174,8 @@ The cophenetic correlation coefficient is a measure of how faithfully hierarchic
 
 # References 
 
-Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning for integrative
-consensus clustering of 'omic datasets. arXiv preprint. arXiv:1904.07701.
+Cabassi, A. and Kirk, P. D. W. (2020). Multiple kernel learning for integrative
+consensus clustering of 'omic datasets. Bioinformatics, btaa593.
 
 Girolami, M. (2002). Mercer kernel-based clustering in feature space. IEEE
 Transactions on Neural Networks, 13(3), pp.780-784.

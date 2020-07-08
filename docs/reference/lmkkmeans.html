@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +41,6 @@
 
 <meta property="og:title" content="Localised multiple kernel k-means — lmkkmeans" />
 <meta property="og:description" content="Perform the training step of the localised multiple kernel k-means." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -65,7 +68,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -79,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">klic</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
       </span>
     </div>
 
@@ -109,7 +112,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/acabassi/klic">
+  <a href="http://github.com/acabassi/klic/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -128,7 +131,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Localised multiple kernel k-means</h1>
-    <small class="dont-index">Source: <a href='https://github.com/acabassi/klic/blob/master/R/lmkkmeans.R'><code>R/lmkkmeans.R</code></a></small>
+    <small class="dont-index">Source: <a href='http://github.com/acabassi/klic/blob/master/R/lmkkmeans.R'><code>R/lmkkmeans.R</code></a></small>
     <div class="hidden name"><code>lmkkmeans.Rd</code></div>
     </div>
 
@@ -205,122 +208,115 @@ Neural Information Processing Systems (pp. 1305-1313).</p>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>clustering</span>)
 <span class='co'># Display the kernel weights</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>state</span>$<span class='no'>Theta</span>)
-}</div><div class='output co'>#&gt;   [1] 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 3
-#&gt;  [38] 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+}</div><div class='output co'>#&gt;   [1] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4
+#&gt;  [38] 4 4 4 4 4 4 4 4 4 4 4 4 4 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
 #&gt;  [75] 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 #&gt;             [,1]      [,2]      [,3]
-#&gt;   [1,] 0.4067231 0.1865538 0.4067231
-#&gt;   [2,] 0.4066607 0.1866786 0.4066607
-#&gt;   [3,] 0.4069570 0.1860859 0.4069570
-#&gt;   [4,] 0.4066010 0.1867981 0.4066010
-#&gt;   [5,] 0.4064984 0.1870031 0.4064984
-#&gt;   [6,] 0.4067100 0.1865799 0.4067100
-#&gt;   [7,] 0.4064894 0.1870212 0.4064894
-#&gt;   [8,] 0.4070254 0.1859492 0.4070254
-#&gt;   [9,] 0.4069733 0.1860534 0.4069733
-#&gt;  [10,] 0.4066289 0.1867422 0.4066289
-#&gt;  [11,] 0.4065916 0.1868167 0.4065916
-#&gt;  [12,] 0.4066994 0.1866011 0.4066994
-#&gt;  [13,] 0.4064646 0.1870708 0.4064646
-#&gt;  [14,] 0.4065650 0.1868699 0.4065650
-#&gt;  [15,] 0.4151265 0.1697470 0.4151265
-#&gt;  [16,] 0.4066227 0.1867546 0.4066227
-#&gt;  [17,] 0.4077240 0.1845521 0.4077240
-#&gt;  [18,] 0.4064740 0.1870520 0.4064740
-#&gt;  [19,] 0.4062386 0.1875227 0.4062386
-#&gt;  [20,] 0.4063804 0.1872392 0.4063804
-#&gt;  [21,] 0.4438467 0.1123067 0.4438467
-#&gt;  [22,] 0.4064599 0.1870802 0.4064599
-#&gt;  [23,] 0.4439304 0.1121391 0.4439304
-#&gt;  [24,] 0.4064995 0.1870010 0.4064995
-#&gt;  [25,] 0.4062994 0.1874012 0.4062994
-#&gt;  [26,] 0.3360418 0.2822675 0.3816907
-#&gt;  [27,] 0.3361253 0.2821948 0.3816799
-#&gt;  [28,] 0.3347648 0.2852395 0.3799957
-#&gt;  [29,] 0.3351757 0.2839744 0.3808499
-#&gt;  [30,] 0.3356347 0.2830132 0.3813522
-#&gt;  [31,] 0.3357699 0.2829865 0.3812436
-#&gt;  [32,] 0.3348515 0.2850747 0.3800737
-#&gt;  [33,] 0.3344878 0.2851084 0.3804038
-#&gt;  [34,] 0.3364394 0.2820086 0.3815520
-#&gt;  [35,] 0.3346265 0.2852486 0.3801249
-#&gt;  [36,] 0.3341579 0.2857684 0.3800737
-#&gt;  [37,] 0.3349121 0.2847130 0.3803749
-#&gt;  [38,] 0.3350635 0.2848333 0.3801032
-#&gt;  [39,] 0.3346737 0.2849924 0.3803339
-#&gt;  [40,] 0.3350983 0.2839609 0.3809407
-#&gt;  [41,] 0.3352274 0.2837169 0.3810557
-#&gt;  [42,] 0.3363521 0.2823053 0.3813426
-#&gt;  [43,] 0.3360156 0.2827120 0.3812724
-#&gt;  [44,] 0.3442357 0.2669651 0.3887992
-#&gt;  [45,] 0.3346899 0.2849962 0.3803139
-#&gt;  [46,] 0.3407259 0.2739004 0.3853737
-#&gt;  [47,] 0.2993035 0.3064901 0.3942065
-#&gt;  [48,] 0.3351698 0.2841973 0.3806329
-#&gt;  [49,] 0.3353368 0.2836867 0.3809765
-#&gt;  [50,] 0.3370279 0.2809356 0.3820365
-#&gt;  [51,] 0.4075554 0.2502450 0.3421995
-#&gt;  [52,] 0.4071766 0.2506390 0.3421844
-#&gt;  [53,] 0.4065787 0.2513742 0.3420471
-#&gt;  [54,] 0.4091936 0.2493631 0.3414432
-#&gt;  [55,] 0.4066104 0.2511870 0.3422026
-#&gt;  [56,] 0.4606635 0.1414586 0.3978779
-#&gt;  [57,] 0.4080861 0.2502306 0.3416833
-#&gt;  [58,] 0.4070599 0.2505439 0.3423962
-#&gt;  [59,] 0.4065588 0.2509469 0.3424944
-#&gt;  [60,] 0.4105807 0.2454141 0.3440051
-#&gt;  [61,] 0.3847215 0.2643186 0.3509598
-#&gt;  [62,] 0.4073852 0.2520219 0.3405929
-#&gt;  [63,] 0.4064089 0.2508231 0.3427680
-#&gt;  [64,] 0.4054392 0.2515236 0.3430372
-#&gt;  [65,] 0.4344892 0.3048099 0.2607009
-#&gt;  [66,] 0.4024778 0.2532456 0.3442765
-#&gt;  [67,] 0.4039770 0.2526497 0.3433733
-#&gt;  [68,] 0.4308438 0.2020378 0.3671184
-#&gt;  [69,] 0.4072551 0.2512292 0.3415157
-#&gt;  [70,] 0.4022436 0.2540227 0.3437337
-#&gt;  [71,] 0.4036768 0.2529461 0.3433770
-#&gt;  [72,] 0.4074224 0.2506441 0.3419336
-#&gt;  [73,] 0.4083260 0.2500857 0.3415883
-#&gt;  [74,] 0.4072502 0.2506873 0.3420626
-#&gt;  [75,] 0.4074240 0.2504844 0.3420916
-#&gt;  [76,] 0.2736907 0.3432566 0.3830527
-#&gt;  [77,] 0.2737974 0.3439024 0.3823002
-#&gt;  [78,] 0.2738635 0.3436289 0.3825076
-#&gt;  [79,] 0.2768486 0.3457228 0.3774286
-#&gt;  [80,] 0.2790911 0.3348892 0.3860196
-#&gt;  [81,] 0.2705981 0.3453132 0.3840887
-#&gt;  [82,] 0.2775048 0.3373767 0.3851184
-#&gt;  [83,] 0.2738703 0.3433672 0.3827625
-#&gt;  [84,] 0.2136012 0.3743839 0.4120150
-#&gt;  [85,] 0.2737441 0.3438442 0.3824117
-#&gt;  [86,] 0.2735028 0.3440128 0.3824844
-#&gt;  [87,] 0.2740528 0.3432004 0.3827468
-#&gt;  [88,] 0.2736751 0.3436704 0.3826545
-#&gt;  [89,] 0.2735542 0.3439678 0.3824780
-#&gt;  [90,] 0.2733360 0.3438705 0.3827935
-#&gt;  [91,] 0.2750241 0.3453053 0.3796706
-#&gt;  [92,] 0.2733562 0.3435674 0.3830764
-#&gt;  [93,] 0.2766457 0.3385849 0.3847694
-#&gt;  [94,] 0.2741449 0.3430776 0.3827775
-#&gt;  [95,] 0.2741828 0.3433427 0.3824745
-#&gt;  [96,] 0.2735582 0.3438757 0.3825661
-#&gt;  [97,] 0.2736026 0.3440654 0.3823321
-#&gt;  [98,] 0.2738659 0.3437513 0.3823828
-#&gt;  [99,] 0.2736720 0.3440105 0.3823175
-#&gt; [100,] 0.2737666 0.3436916 0.3825419</div></pre>
+#&gt;   [1,] 0.4066871 0.1866257 0.4066871
+#&gt;   [2,] 0.4066248 0.1867505 0.4066248
+#&gt;   [3,] 0.4069210 0.1861580 0.4069210
+#&gt;   [4,] 0.4065649 0.1868701 0.4065649
+#&gt;   [5,] 0.4064623 0.1870755 0.4064623
+#&gt;   [6,] 0.4066740 0.1866520 0.4066740
+#&gt;   [7,] 0.4064532 0.1870936 0.4064532
+#&gt;   [8,] 0.4069894 0.1860211 0.4069894
+#&gt;   [9,] 0.4069372 0.1861257 0.4069372
+#&gt;  [10,] 0.4065929 0.1868143 0.4065929
+#&gt;  [11,] 0.4065555 0.1868890 0.4065555
+#&gt;  [12,] 0.4066635 0.1866730 0.4066635
+#&gt;  [13,] 0.4064283 0.1871434 0.4064283
+#&gt;  [14,] 0.4065290 0.1869420 0.4065290
+#&gt;  [15,] 0.4150902 0.1698196 0.4150902
+#&gt;  [16,] 0.4065866 0.1868268 0.4065866
+#&gt;  [17,] 0.4076883 0.1846234 0.4076883
+#&gt;  [18,] 0.4064380 0.1871239 0.4064380
+#&gt;  [19,] 0.4062025 0.1875951 0.4062025
+#&gt;  [20,] 0.4063443 0.1873114 0.4063443
+#&gt;  [21,] 0.4435560 0.1128879 0.4435560
+#&gt;  [22,] 0.4064236 0.1871527 0.4064236
+#&gt;  [23,] 0.4436630 0.1126740 0.4436630
+#&gt;  [24,] 0.4064633 0.1870735 0.4064633
+#&gt;  [25,] 0.4062632 0.1874737 0.4062632
+#&gt;  [26,] 0.3359660 0.2824412 0.3815928
+#&gt;  [27,] 0.3360494 0.2823689 0.3815817
+#&gt;  [28,] 0.3346875 0.2854155 0.3798970
+#&gt;  [29,] 0.3350990 0.2841497 0.3807513
+#&gt;  [30,] 0.3355585 0.2831875 0.3812540
+#&gt;  [31,] 0.3356937 0.2831610 0.3811454
+#&gt;  [32,] 0.3347741 0.2852509 0.3799749
+#&gt;  [33,] 0.3344107 0.2852842 0.3803051
+#&gt;  [34,] 0.3363633 0.2821830 0.3814537
+#&gt;  [35,] 0.3345492 0.2854246 0.3800262
+#&gt;  [36,] 0.3340804 0.2859448 0.3799748
+#&gt;  [37,] 0.3348351 0.2848885 0.3802764
+#&gt;  [38,] 0.3349863 0.2850091 0.3800046
+#&gt;  [39,] 0.3345966 0.2851681 0.3802353
+#&gt;  [40,] 0.3350216 0.2841361 0.3808422
+#&gt;  [41,] 0.3351509 0.2838918 0.3809574
+#&gt;  [42,] 0.3362762 0.2824793 0.3812446
+#&gt;  [43,] 0.3359393 0.2828867 0.3811741
+#&gt;  [44,] 0.3441647 0.2671335 0.3887018
+#&gt;  [45,] 0.3346128 0.2851719 0.3802153
+#&gt;  [46,] 0.3406529 0.2740708 0.3852763
+#&gt;  [47,] 0.2992359 0.3066492 0.3941149
+#&gt;  [48,] 0.3350930 0.2843725 0.3805345
+#&gt;  [49,] 0.3352603 0.2838617 0.3808780
+#&gt;  [50,] 0.3369521 0.2811097 0.3819382
+#&gt;  [51,] 0.4075357 0.2504421 0.3420222
+#&gt;  [52,] 0.4071570 0.2508353 0.3420077
+#&gt;  [53,] 0.4065589 0.2515709 0.3418703
+#&gt;  [54,] 0.4091744 0.2495600 0.3412656
+#&gt;  [55,] 0.4065905 0.2513836 0.3420258
+#&gt;  [56,] 0.4601467 0.1424690 0.3973842
+#&gt;  [57,] 0.4080665 0.2504276 0.3415059
+#&gt;  [58,] 0.4070402 0.2507407 0.3422192
+#&gt;  [59,] 0.4065388 0.2511437 0.3423174
+#&gt;  [60,] 0.4105611 0.2456084 0.3438305
+#&gt;  [61,] 0.3847057 0.2645033 0.3507910
+#&gt;  [62,] 0.4073655 0.2522162 0.3404182
+#&gt;  [63,] 0.4063891 0.2510189 0.3425920
+#&gt;  [64,] 0.4054189 0.2517202 0.3428609
+#&gt;  [65,] 0.4345827 0.3049675 0.2604499
+#&gt;  [66,] 0.4024586 0.2534400 0.3441014
+#&gt;  [67,] 0.4039574 0.2528448 0.3431977
+#&gt;  [68,] 0.4308033 0.2022473 0.3669494
+#&gt;  [69,] 0.4072355 0.2514256 0.3413389
+#&gt;  [70,] 0.4022260 0.2542156 0.3435584
+#&gt;  [71,] 0.4036579 0.2531407 0.3432015
+#&gt;  [72,] 0.4074028 0.2508405 0.3417568
+#&gt;  [73,] 0.4083066 0.2502825 0.3414109
+#&gt;  [74,] 0.4072305 0.2508834 0.3418860
+#&gt;  [75,] 0.4074041 0.2506810 0.3419149
+#&gt;  [76,] 0.2737575 0.3432465 0.3829960
+#&gt;  [77,] 0.2738642 0.3438923 0.3822435
+#&gt;  [78,] 0.2739305 0.3436188 0.3824507
+#&gt;  [79,] 0.2769142 0.3457127 0.3773731
+#&gt;  [80,] 0.2791570 0.3348787 0.3859643
+#&gt;  [81,] 0.2706639 0.3453036 0.3840325
+#&gt;  [82,] 0.2775712 0.3373663 0.3850625
+#&gt;  [83,] 0.2739370 0.3433571 0.3827058
+#&gt;  [84,] 0.2138776 0.3742806 0.4118419
+#&gt;  [85,] 0.2738109 0.3438340 0.3823551
+#&gt;  [86,] 0.2735696 0.3440028 0.3824276
+#&gt;  [87,] 0.2741196 0.3431904 0.3826900
+#&gt;  [88,] 0.2737422 0.3436603 0.3825976
+#&gt;  [89,] 0.2736212 0.3439577 0.3824212
+#&gt;  [90,] 0.2734028 0.3438604 0.3827367
+#&gt;  [91,] 0.2750903 0.3452951 0.3796146
+#&gt;  [92,] 0.2734233 0.3435575 0.3830193
+#&gt;  [93,] 0.2767122 0.3385746 0.3847133
+#&gt;  [94,] 0.2742119 0.3430676 0.3827205
+#&gt;  [95,] 0.2742497 0.3433326 0.3824177
+#&gt;  [96,] 0.2736249 0.3438655 0.3825096
+#&gt;  [97,] 0.2736693 0.3440552 0.3822755
+#&gt;  [98,] 0.2739329 0.3437411 0.3823260
+#&gt;  [99,] 0.2737391 0.3440003 0.3822606
+#&gt; [100,] 0.2738335 0.3436816 0.3824849</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Mehmet Gonen</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -331,7 +327,7 @@ Neural Information Processing Systems (pp. 1305-1313).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
