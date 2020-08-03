@@ -4,6 +4,8 @@
 #' @param K Kernel matrix.
 #' @param parameters A list containing the number of clusters
 #' \code{number_count}.
+#' @param seed The seed used inside the \code{kmeans} function. By default it is
+#' NULL, which means that it is randomly set by the \code{set.seed} function.
 #' @return This function returns a list containing:
 #' \item{clustering}{the cluster labels for each element (i.e. row/column) of
 #' the kernel matrix.}
@@ -32,7 +34,7 @@
 #' print(state$clustering)
 #' @export
 #'
-kkmeans <- function(K, parameters) {
+kkmeans <- function(K, parameters, seed = NULL) {
     state <- list()
     state$time <- system.time({
         H <- eigen(K, symmetric = TRUE)$vectors[, 1:parameters$cluster_count]
@@ -43,7 +45,7 @@ kkmeans <- function(K, parameters) {
                                  byrow = FALSE)
         H_normalized[sqrt(rowSums(H^2, 2)) == 0, ] <- 0
 
-        set.seed(NULL)
+        set.seed(seed)
         state$clustering <- stats::kmeans(H_normalized,
                                           centers = parameters$cluster_count,
                                           iter.max = 1000,

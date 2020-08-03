@@ -4,13 +4,16 @@
 \alias{kkmeans}
 \title{Kernel k-means}
 \usage{
-kkmeans(K, parameters)
+kkmeans(K, parameters, seed = NULL)
 }
 \arguments{
 \item{K}{Kernel matrix.}
 
 \item{parameters}{A list containing the number of clusters
 \code{number_count}.}
+
+\item{seed}{The seed used inside the \code{kmeans} function. By default it is
+NULL, which means that it is randomly set by the \code{set.seed} function.}
 }
 \value{
 This function returns a list containing:
